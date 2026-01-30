@@ -240,6 +240,8 @@ void LearningEngineBasic::dump_stats()
 		fprintf(stdout, "learning_engine.action.index_%d_exploited %lu\n", scooby->getAction(action), stats.action.dist[action][1]);
 	}
 	fprintf(stdout, "learning_engine.learn.called %lu\n", stats.learn.called);
+
+	
 	fprintf(stdout, "\n");
 
 	print_aux_stats();

@@ -1,0 +1,92 @@
+Seq	Host	Starttime	JobRuntime	Send	Receive	Exitval	Signal	Command
+1	:	1769782133.199	     0.000	0	0	0	0	# # no
+2	:	1769782133.201	     0.003	0	0	0	0	# ./ml_prefetch_sim.py run ./gap_spec_traces/bfs-10.trace.gz --prefetch test_trace --num-instructions 61219343             --only no
+3	:	1769782133.204	     0.003	0	0	0	0	# ./ml_prefetch_sim.py run ./gap_spec_traces/cc-5.trace.gz --prefetch test_trace --num-instructions 20700644               --only no
+4	:	1769782133.207	     0.003	0	0	0	0	# ./ml_prefetch_sim.py run ./gap_spec_traces/450.soplex-s0.trace.gz --prefetch test_trace --num-instructions 29478984      --only no
+5	:	1769782133.209	     0.002	0	0	0	0	# ./ml_prefetch_sim.py run ./gap_spec_traces/482.sphinx3-s0.trace.gz --prefetch test_trace --num-instructions 84756213     --only no
+6	:	1769782133.212	     0.004	0	0	0	0	# ./ml_prefetch_sim.py run ./gap_spec_traces/623.xalancbmk-s1.trace.xz --prefetch test_trace --num-instructions 52596273   --only no
+7	:	1769782133.215	     0.004	0	0	0	0	# ./ml_prefetch_sim.py run ./gap_spec_traces/473.astar-s1.trace.gz --prefetch test_trace --num-instructions 98033975       --only no
+8	:	1769782133.219	     0.002	0	0	0	0	# ./ml_prefetch_sim.py run ./gap_spec_traces/605.mcf-s1.trace.xz --prefetch test_trace --num-instructions 38467912         --only no
+9	:	1769782133.221	     0.003	0	0	0	0	# ./ml_prefetch_sim.py run ./gap_spec_traces/471.omnetpp-s1.trace.gz --prefetch test_trace --num-instructions 54612142     --only no
+10	:	1769782133.224	     0.003	0	0	0	0	
+11	:	1769782133.227	     0.003	0	0	0	0	# # bo
+12	:	1769782133.230	     0.003	0	0	0	0	# ./ml_prefetch_sim.py run ./gap_spec_traces/bfs-10.trace.gz --prefetch test_trace --num-instructions 61219343             --only bo
+13	:	1769782133.232	     0.002	0	0	0	0	# ./ml_prefetch_sim.py run ./gap_spec_traces/cc-5.trace.gz --prefetch test_trace --num-instructions 20700644               --only bo
+14	:	1769782133.235	     0.003	0	0	0	0	# ./ml_prefetch_sim.py run ./gap_spec_traces/450.soplex-s0.trace.gz --prefetch test_trace --num-instructions 29478984      --only bo
+15	:	1769782133.238	     0.003	0	0	0	0	# ./ml_prefetch_sim.py run ./gap_spec_traces/482.sphinx3-s0.trace.gz --prefetch test_trace --num-instructions 84756213     --only bo
+16	:	1769782133.241	     0.003	0	0	0	0	# ./ml_prefetch_sim.py run ./gap_spec_traces/623.xalancbmk-s1.trace.xz --prefetch test_trace --num-instructions 52596273   --only bo
+17	:	1769782133.244	     0.003	0	0	0	0	# ./ml_prefetch_sim.py run ./gap_spec_traces/473.astar-s1.trace.gz --prefetch test_trace --num-instructions 98033975       --only bo
+18	:	1769782133.247	     0.003	0	0	0	0	# ./ml_prefetch_sim.py run ./gap_spec_traces/605.mcf-s1.trace.xz --prefetch test_trace --num-instructions 38467912         --only bo
+19	:	1769782133.250	     0.003	0	0	0	0	# ./ml_prefetch_sim.py run ./gap_spec_traces/471.omnetpp-s1.trace.gz --prefetch test_trace --num-instructions 54612142     --only bo
+20	:	1769782133.253	     0.003	0	0	0	0	
+21	:	1769782133.257	     0.003	0	0	0	0	# # sisb
+22	:	1769782133.260	     0.005	0	0	0	0	# ./ml_prefetch_sim.py run ./gap_spec_traces/bfs-10.trace.gz --prefetch test_trace --num-instructions 61219343             --only sisb
+23	:	1769782133.264	     0.009	0	0	0	0	# ./ml_prefetch_sim.py run ./gap_spec_traces/cc-5.trace.gz --prefetch test_trace --num-instructions 20700644               --only sisb
+24	:	1769782133.273	     0.007	0	0	0	0	# ./ml_prefetch_sim.py run ./gap_spec_traces/450.soplex-s0.trace.gz --prefetch test_trace --num-instructions 29478984      --only sisb
+25	:	1769782133.281	     0.009	0	0	0	0	# ./ml_prefetch_sim.py run ./gap_spec_traces/482.sphinx3-s0.trace.gz --prefetch test_trace --num-instructions 84756213     --only sisb
+26	:	1769782133.290	     0.009	0	0	0	0	# ./ml_prefetch_sim.py run ./gap_spec_traces/623.xalancbmk-s1.trace.xz --prefetch test_trace --num-instructions 52596273   --only sisb
+27	:	1769782133.300	     0.011	0	0	0	0	# ./ml_prefetch_sim.py run ./gap_spec_traces/473.astar-s1.trace.gz --prefetch test_trace --num-instructions 98033975       --only sisb
+28	:	1769782133.310	     0.012	0	0	0	0	# ./ml_prefetch_sim.py run ./gap_spec_traces/605.mcf-s1.trace.xz --prefetch test_trace --num-instructions 38467912         --only sisb
+29	:	1769782133.322	     0.009	0	0	0	0	# ./ml_prefetch_sim.py run ./gap_spec_traces/471.omnetpp-s1.trace.gz --prefetch test_trace --num-instructions 54612142     --only sisb
+30	:	1769782133.332	     0.006	0	0	0	0	
+31	:	1769782133.338	     0.003	0	0	0	0	# # sisb_bo
+32	:	1769782133.342	     0.003	0	0	0	0	# ./ml_prefetch_sim.py run ./gap_spec_traces/bfs-10.trace.gz --prefetch test_trace --num-instructions 61219343             --only sisb_bo
+33	:	1769782133.346	     0.003	0	0	0	0	# ./ml_prefetch_sim.py run ./gap_spec_traces/cc-5.trace.gz --prefetch test_trace --num-instructions 20700644               --only sisb_bo
+34	:	1769782133.350	     0.003	0	0	0	0	# ./ml_prefetch_sim.py run ./gap_spec_traces/450.soplex-s0.trace.gz --prefetch test_trace --num-instructions 29478984      --only sisb_bo
+35	:	1769782133.353	     0.004	0	0	0	0	# ./ml_prefetch_sim.py run ./gap_spec_traces/482.sphinx3-s0.trace.gz --prefetch test_trace --num-instructions 84756213     --only sisb_bo
+36	:	1769782133.357	     0.002	0	0	0	0	# ./ml_prefetch_sim.py run ./gap_spec_traces/623.xalancbmk-s1.trace.xz --prefetch test_trace --num-instructions 52596273   --only sisb_bo
+37	:	1769782133.360	     0.003	0	0	0	0	# ./ml_prefetch_sim.py run ./gap_spec_traces/473.astar-s1.trace.gz --prefetch test_trace --num-instructions 98033975       --only sisb_bo
+38	:	1769782133.362	     0.003	0	0	0	0	# ./ml_prefetch_sim.py run ./gap_spec_traces/605.mcf-s1.trace.xz --prefetch test_trace --num-instructions 38467912         --only sisb_bo
+39	:	1769782133.365	     0.003	0	0	0	0	# ./ml_prefetch_sim.py run ./gap_spec_traces/471.omnetpp-s1.trace.gz --prefetch test_trace --num-instructions 54612142     --only sisb_bo
+40	:	1769782133.368	     0.003	0	0	0	0	
+41	:	1769782133.372	     0.003	0	0	0	0	# hdc
+50	:	1769782133.397	     0.003	0	0	0	0	
+51	:	1769782133.400	     0.003	0	0	0	0	# # prefetch
+52	:	1769782133.403	     0.002	0	0	0	0	# ./ml_prefetch_sim.py run ./gap_spec_traces/bfs-10.trace.gz --prefetch test_trace --num-instructions 61219343             --only prefetch
+53	:	1769782133.406	     0.003	0	0	0	0	# ./ml_prefetch_sim.py run ./gap_spec_traces/cc-5.trace.gz --prefetch test_trace --num-instructions 20700644               --only prefetch
+54	:	1769782133.409	     0.004	0	0	0	0	# ./ml_prefetch_sim.py run ./gap_spec_traces/450.soplex-s0.trace.gz --prefetch test_trace --num-instructions 29478984      --only prefetch
+55	:	1769782133.413	     0.002	0	0	0	0	# ./ml_prefetch_sim.py run ./gap_spec_traces/482.sphinx3-s0.trace.gz --prefetch test_trace --num-instructions 84756213     --only prefetch
+56	:	1769782133.416	     0.004	0	0	0	0	# ./ml_prefetch_sim.py run ./gap_spec_traces/623.xalancbmk-s1.trace.xz --prefetch test_trace --num-instructions 52596273   --only prefetch
+57	:	1769782133.419	     0.004	0	0	0	0	# ./ml_prefetch_sim.py run ./gap_spec_traces/473.astar-s1.trace.gz --prefetch test_trace --num-instructions 98033975       --only prefetch
+58	:	1769782133.422	     0.003	0	0	0	0	# ./ml_prefetch_sim.py run ./gap_spec_traces/605.mcf-s1.trace.xz --prefetch test_trace --num-instructions 38467912         --only prefetch
+59	:	1769782133.425	     0.003	0	0	0	0	# ./ml_prefetch_sim.py run ./gap_spec_traces/471.omnetpp-s1.trace.gz --prefetch test_trace --num-instructions 54612142     --only prefetch
+60	:	1769782133.428	     0.003	0	0	0	0	
+61	:	1769782133.432	     0.003	0	0	0	0	#./ml_prefetch_sim.py run /home/lj/asplos24summer/data_traces/cloudsuite/cassandra_phase0_core0.trace.xz --prefetch test_trace --num-instructions 153955209 --no-base
+62	:	1769782133.435	     0.003	0	0	0	0	
+63	:	1769782133.438	     0.003	0	0	0	0	#./ml_prefetch_sim.py run /home/lj/asplos24summer/data_traces/cloudsuite/cloud9_phase0_core0.trace.xz --prefetch test_trace --num-instructions 207447252 --no-base
+64	:	1769782133.441	     0.003	0	0	0	0	
+65	:	1769782133.444	     0.003	0	0	0	0	#./ml_prefetch_sim.py run /home/lj/asplos24summer/data_traces/cloudsuite/nutch_phase0_core0.trace.xz --prefetch test_trace --num-instructions 309894570 --no-base
+66	:	1769782133.448	     0.003	0	0	0	0	
+67	:	1769782133.451	     0.003	0	0	0	0	
+68	:	1769782133.454	     0.003	0	0	0	0	# ./ml_prefetch_sim.py run ./gap_spec_traces/471.omnetpp-s1.trace.gz --prefetch test_trace --num-instructions 54612142 --only hdc prefetch
+69	:	1769782133.456	     0.003	0	0	0	0	
+70	:	1769782133.459	     0.003	0	0	0	0	
+71	:	1769782133.463	     0.003	0	0	0	0	
+72	:	1769782133.466	     0.003	0	0	0	0	# 全量运行500M
+73	:	1769782133.469	     0.002	0	0	0	0	
+74	:	1769782133.472	     0.003	0	0	0	0	# # hdc
+75	:	1769782133.475	     0.003	0	0	0	0	# ./ml_prefetch_sim.py run ./gap_spec_traces/bfs-10.trace.gz --prefetch test_trace              --only hdc
+76	:	1769782133.478	     0.003	0	0	0	0	# ./ml_prefetch_sim.py run ./gap_spec_traces/cc-5.trace.gz --prefetch test_trace                --only hdc
+77	:	1769782133.481	     0.003	0	0	0	0	# ./ml_prefetch_sim.py run ./gap_spec_traces/450.soplex-s0.trace.gz --prefetch test_trace       --only hdc
+78	:	1769782133.484	     0.003	0	0	0	0	# ./ml_prefetch_sim.py run ./gap_spec_traces/482.sphinx3-s0.trace.gz --prefetch test_trace      --only hdc
+79	:	1769782133.486	     0.003	0	0	0	0	# ./ml_prefetch_sim.py run ./gap_spec_traces/623.xalancbmk-s1.trace.xz --prefetch test_trace    --only hdc
+80	:	1769782133.489	     0.003	0	0	0	0	# ./ml_prefetch_sim.py run ./gap_spec_traces/473.astar-s1.trace.gz --prefetch test_trace        --only hdc
+81	:	1769782133.492	     0.002	0	0	0	0	# ./ml_prefetch_sim.py run ./gap_spec_traces/605.mcf-s1.trace.xz --prefetch test_trace          --only hdc
+82	:	1769782133.495	     0.003	0	0	0	0	# ./ml_prefetch_sim.py run ./gap_spec_traces/471.omnetpp-s1.trace.gz --prefetch test_trace      --only hdc
+83	:	1769782133.498	     0.004	0	0	0	0	# # prefetch
+84	:	1769782133.502	     0.003	0	0	0	0	# ./ml_prefetch_sim.py run ./gap_spec_traces/bfs-10.trace.gz --prefetch test_trace              --only prefetch
+85	:	1769782133.505	     0.002	0	0	0	0	# ./ml_prefetch_sim.py run ./gap_spec_traces/cc-5.trace.gz --prefetch test_trace                --only prefetch
+86	:	1769782133.507	     0.003	0	0	0	0	# ./ml_prefetch_sim.py run ./gap_spec_traces/450.soplex-s0.trace.gz --prefetch test_trace       --only prefetch
+87	:	1769782133.510	     0.003	0	0	0	0	# ./ml_prefetch_sim.py run ./gap_spec_traces/482.sphinx3-s0.trace.gz --prefetch test_trace      --only prefetch
+88	:	1769782133.513	     0.003	0	0	0	0	# ./ml_prefetch_sim.py run ./gap_spec_traces/623.xalancbmk-s1.trace.xz --prefetch test_trace    --only prefetch
+89	:	1769782133.517	     0.003	0	0	0	0	# ./ml_prefetch_sim.py run ./gap_spec_traces/473.astar-s1.trace.gz --prefetch test_trace        --only prefetch
+90	:	1769782133.520	     0.003	0	0	0	0	# ./ml_prefetch_sim.py run ./gap_spec_traces/605.mcf-s1.trace.xz --prefetch test_trace          --only prefetch
+91	:	1769782133.523	     0.002	0	0	0	0	# ./ml_prefetch_sim.py run ./gap_spec_traces/471.omnetpp-s1.trace.gz --prefetch test_trace      --only prefetch
+43	:	1769782133.377	   354.332	0	262	0	0	./ml_prefetch_sim.py run ./gap_spec_traces/cc-5.trace.gz --prefetch test_trace --num-instructions 20700644               --only hdc
+46	:	1769782133.386	   378.627	0	287	0	0	./ml_prefetch_sim.py run ./gap_spec_traces/623.xalancbmk-s1.trace.xz --prefetch test_trace --num-instructions 52596273   --only hdc
+42	:	1769782133.375	   389.496	0	266	0	0	./ml_prefetch_sim.py run ./gap_spec_traces/bfs-10.trace.gz --prefetch test_trace --num-instructions 61219343             --only hdc
+47	:	1769782133.388	   423.884	0	279	0	0	./ml_prefetch_sim.py run ./gap_spec_traces/473.astar-s1.trace.gz --prefetch test_trace --num-instructions 98033975       --only hdc
+44	:	1769782133.380	   428.033	0	281	0	0	./ml_prefetch_sim.py run ./gap_spec_traces/450.soplex-s0.trace.gz --prefetch test_trace --num-instructions 29478984      --only hdc
+48	:	1769782133.391	   460.578	0	275	0	0	./ml_prefetch_sim.py run ./gap_spec_traces/605.mcf-s1.trace.xz --prefetch test_trace --num-instructions 38467912         --only hdc
+45	:	1769782133.383	   483.792	0	284	0	0	./ml_prefetch_sim.py run ./gap_spec_traces/482.sphinx3-s0.trace.gz --prefetch test_trace --num-instructions 84756213     --only hdc
+49	:	1769782133.394	   513.846	0	284	0	0	./ml_prefetch_sim.py run ./gap_spec_traces/471.omnetpp-s1.trace.gz --prefetch test_trace --num-instructions 54612142     --only hdc

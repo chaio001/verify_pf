@@ -19,10 +19,11 @@ default_bo_binary = 'bin/hashed_perceptron-no-no-no-bo-lru-1core'
 default_sisb_binary = 'bin/hashed_perceptron-no-no-no-sisb-lru-1core'
 default_sisb_bo_binary = 'bin/hashed_perceptron-no-no-no-sisb_bo-lru-1core'
 default_prefetcher_binary = 'bin/hashed_perceptron-no-no-no-from_file-lru-1core'
+default_hdc_binary = 'bin/hashed_perceptron-no-no-no-hdc-lru-1core'
 
-baseline_names = ['No Prefetcher', 'Best Offset', 'SISB', 'SISB Best Offset']
-baseline_fns = ['no', 'bo', 'sisb', 'sisb_bo']
-baseline_binaries = [default_base_binary, default_bo_binary, default_sisb_binary, default_sisb_bo_binary]
+baseline_names = ['No Prefetcher', 'Best Offset', 'SISB', 'SISB Best Offset', 'HDC']
+baseline_fns = ['no', 'bo', 'sisb', 'sisb_bo', 'hdc']
+baseline_binaries = [default_base_binary, default_bo_binary, default_sisb_binary, default_sisb_bo_binary, default_hdc_binary]
 
 help_str = {
 'help': '''usage: {prog} command [<args>]
@@ -190,12 +191,24 @@ def run_command():
     parser.add_argument('--seed-file', default=default_seed_file)
     parser.add_argument('--name', default='from_file')
 
+    # === [修改点 1] 添加 --only 参数 ===
+    # 允许输入的选项包括所有 baseline_fns (如 'no', 'hdc') 以及 'prefetch'
+    valid_choices = baseline_fns + ['prefetch']
+    parser.add_argument('--only', nargs='+', choices=valid_choices, default=None,
+                        help='Specify specific baselines/prefetcher to run. Options: ' + ' '.join(valid_choices))
+    # =================================
+
     args = parser.parse_args(sys.argv[2:])
 
     execution_trace = args.execution_trace
+    filename = os.path.basename(execution_trace)
+    # print(filename)
 
     if args.num_instructions is None:
-        args.num_instructions = default_spec_instrs if execution_trace[0].isdigit() else default_gap_instrs
+        args.num_instructions = default_spec_instrs if filename[0].isdigit() else default_gap_instrs
+        args.num_instructions = args.num_instructions * 1000000
+    print(args.num_instructions)
+    
 
     if not os.path.exists(args.seed_file):
         print('Seed file "' + args.seed_file + '" does not exist')
@@ -215,7 +228,11 @@ def run_command():
         os.makedirs(args.results_dir, exist_ok=True)
 
     if not args.no_base:
-        for name, binary in zip(baseline_names, baseline_binaries):
+        for name, fn, binary in zip(baseline_names, baseline_fns, baseline_binaries):
+            # 筛选逻辑：如果指定了 --only，且当前 fn 不在列表中，则跳过
+            if args.only is not None and fn not in args.only:
+                continue
+
             if not os.path.exists(binary):
                 print(name + ' ChampSim binary not found')
                 exit(-1)
@@ -236,24 +253,28 @@ def run_command():
             os.system(cmd)
 
     if args.prefetch is not None:
-        if not os.path.exists(default_prefetcher_binary):
-            print('Prefetcher ChampSim binary not found')
-            exit(-1)
+        # === [修改点 3] Prefetcher 的筛选逻辑 ===
+        # 如果未指定 --only，或者显式指定了 'prefetch'，则运行
+        if args.only is None or 'prefetch' in args.only:
 
-        if seed is not None:
-            cmd = '<{prefetch} {binary} -prefetch_warmup_instructions {warm}000000 -simulation_instructions {sim} -seed {seed} -traces {trace} > {results}/{base_trace}-{base_binary}.txt 2>&1'.format(
-                prefetch=args.prefetch, binary=default_prefetcher_binary, warm=args.num_prefetch_warmup_instructions, sim=args.num_instructions,
-                trace=execution_trace, seed=seed, results=args.results_dir,
-                base_trace=os.path.basename(execution_trace), base_binary=args.name)#os.path.basename(default_prefetcher_binary))
-        else:
-            cmd = '<{prefetch} {binary} -prefetch_warmup_instructions {warm}000000 -simulation_instructions {sim} -traces {trace} > {results}/{base_trace}-{base_binary}.txt 2>&1'.format(
-                prefetch=args.prefetch, binary=default_prefetcher_binary, warm=args.num_prefetch_warmup_instructions, sim=args.num_instructions,
-                trace=execution_trace, results=args.results_dir, base_trace=os.path.basename(execution_trace),
-                base_binary=args.name)#os.path.basename(default_prefetcher_binary))
+            if not os.path.exists(default_prefetcher_binary):
+                print('Prefetcher ChampSim binary not found')
+                exit(-1)
 
-        print('Running "' + cmd + '"')
+            if seed is not None:
+                cmd = '<{prefetch} {binary} -prefetch_warmup_instructions {warm}000000 -simulation_instructions {sim} -seed {seed} -traces {trace} > {results}/{base_trace}-{base_binary}.txt 2>&1'.format(
+                    prefetch=args.prefetch, binary=default_prefetcher_binary, warm=args.num_prefetch_warmup_instructions, sim=args.num_instructions,
+                    trace=execution_trace, seed=seed, results=args.results_dir,
+                    base_trace=os.path.basename(execution_trace), base_binary=args.name)#os.path.basename(default_prefetcher_binary))
+            else:
+                cmd = '<{prefetch} {binary} -prefetch_warmup_instructions {warm}000000 -simulation_instructions {sim} -traces {trace} > {results}/{base_trace}-{base_binary}.txt 2>&1'.format(
+                    prefetch=args.prefetch, binary=default_prefetcher_binary, warm=args.num_prefetch_warmup_instructions, sim=args.num_instructions,
+                    trace=execution_trace, results=args.results_dir, base_trace=os.path.basename(execution_trace),
+                    base_binary=args.name)#os.path.basename(default_prefetcher_binary))
 
-        os.system(cmd)
+            print('Running "' + cmd + '"')
+
+            os.system(cmd)
 
 def read_file(path, cache_level='LLC'):
     expected_keys = ('ipc', 'total_miss', 'useful', 'useless', 'load_miss', 'rfo_miss', 'kilo_inst')
