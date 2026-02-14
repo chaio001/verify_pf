@@ -483,6 +483,9 @@ int MEMORY_CONTROLLER::add_rq(PACKET *packet)
             RQ[channel].entry[index] = *packet;
             RQ[channel].occupancy++;
 
+            /* keep a track of added entries */
+            rq_enqueue_count++;
+            
 #ifdef DEBUG_PRINT
             uint32_t channel = dram_get_channel(packet->address),
                      rank = dram_get_rank(packet->address),

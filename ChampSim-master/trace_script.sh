@@ -38,15 +38,15 @@
 # ./ml_prefetch_sim.py run ./gap_spec_traces/605.mcf-s1.trace.xz --prefetch test_trace --num-instructions 38467912         --only sisb_bo
 # ./ml_prefetch_sim.py run ./gap_spec_traces/471.omnetpp-s1.trace.gz --prefetch test_trace --num-instructions 54612142     --only sisb_bo
 
-# hdc
-./ml_prefetch_sim.py run ./gap_spec_traces/bfs-10.trace.gz --prefetch test_trace --num-instructions 61219343             --only hdc
-./ml_prefetch_sim.py run ./gap_spec_traces/cc-5.trace.gz --prefetch test_trace --num-instructions 20700644               --only hdc
-./ml_prefetch_sim.py run ./gap_spec_traces/450.soplex-s0.trace.gz --prefetch test_trace --num-instructions 29478984      --only hdc
-./ml_prefetch_sim.py run ./gap_spec_traces/482.sphinx3-s0.trace.gz --prefetch test_trace --num-instructions 84756213     --only hdc
-./ml_prefetch_sim.py run ./gap_spec_traces/623.xalancbmk-s1.trace.xz --prefetch test_trace --num-instructions 52596273   --only hdc
-./ml_prefetch_sim.py run ./gap_spec_traces/473.astar-s1.trace.gz --prefetch test_trace --num-instructions 98033975       --only hdc
-./ml_prefetch_sim.py run ./gap_spec_traces/605.mcf-s1.trace.xz --prefetch test_trace --num-instructions 38467912         --only hdc
-./ml_prefetch_sim.py run ./gap_spec_traces/471.omnetpp-s1.trace.gz --prefetch test_trace --num-instructions 54612142     --only hdc
+# # hdc
+# ./ml_prefetch_sim.py run ./gap_spec_traces/bfs-10.trace.gz --prefetch test_trace --num-instructions 61219343             --only hdc
+# ./ml_prefetch_sim.py run ./gap_spec_traces/cc-5.trace.gz --prefetch test_trace --num-instructions 20700644               --only hdc
+# ./ml_prefetch_sim.py run ./gap_spec_traces/450.soplex-s0.trace.gz --prefetch test_trace --num-instructions 29478984      --only hdc
+# ./ml_prefetch_sim.py run ./gap_spec_traces/482.sphinx3-s0.trace.gz --prefetch test_trace --num-instructions 84756213     --only hdc
+# ./ml_prefetch_sim.py run ./gap_spec_traces/623.xalancbmk-s1.trace.xz --prefetch test_trace --num-instructions 52596273   --only hdc
+# ./ml_prefetch_sim.py run ./gap_spec_traces/473.astar-s1.trace.gz --prefetch test_trace --num-instructions 98033975       --only hdc
+# ./ml_prefetch_sim.py run ./gap_spec_traces/605.mcf-s1.trace.xz --prefetch test_trace --num-instructions 38467912         --only hdc
+# ./ml_prefetch_sim.py run ./gap_spec_traces/471.omnetpp-s1.trace.gz --prefetch test_trace --num-instructions 54612142     --only hdc
 
 # # prefetch
 # ./ml_prefetch_sim.py run ./gap_spec_traces/bfs-10.trace.gz --prefetch test_trace --num-instructions 61219343             --only prefetch
@@ -69,23 +69,36 @@
 
 
 
-# 全量运行500M
 
-# # hdc
-# ./ml_prefetch_sim.py run ./gap_spec_traces/bfs-10.trace.gz --prefetch test_trace              --only hdc
-# ./ml_prefetch_sim.py run ./gap_spec_traces/cc-5.trace.gz --prefetch test_trace                --only hdc
-# ./ml_prefetch_sim.py run ./gap_spec_traces/450.soplex-s0.trace.gz --prefetch test_trace       --only hdc
-# ./ml_prefetch_sim.py run ./gap_spec_traces/482.sphinx3-s0.trace.gz --prefetch test_trace      --only hdc
-# ./ml_prefetch_sim.py run ./gap_spec_traces/623.xalancbmk-s1.trace.xz --prefetch test_trace    --only hdc
-# ./ml_prefetch_sim.py run ./gap_spec_traces/473.astar-s1.trace.gz --prefetch test_trace        --only hdc
-# ./ml_prefetch_sim.py run ./gap_spec_traces/605.mcf-s1.trace.xz --prefetch test_trace          --only hdc
-# ./ml_prefetch_sim.py run ./gap_spec_traces/471.omnetpp-s1.trace.gz --prefetch test_trace      --only hdc
-# # prefetch
-# ./ml_prefetch_sim.py run ./gap_spec_traces/bfs-10.trace.gz --prefetch test_trace              --only prefetch
-# ./ml_prefetch_sim.py run ./gap_spec_traces/cc-5.trace.gz --prefetch test_trace                --only prefetch
-# ./ml_prefetch_sim.py run ./gap_spec_traces/450.soplex-s0.trace.gz --prefetch test_trace       --only prefetch
-# ./ml_prefetch_sim.py run ./gap_spec_traces/482.sphinx3-s0.trace.gz --prefetch test_trace      --only prefetch
-# ./ml_prefetch_sim.py run ./gap_spec_traces/623.xalancbmk-s1.trace.xz --prefetch test_trace    --only prefetch
-# ./ml_prefetch_sim.py run ./gap_spec_traces/473.astar-s1.trace.gz --prefetch test_trace        --only prefetch
-# ./ml_prefetch_sim.py run ./gap_spec_traces/605.mcf-s1.trace.xz --prefetch test_trace          --only prefetch
-# ./ml_prefetch_sim.py run ./gap_spec_traces/471.omnetpp-s1.trace.gz --prefetch test_trace      --only prefetch
+ 
+
+# 全量运行500M
+# no
+./ml_prefetch_sim.py run ./gap_spec_traces/bfs-10.trace.gz --prefetch test_trace --num-instructions 61219343                                                                                                            --only no             --dram-io-freq 2400     
+./ml_prefetch_sim.py run ./gap_spec_traces/cc-5.trace.gz --prefetch test_trace --num-instructions 20700644                                                                                                              --only no             --dram-io-freq 2400     
+./ml_prefetch_sim.py run ./gap_spec_traces/450.soplex-s0.trace.gz --prefetch test_trace --num-instructions 29478984                                                                                                     --only no             --dram-io-freq 2400     
+./ml_prefetch_sim.py run ./gap_spec_traces/482.sphinx3-s0.trace.gz --prefetch test_trace --num-instructions 84756213                                                                                                    --only no             --dram-io-freq 2400     
+./ml_prefetch_sim.py run ./gap_spec_traces/623.xalancbmk-s1.trace.xz --prefetch test_trace --num-instructions 52596273                                                                                                  --only no             --dram-io-freq 2400     
+./ml_prefetch_sim.py run ./gap_spec_traces/473.astar-s1.trace.gz --prefetch test_trace --num-instructions 98033975                                                                                                      --only no             --dram-io-freq 2400     
+./ml_prefetch_sim.py run ./gap_spec_traces/605.mcf-s1.trace.xz --prefetch test_trace --num-instructions 38467912                                                                                                        --only no             --dram-io-freq 2400     
+./ml_prefetch_sim.py run ./gap_spec_traces/471.omnetpp-s1.trace.gz --prefetch test_trace --num-instructions 54612142                                                                                                    --only no             --dram-io-freq 2400     
+# pathfinder
+./ml_prefetch_sim.py run ./gap_spec_traces/bfs-10.trace.gz --prefetch ./Pathfinder/ChampSim/pathfinder_prefetches_gap_spec/prefetch_14th_rerun_bfs-10.trace.txt --num-instructions 61219343                             --only pathfinder     --dram-io-freq 2400                      
+./ml_prefetch_sim.py run ./gap_spec_traces/cc-5.trace.gz --prefetch ./Pathfinder/ChampSim/pathfinder_prefetches_gap_spec/prefetch_14th_rerun_cc-5.trace.txt --num-instructions 20700644                                 --only pathfinder     --dram-io-freq 2400                  
+./ml_prefetch_sim.py run ./gap_spec_traces/450.soplex-s0.trace.gz --prefetch ./Pathfinder/ChampSim/pathfinder_prefetches_gap_spec/prefetch_14th_rerun_450.soplex-s0.trace.txt --num-instructions 29478984               --only pathfinder     --dram-io-freq 2400                          
+./ml_prefetch_sim.py run ./gap_spec_traces/482.sphinx3-s0.trace.gz --prefetch ./Pathfinder/ChampSim/pathfinder_prefetches_gap_spec/prefetch_14th_rerun_482.sphinx3-s0.trace.txt --num-instructions 84756213             --only pathfinder     --dram-io-freq 2400                              
+./ml_prefetch_sim.py run ./gap_spec_traces/623.xalancbmk-s1.trace.xz --prefetch ./Pathfinder/ChampSim/pathfinder_prefetches_gap_spec/prefetch_14th_rerun_623.xalancbmk-s1.trace.txt --num-instructions 52596273         --only pathfinder     --dram-io-freq 2400                              
+./ml_prefetch_sim.py run ./gap_spec_traces/473.astar-s1.trace.gz --prefetch ./Pathfinder/ChampSim/pathfinder_prefetches_gap_spec/prefetch_14th_rerun_473.astar-s1.trace.txt --num-instructions 98033975                 --only pathfinder     --dram-io-freq 2400                          
+./ml_prefetch_sim.py run ./gap_spec_traces/605.mcf-s1.trace.xz --prefetch ./Pathfinder/ChampSim/pathfinder_prefetches_gap_spec/prefetch_14th_rerun_605.mcf-s1.trace.txt --num-instructions 38467912                     --only pathfinder     --dram-io-freq 2400                          
+./ml_prefetch_sim.py run ./gap_spec_traces/471.omnetpp-s1.trace.gz --prefetch ./Pathfinder/ChampSim/pathfinder_prefetches_gap_spec/prefetch_14th_rerun_471.omnetpp-s1.trace.txt --num-instructions 54612142             --only pathfinder     --dram-io-freq 2400                     
+
+
+# prefetch
+./ml_prefetch_sim.py run ./gap_spec_traces/bfs-10.trace.gz --prefetch test_trace --num-instructions 61219343                                                                                                            --only prefetch       --dram-io-freq 2400             
+./ml_prefetch_sim.py run ./gap_spec_traces/cc-5.trace.gz --prefetch test_trace --num-instructions 20700644                                                                                                              --only prefetch       --dram-io-freq 2400             
+./ml_prefetch_sim.py run ./gap_spec_traces/450.soplex-s0.trace.gz --prefetch test_trace --num-instructions 29478984                                                                                                     --only prefetch       --dram-io-freq 2400             
+./ml_prefetch_sim.py run ./gap_spec_traces/482.sphinx3-s0.trace.gz --prefetch test_trace --num-instructions 84756213                                                                                                    --only prefetch       --dram-io-freq 2400             
+./ml_prefetch_sim.py run ./gap_spec_traces/623.xalancbmk-s1.trace.xz --prefetch test_trace --num-instructions 52596273                                                                                                  --only prefetch       --dram-io-freq 2400             
+./ml_prefetch_sim.py run ./gap_spec_traces/473.astar-s1.trace.gz --prefetch test_trace --num-instructions 98033975                                                                                                      --only prefetch       --dram-io-freq 2400             
+./ml_prefetch_sim.py run ./gap_spec_traces/605.mcf-s1.trace.xz --prefetch test_trace --num-instructions 38467912                                                                                                        --only prefetch       --dram-io-freq 2400             
+./ml_prefetch_sim.py run ./gap_spec_traces/471.omnetpp-s1.trace.gz --prefetch test_trace --num-instructions 54612142                                                                                                    --only prefetch       --dram-io-freq 2400             

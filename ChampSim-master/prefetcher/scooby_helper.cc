@@ -268,7 +268,9 @@ uint32_t Scooby_STEntry::get_delta_sig2()
 
 	/* compute signature only using last 4 deltas */
 	uint32_t n = deltas.size();
-	uint32_t ptr = (n >= 4) ? (n - 4) : 0;
+	//chaio edit 0213:改为最新三个delta,4改成3
+	// uint32_t ptr = (n >= 4) ? (n - 4) : 0;
+	uint32_t ptr = (n >= 3) ? (n - 3) : 0; 
 
 	for(uint32_t index = ptr; index < deltas.size(); ++index)
 	{

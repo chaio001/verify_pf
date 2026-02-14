@@ -349,7 +349,7 @@ void HDCPF::invoke_prefetcher(uint64_t pc, uint64_t address, uint8_t cache_hit, 
         if (state->delta != 0) {
             auto it = action_to_index_map.find(state->delta);
             if (it != action_to_index_map.end()) {
-                brain_hdc_basic->updateModel(&(stentry->eState), it->second, 1);
+                brain_hdc_basic->updateModel_true(&(stentry->eState), it->second, 1);
             }
         }
         stentry->learnByNextDelta = false;
@@ -822,6 +822,23 @@ void HDCPF::train(HDCPF_PTEntry* curr_evicted, HDCPF_PTEntry* last_evicted) {
           last_evicted->state->to_string().c_str(), last_evicted->action_index, Actions[last_evicted->action_index]);
 
     stats.train.called++;
+    if ((last_evicted->reward_type == RewardType::out_of_bounds) || (last_evicted->reward_type == RewardType::tracker_hit)) {
+        if (last_evicted->true_action_valid) {
+        } else {
+            // 这里要更新一下stentry,让准备下一次访问到来的时候,学习一下;
+
+            uint64_t page = last_evicted->page_trigger;
+            HDCPF_STEntry* stentry = NULL;
+            auto st_index = find_if(signature_table.begin(), signature_table.end(), [page](HDCPF_STEntry* stentry) { return stentry->page == page; });
+            if (st_index != signature_table.end()) {
+                // (*st_index)->track_prefetch(pred_offset, pref_offset);
+                (*st_index)->learnByNextDelta = true;
+                (*st_index)->eState.h_pc = last_evicted->encodedState->h_pc;
+                (*st_index)->eState.h_seq = last_evicted->encodedState->h_seq;
+                (*st_index)->eState.combined = last_evicted->encodedState->combined;
+            }
+        }
+    }
     if (!last_evicted->has_reward) {
         stats.train.compute_reward++;
         reward(last_evicted);

@@ -1,0 +1,26 @@
+
+*** ChampSim Multicore Out-of-Order Simulator ***
+
+Warmup Instructions: 1000000
+Prefetch Warmup Instructions: 10000000
+Simulation Instructions: 105565190
+Number of CPUs: 1
+LLC sets: 2048
+LLC ways: 16
+Off-chip DRAM Size: 4096 MB Channels: 1 Width: 64-bit Data Rate: 400 MT/s
+
+CPU 0 runs gap_spec_traces/602.gcc-s3.trace.xz
+Read seed: 224
+CPU 0 LLC from_file prefetcher
+
+Warmup complete CPU 0 instructions: 1000004 cycles: 501190 (Simulation time: 0 hr 0 min 2 sec) 
+
+Heartbeat CPU 0 instructions: 10000000 cycles: 15729378 heartbeat IPC: 0.635753 cumulative IPC: 0 (Simulation time: 0 hr 0 min 27 sec) 
+
+Warmup complete CPU 0 instructions: 10000001 cycles: 15729379 (Simulation time: 0 hr 0 min 27 sec) 
+
+Heartbeat CPU 0 instructions: 20000000 cycles: 28407931 heartbeat IPC: 0.788734 cumulative IPC: 0.788734 (Simulation time: 0 hr 0 min 53 sec) 
+Heartbeat CPU 0 instructions: 30000000 cycles: 40637183 heartbeat IPC: 0.817711 cumulative IPC: 0.802961 (Simulation time: 0 hr 1 min 19 sec) 
+Heartbeat CPU 0 instructions: 40000002 cycles: 53293995 heartbeat IPC: 0.790089 cumulative IPC: 0.798624 (Simulation time: 0 hr 1 min 45 sec) 
+Heartbeat CPU 0 instructions: 50000000 cycles: 65446906 heartbeat IPC: 0.822848 cumulative IPC: 0.804545 (Simulation time: 0 hr 2 min 11 sec) 
+Heartbeat CPU 0 instructions: 60000000 cycles: 77633965 heartbeat IPC: 0.820543 cumulative IPC: 0.807695 (Simulation time: 0 hr 2 min 37 sec) 

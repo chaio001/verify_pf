@@ -1,0 +1,72 @@
+name: Golden Compatibility
+
+on:
+  pull_request:
+    branches: [ main ]
+    paths:
+      - 'tests/**'
+      - '.github/workflows/golden-compat.yml'
+      - 'include/**'
+  push:
+    branches: [ main ]
+    paths:
+      - 'tests/**'
+      - '.github/workflows/golden-compat.yml'
+      - 'include/**'
+
+jobs:
+  golden-compat:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-14]
+    runs-on: ${{ matrix.os }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Configure (Release)
+        run: |
+          cmake -S . -B build -DCMAKE_BUILD_TYPE=Release
+        shell: bash
+
+      - name: Build tests
+        run: |
+          cmake --build build --config Release --parallel 2
+        shell: bash
+
+      - name: Run golden + determinism tests (SIMD/default)
+        run: |
+          ctest -C Release --output-on-failure -R "(GoldenSerialization|EncoderDeterminism|StreamingDeterminism|SnapshotRestore)"
+        shell: bash
+
+      - name: Configure (Release, force scalar)
+        run: |
+          cmake -S . -B build_scalar -DCMAKE_BUILD_TYPE=Release -DHYPERSTREAM_FORCE_SCALAR=ON
+        shell: bash
+
+      - name: Build tests (force scalar)
+        run: |
+          cmake --build build_scalar --config Release --parallel 2
+        shell: bash
+
+      - name: Run golden + determinism tests (force scalar)
+        run: |
+          ctest --test-dir build_scalar -C Release --output-on-failure -R "(GoldenSerialization|EncoderDeterminism|StreamingDeterminism|SnapshotRestore)"
+        shell: bash
+
+      - name: Record provenance
+        run: |
+          echo "RunnerOS=$RUNNER_OS"
+          echo "ImageOS=$ImageOS"
+          echo "ImageVersion=$ImageVersion"
+          c++ --version || true
+          clang++ --version || true
+          cl.exe || true
+          echo "--- CMake cache (default) ---"
+          grep -E 'CMAKE_CXX_COMPILER:|CMAKE_CXX_FLAGS:|CMAKE_BUILD_TYPE:|HYPERSTREAM_FORCE_SCALAR' build/CMakeCache.txt || true
+          echo "--- CMake cache (scalar) ---"
+          grep -E 'CMAKE_CXX_COMPILER:|CMAKE_CXX_FLAGS:|CMAKE_BUILD_TYPE:|HYPERSTREAM_FORCE_SCALAR' build_scalar/CMakeCache.txt || true
+        shell: bash
+

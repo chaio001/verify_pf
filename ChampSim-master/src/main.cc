@@ -143,6 +143,15 @@ void print_branch_stats() {
 }
 
 void print_dram_stats() {
+    //chaio eiti 0213修改
+    // cout << endl;
+    // cout << "DRAM Statistics" << endl;
+
+    cout << "DRAM_bw_pochs " << uncore.DRAM.total_bw_epochs << endl;
+    for (uint32_t index = 0; index < DRAM_BW_LEVELS; ++index) {
+        cout << "DRAM_bw_level_" << index << " " << uncore.DRAM.bw_level_hist[index] << endl;
+    }
+    //至此结束
     cout << endl;
     cout << "DRAM Statistics" << endl;
     for (uint32_t i = 0; i < DRAM_CHANNELS; i++) {
@@ -541,7 +550,7 @@ void print_knobs() {
         << endl;*/
     cout << "num_cpus " << NUM_CPUS << endl
          << "cpu_freq " << CPU_FREQ << endl
-         << "dram_io_freq " << DRAM_IO_FREQ << endl
+         << "dram_io_freq " << knob::dram_io_freq << endl
          << "page_size " << PAGE_SIZE << endl
          << "block_size " << BLOCK_SIZE << endl
          << "max_read_per_cycle " << MAX_READ_PER_CYCLE << endl
@@ -585,8 +594,12 @@ int main(int argc, char** argv) {
     uint8_t show_heartbeat = 1;
 
     // parse_args(argc, argv);
-    parse_config("/home/zxie/cyhcpp/Pythia/a_pythia/ChampSim-master/config/pythia_default.ini");
+    // parse_config("/home/zxie/cyhcpp/Pythia/a_pythia/ChampSim-master/config/pythia_default.ini");
+    parse_config("/mnt/sda/cyhcpp/Pythia/a_pythia/ChampSim-master/config/pythia_default.ini");
+
+    
     uint32_t seed_number = 0;
+    uint32_t dram_io_freq = 3200;
 
     // check to see if knobs changed using getopt_long()
     int c;
@@ -600,12 +613,13 @@ int main(int argc, char** argv) {
                 {"cloudsuite", no_argument, 0, 'c'},
                 {"low_bandwidth", no_argument, 0, 'b'},
                 {"seed", required_argument, 0, 'd'},
+                {"dram_io_freq", required_argument, 0, 'f'},
                 {"traces", no_argument, 0, 't'},
                 {0, 0, 0, 0}};
 
         int option_index = 0;
 
-        c = getopt_long_only(argc, argv, "wiphsbd", long_options, &option_index);
+        c = getopt_long_only(argc, argv, "wiphsbf", long_options, &option_index);
 
         // no more option characters
         if (c == -1)
@@ -643,6 +657,10 @@ int main(int argc, char** argv) {
             case 't':
                 traces_encountered = 1;
                 break;
+            case 'f':
+                dram_io_freq = atol(optarg);
+                knob::dram_io_freq = dram_io_freq;
+                break;
             default:
                 abort();
         }
@@ -663,9 +681,9 @@ int main(int argc, char** argv) {
     cout << "measure dram bw epoch " << knob::measure_dram_bw_epoch << endl;
 
     if (knob_low_bandwidth)
-        DRAM_MTPS = DRAM_IO_FREQ / 4;
+        DRAM_MTPS = knob::dram_io_freq/4;
     else
-        DRAM_MTPS = DRAM_IO_FREQ;
+        DRAM_MTPS = knob::dram_io_freq;
 
     // DRAM access latency
     tRP = (uint32_t)((1.0 * tRP_DRAM_NANOSECONDS * CPU_FREQ) / 1000);
@@ -682,7 +700,7 @@ int main(int argc, char** argv) {
     cout << "CPU_FREQ " << CPU_FREQ << endl;
     cout << "DRAM_MTPS " << DRAM_MTPS << endl;
 
-    DRAM_DBUS_RETURN_TIME = (BLOCK_SIZE / DRAM_CHANNEL_WIDTH) * (CPU_FREQ / DRAM_MTPS);
+    DRAM_DBUS_RETURN_TIME = (BLOCK_SIZE / DRAM_CHANNEL_WIDTH) * (1.0 * CPU_FREQ / DRAM_MTPS);
 
     cout << "test 3" << endl;
     cout << "dram_dbus calculation" << endl;
@@ -1054,6 +1072,8 @@ int main(int argc, char** argv) {
             else
                 uncore.DRAM.bw = 3;
             // MYLOG("cycle %lu rq_enqueue_count %lu last_enqueue_count %lu epoch_enqueue_count %lu QUARTILE %u", uncore.cycle, uncore.DRAM.rq_enqueue_count, uncore.DRAM.last_enqueue_count, uncore.DRAM.epoch_enqueue_count, uncore.DRAM.bw);
+            // cout << endl
+            //  << "cycle "<<uncore.cycle<<" DRAM_DBUS_MAX_CAS "<<DRAM_DBUS_MAX_CAS<<" epoch_enqueue_count "<<uncore.DRAM.epoch_enqueue_count<<" rq_enqueue_count "<<uncore.DRAM.rq_enqueue_count<<" last_enqueue_count "<<uncore.DRAM.last_enqueue_count<<" QUARTILE "<<uncore.DRAM.bw << endl;
             uncore.DRAM.last_enqueue_count = uncore.DRAM.rq_enqueue_count;
             uncore.DRAM.next_bw_measure_cycle = uncore.cycle + knob::measure_dram_bw_epoch;
             uncore.DRAM.total_bw_epochs++;

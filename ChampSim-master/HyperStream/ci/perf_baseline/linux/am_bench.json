@@ -1,0 +1,12 @@
+{
+  "[\"AM/core\",10000,256,256]": {"queries_per_sec": {"mean": 37499.12}, "eff_gb_per_sec": {"mean": 12.1044}},
+  "[\"AM/core\",10000,1024,1024]": {"queries_per_sec": {"mean": 9281.70}, "eff_gb_per_sec": {"mean": 11.9492}},
+  "[\"AM/sse2\",10000,1024,1024]": {"queries_per_sec": {"mean": 1984.70}, "eff_gb_per_sec": {"mean": 2.5552}},
+  "[\"AM/core\",16384,256,256]": {"queries_per_sec": {"mean": 23368.60}, "eff_gb_per_sec": {"mean": 12.2996}},
+  "[\"AM/core\",16384,1024,1024]": {"queries_per_sec": {"mean": 5831.22}, "eff_gb_per_sec": {"mean": 12.2408}},
+  "[\"AM/sse2\",16384,1024,1024]": {"queries_per_sec": {"mean": 1211.98}, "eff_gb_per_sec": {"mean": 2.5442}},
+  "[\"AM/core\",65536,256,256]": {"queries_per_sec": {"mean": 5909.42}, "eff_gb_per_sec": {"mean": 12.4414}},
+  "[\"AM/core\",65536,1024,1024]": {"queries_per_sec": {"mean": 1006.98}, "eff_gb_per_sec": {"mean": 8.4556}},
+  "[\"AM/sse2\",65536,1024,1024]": {"queries_per_sec": {"mean": 303.96}, "eff_gb_per_sec": {"mean": 2.5520}}
+}
+

@@ -20,10 +20,52 @@ default_sisb_binary = 'bin/hashed_perceptron-no-no-no-sisb-lru-1core'
 default_sisb_bo_binary = 'bin/hashed_perceptron-no-no-no-sisb_bo-lru-1core'
 default_prefetcher_binary = 'bin/hashed_perceptron-no-no-no-from_file-lru-1core'
 default_hdc_binary = 'bin/hashed_perceptron-no-no-no-hdc-lru-1core'
+default_pathfinder_binary = 'bin/hashed_perceptron-no-no-no-pathfinder-lru-1core'
 
-baseline_names = ['No Prefetcher', 'Best Offset', 'SISB', 'SISB Best Offset', 'HDC']
-baseline_fns = ['no', 'bo', 'sisb', 'sisb_bo', 'hdc']
-baseline_binaries = [default_base_binary, default_bo_binary, default_sisb_binary, default_sisb_bo_binary, default_hdc_binary]
+
+default_base_binary_256 = 'bin/hashed_perceptron-no-no-no-no-lru-1core_256'
+default_prefetcher_binary_256 = 'bin/hashed_perceptron-no-no-no-from_file-lru-1core_256'
+default_pathfinder_binary_256 = 'bin/hashed_perceptron-no-no-no-pathfinder-lru-1core_256'
+default_base_binary_512 = 'bin/hashed_perceptron-no-no-no-no-lru-1core_512'
+default_prefetcher_binary_512 = 'bin/hashed_perceptron-no-no-no-from_file-lru-1core_512'
+default_pathfinder_binary_512 = 'bin/hashed_perceptron-no-no-no-pathfinder-lru-1core_512'
+default_base_binary_1024 = 'bin/hashed_perceptron-no-no-no-no-lru-1core_1024'
+default_prefetcher_binary_1024 = 'bin/hashed_perceptron-no-no-no-from_file-lru-1core_1024'
+default_pathfinder_binary_1024 = 'bin/hashed_perceptron-no-no-no-pathfinder-lru-1core_1024'
+default_base_binary_2048 = 'bin/hashed_perceptron-no-no-no-no-lru-1core_2048'
+default_prefetcher_binary_2048 = 'bin/hashed_perceptron-no-no-no-from_file-lru-1core_2048'
+default_pathfinder_binary_2048 = 'bin/hashed_perceptron-no-no-no-pathfinder-lru-1core_2048'
+default_base_binary_4096 = 'bin/hashed_perceptron-no-no-no-no-lru-1core_4096'
+default_prefetcher_binary_4096 = 'bin/hashed_perceptron-no-no-no-from_file-lru-1core_4096'
+default_pathfinder_binary_4096 = 'bin/hashed_perceptron-no-no-no-pathfinder-lru-1core_4096'
+
+# baseline_names = ['No Prefetcher', 'Best Offset', 'SISB', 'SISB Best Offset', 'HDC']
+# baseline_fns = ['no', 'bo', 'sisb', 'sisb_bo', 'hdc']
+# baseline_binaries = [default_base_binary, default_bo_binary, default_sisb_binary, default_sisb_bo_binary, default_hdc_binary]
+
+# baseline_names = ['No Prefetcher','PATHFINDER']
+# baseline_fns = ['no','pathfinder']
+# baseline_binaries = [default_base_binary, default_pathfinder_binary]
+
+baseline_names = ['No Prefetcher 256','PATHFINDER 256','Pythia 256'
+,'No Prefetcher 512','PATHFINDER 512','Pythia 512'
+,'No Prefetcher 1024','PATHFINDER 1024','Pythia 1024'
+,'No Prefetcher 2048','PATHFINDER 2048','Pythia 2048'
+,'No Prefetcher 4096','PATHFINDER 4096','Pythia 4096'
+]
+baseline_fns = ['no256','pathfinder256','pythia256'
+,'no512','pathfinder512','pythia512'
+,'no1024','pathfinder1024','pythia1024'
+,'no2048','pathfinder2048','pythia2048'
+,'no4096','pathfinder4096','pythia4096'
+]
+baseline_binaries = [default_base_binary_256, default_pathfinder_binary_256, default_prefetcher_binary_256
+,default_base_binary_512, default_pathfinder_binary_512, default_prefetcher_binary_512
+,default_base_binary_1024, default_pathfinder_binary_1024, default_prefetcher_binary_1024
+,default_base_binary_2048, default_pathfinder_binary_2048, default_prefetcher_binary_2048
+,default_base_binary_4096, default_pathfinder_binary_4096, default_prefetcher_binary_4096
+]
+
 
 help_str = {
 'help': '''usage: {prog} command [<args>]
@@ -190,6 +232,7 @@ def run_command():
     parser.add_argument('--num-prefetch-warmup-instructions', default=default_warmup_instrs)
     parser.add_argument('--seed-file', default=default_seed_file)
     parser.add_argument('--name', default='from_file')
+    parser.add_argument('--dram-io-freq', default=3200)
 
     # === [修改点 1] 添加 --only 参数 ===
     # 允许输入的选项包括所有 baseline_fns (如 'no', 'hdc') 以及 'prefetch'
@@ -227,6 +270,10 @@ def run_command():
     if not os.path.exists(args.results_dir):
         os.makedirs(args.results_dir, exist_ok=True)
 
+
+    # === [修改点] 将 dram_io_freq 放入文件名，防止不同频率结果覆盖 ===
+    output_filename_template = "{results}/{base_trace}-{base_binary}_{freq}.txt"
+
     if not args.no_base:
         for name, fn, binary in zip(baseline_names, baseline_fns, baseline_binaries):
             # 筛选逻辑：如果指定了 --only，且当前 fn 不在列表中，则跳过
@@ -236,44 +283,51 @@ def run_command():
             if not os.path.exists(binary):
                 print(name + ' ChampSim binary not found')
                 exit(-1)
+            
+            # 构建输出文件路径
+            outfile = output_filename_template.format(
+                results=args.results_dir,
+                base_trace=os.path.basename(execution_trace),
+                base_binary=os.path.basename(binary),
+                freq=args.dram_io_freq  # <--- 加入频率
+            )
 
             if seed is not None:
-                cmd = '{binary} -prefetch_warmup_instructions {warm}000000 -simulation_instructions {sim} -seed {seed} -traces {trace} > {results}/{base_trace}-{base_binary}.txt 2>&1'.format(
-                    binary=binary, warm=args.num_prefetch_warmup_instructions, sim=args.num_instructions,
-                    trace=execution_trace, seed=seed, results=args.results_dir,
-                    base_trace=os.path.basename(execution_trace), base_binary=os.path.basename(binary))
+                cmd = '<{prefetch} {binary} -prefetch_warmup_instructions {warm}000000 -simulation_instructions {sim} -dram_io_freq {dram_io_freq} -seed {seed} -traces {trace} > {outfile} 2>&1'.format(
+                    prefetch=args.prefetch, binary=binary, warm=args.num_prefetch_warmup_instructions, sim=args.num_instructions, dram_io_freq=args.dram_io_freq,
+                    trace=execution_trace, seed=seed, outfile=outfile)
             else:
-                cmd = '{binary} -prefetch_warmup_instructions {warm}000000 -simulation_instructions {sim} -traces {trace} > {results}/{base_trace}-{base_binary}.txt 2>&1'.format(
-                    binary=binary, warm=args.num_prefetch_warmup_instructions, sim=args.num_instructions,
-                    trace=execution_trace, results=args.results_dir, base_trace=os.path.basename(execution_trace),
-                    base_binary=os.path.basename(binary))
+                cmd = '<{prefetch} {binary} -prefetch_warmup_instructions {warm}000000 -simulation_instructions {sim} -dram_io_freq {dram_io_freq} -traces {trace} > {outfile} 2>&1'.format(
+                    prefetch=args.prefetch, binary=binary, warm=args.num_prefetch_warmup_instructions, sim=args.num_instructions, dram_io_freq=args.dram_io_freq,
+                    trace=execution_trace, outfile=outfile)
 
             print('Running "' + cmd + '"')
-
             os.system(cmd)
 
     if args.prefetch is not None:
-        # === [修改点 3] Prefetcher 的筛选逻辑 ===
-        # 如果未指定 --only，或者显式指定了 'prefetch'，则运行
         if args.only is None or 'prefetch' in args.only:
-
             if not os.path.exists(default_prefetcher_binary):
                 print('Prefetcher ChampSim binary not found')
                 exit(-1)
+            
+            # 构建输出文件路径
+            outfile = output_filename_template.format(
+                results=args.results_dir,
+                base_trace=os.path.basename(execution_trace),
+                base_binary=args.name, # 注意这里用了 args.name
+                freq=args.dram_io_freq  # <--- 加入频率
+            )
 
             if seed is not None:
-                cmd = '<{prefetch} {binary} -prefetch_warmup_instructions {warm}000000 -simulation_instructions {sim} -seed {seed} -traces {trace} > {results}/{base_trace}-{base_binary}.txt 2>&1'.format(
-                    prefetch=args.prefetch, binary=default_prefetcher_binary, warm=args.num_prefetch_warmup_instructions, sim=args.num_instructions,
-                    trace=execution_trace, seed=seed, results=args.results_dir,
-                    base_trace=os.path.basename(execution_trace), base_binary=args.name)#os.path.basename(default_prefetcher_binary))
+                cmd = '<{prefetch} {binary} -prefetch_warmup_instructions {warm}000000 -simulation_instructions {sim} -dram_io_freq {dram_io_freq} -seed {seed} -traces {trace} > {outfile} 2>&1'.format(
+                    prefetch=args.prefetch, binary=default_prefetcher_binary, warm=args.num_prefetch_warmup_instructions, sim=args.num_instructions, dram_io_freq=args.dram_io_freq,
+                    trace=execution_trace, seed=seed, outfile=outfile)
             else:
-                cmd = '<{prefetch} {binary} -prefetch_warmup_instructions {warm}000000 -simulation_instructions {sim} -traces {trace} > {results}/{base_trace}-{base_binary}.txt 2>&1'.format(
-                    prefetch=args.prefetch, binary=default_prefetcher_binary, warm=args.num_prefetch_warmup_instructions, sim=args.num_instructions,
-                    trace=execution_trace, results=args.results_dir, base_trace=os.path.basename(execution_trace),
-                    base_binary=args.name)#os.path.basename(default_prefetcher_binary))
+                cmd = '<{prefetch} {binary} -prefetch_warmup_instructions {warm}000000 -simulation_instructions {sim} -dram_io_freq {dram_io_freq} -traces {trace} > {outfile} 2>&1'.format(
+                    prefetch=args.prefetch, binary=default_prefetcher_binary, warm=args.num_prefetch_warmup_instructions, sim=args.num_instructions, dram_io_freq=args.dram_io_freq,
+                    trace=execution_trace, outfile=outfile)
 
             print('Running "' + cmd + '"')
-
             os.system(cmd)
 
 def read_file(path, cache_level='LLC'):

@@ -1,0 +1,87 @@
+
+*** ChampSim Multicore Out-of-Order Simulator ***
+
+Warmup Instructions: 1000000
+Prefetch Warmup Instructions: 10000000
+Simulation Instructions: 52596273
+Number of CPUs: 1
+LLC sets: 2048
+LLC ways: 16
+Off-chip DRAM Size: 4096 MB Channels: 1 Width: 64-bit Data Rate: 200 MT/s
+
+CPU 0 runs ./gap_spec_traces/623.xalancbmk-s1.trace.xz
+Read seed: 222
+CPU 0 LLC from_file prefetcher
+
+Warmup complete CPU 0 instructions: 1000004 cycles: 371252 (Simulation time: 0 hr 0 min 3 sec) 
+
+Heartbeat CPU 0 instructions: 10000000 cycles: 22375462 heartbeat IPC: 0.446918 cumulative IPC: 0 (Simulation time: 0 hr 0 min 33 sec) 
+
+Warmup complete CPU 0 instructions: 10000002 cycles: 22375471 (Simulation time: 0 hr 0 min 33 sec) 
+
+Heartbeat CPU 0 instructions: 20000001 cycles: 52609921 heartbeat IPC: 0.330748 cumulative IPC: 0.330749 (Simulation time: 0 hr 1 min 15 sec) 
+Heartbeat CPU 0 instructions: 30000002 cycles: 83711916 heartbeat IPC: 0.321523 cumulative IPC: 0.32607 (Simulation time: 0 hr 1 min 57 sec) 
+Heartbeat CPU 0 instructions: 40000003 cycles: 114801445 heartbeat IPC: 0.321652 cumulative IPC: 0.324584 (Simulation time: 0 hr 2 min 38 sec) 
+Heartbeat CPU 0 instructions: 50000001 cycles: 145864420 heartbeat IPC: 0.321927 cumulative IPC: 0.323916 (Simulation time: 0 hr 3 min 21 sec) 
+Heartbeat CPU 0 instructions: 60000000 cycles: 176812447 heartbeat IPC: 0.323122 cumulative IPC: 0.323757 (Simulation time: 0 hr 4 min 3 sec) 
+Finished CPU 0 instructions: 52596273 cycles: 162533767 cumulative IPC: 0.323602 (Simulation time: 0 hr 4 min 14 sec) 
+
+ChampSim completed all CPUs
+
+Region of Interest Statistics
+
+CPU 0 cumulative IPC: 0.323602 instructions: 52596273 cycles: 162533767
+L1D TOTAL     ACCESS:    7345011  HIT:    6344479  MISS:    1000532
+L1D LOAD      ACCESS:    6655165  HIT:    5654933  MISS:    1000232
+L1D RFO       ACCESS:     689846  HIT:     689546  MISS:        300
+L1D PREFETCH  ACCESS:          0  HIT:          0  MISS:          0
+L1D WRITEBACK ACCESS:          0  HIT:          0  MISS:          0
+L1D PREFETCH  REQUESTED:          0  ISSUED:          0  USEFUL:          0  USELESS:          0
+L1D AVERAGE MISS LATENCY: 223.768 cycles
+L1I TOTAL     ACCESS:   11002362  HIT:   11002362  MISS:          0
+L1I LOAD      ACCESS:   11002362  HIT:   11002362  MISS:          0
+L1I RFO       ACCESS:          0  HIT:          0  MISS:          0
+L1I PREFETCH  ACCESS:          0  HIT:          0  MISS:          0
+L1I WRITEBACK ACCESS:          0  HIT:          0  MISS:          0
+L1I PREFETCH  REQUESTED:          0  ISSUED:          0  USEFUL:          0  USELESS:          0
+L1I AVERAGE MISS LATENCY: -nan cycles
+L2C TOTAL     ACCESS:    1000974  HIT:        671  MISS:    1000303
+L2C LOAD      ACCESS:    1000232  HIT:        229  MISS:    1000003
+L2C RFO       ACCESS:        300  HIT:          0  MISS:        300
+L2C PREFETCH  ACCESS:          0  HIT:          0  MISS:          0
+L2C WRITEBACK ACCESS:        442  HIT:        442  MISS:          0
+L2C PREFETCH  REQUESTED:          0  ISSUED:          0  USEFUL:          0  USELESS:          0
+L2C AVERAGE MISS LATENCY: 208.702 cycles
+LLC TOTAL     ACCESS:    1551543  HIT:     538701  MISS:    1012842
+LLC LOAD      ACCESS:    1000003  HIT:     392030  MISS:     607973
+LLC RFO       ACCESS:        300  HIT:        161  MISS:        139
+LLC PREFETCH  ACCESS:     550813  HIT:     146083  MISS:     404730
+LLC WRITEBACK ACCESS:        427  HIT:        427  MISS:          0
+LLC PREFETCH  REQUESTED:    1762030  ISSUED:    1758608  USEFUL:     336465  USELESS:      65989
+LLC AVERAGE MISS LATENCY: 646.894 cycles
+Major fault: 0 Minor fault: 701
+CPU 0 LLC from file prefetcher final stats
+My_PF_Lookup_Hits: 982740
+My_PF_Lookup_Misses: 207327
+My_PF_Lookup_Rate: 82.5785%
+
+DRAM Statistics
+ CHANNEL 0
+ RQ ROW_BUFFER_HIT:     960801  ROW_BUFFER_MISS:      51885
+ DBUS_CONGESTED:    1095460
+ WQ ROW_BUFFER_HIT:         68  ROW_BUFFER_MISS:        377  FULL:          0
+
+ AVG_CONGESTED_CYCLE: 154
+
+CPU 0 Branch Prediction Accuracy: 99.9961% MPKI: 0.0109704 Average ROB Occupancy at Mispredict: 272.919
+
+Branch types
+NOT_BRANCH: 37928907 72.1133%
+BRANCH_DIRECT_JUMP: 464 0.000882192%
+BRANCH_INDIRECT: 0 0%
+BRANCH_CONDITIONAL: 13984357 26.5881%
+BRANCH_DIRECT_CALL: 171029 0.325173%
+BRANCH_INDIRECT_CALL: 170303 0.323793%
+BRANCH_RETURN: 341333 0.648968%
+BRANCH_OTHER: 0 0%
+

@@ -1,0 +1,27 @@
+{
+    "paths": [
+        "/mnt/sda/cyhcpp/Pythia/a_pythia/ChampSim-master/results"
+    ],
+    "include_globs": ["**/*.txt"],
+    "ipc_pick": "last",
+    "output": "ipc_pivot.txt",
+    "rules": [
+        { "name": "no256", "file_globs": ["**/*-no-no-no-no-lru-1core_256.txt"], "strip_suffixes": ["-hashed_perceptron-no-no-no-no-lru-1core_256.txt"] },
+        { "name": "no512", "file_globs": ["**/*-no-no-no-no-lru-1core_512.txt"], "strip_suffixes": ["-hashed_perceptron-no-no-no-no-lru-1core_512.txt"] },
+        { "name": "no1024", "file_globs": ["**/*-no-no-no-no-lru-1core_1024.txt"], "strip_suffixes": ["-hashed_perceptron-no-no-no-no-lru-1core_1024.txt"] },
+        { "name": "no2048", "file_globs": ["**/*-no-no-no-no-lru-1core_2048.txt"], "strip_suffixes": ["-hashed_perceptron-no-no-no-no-lru-1core_2048.txt"] },
+        { "name": "no4096", "file_globs": ["**/*-no-no-no-no-lru-1core_4096.txt"], "strip_suffixes": ["-hashed_perceptron-no-no-no-no-lru-1core_4096.txt"] },
+
+        { "name": "pathfinder256", "file_globs": ["**/*-pathfinder-lru-1core_256.txt"], "strip_suffixes": ["-hashed_perceptron-no-no-no-pathfinder-lru-1core_256.txt"] },
+        { "name": "pathfinder512", "file_globs": ["**/*-pathfinder-lru-1core_512.txt"], "strip_suffixes": ["-hashed_perceptron-no-no-no-pathfinder-lru-1core_512.txt"] },
+        { "name": "pathfinder1024", "file_globs": ["**/*-pathfinder-lru-1core_1024.txt"], "strip_suffixes": ["-hashed_perceptron-no-no-no-pathfinder-lru-1core_1024.txt"] },
+        { "name": "pathfinder2048", "file_globs": ["**/*-pathfinder-lru-1core_2048.txt"], "strip_suffixes": ["-hashed_perceptron-no-no-no-pathfinder-lru-1core_2048.txt"] },
+        { "name": "pathfinder4096", "file_globs": ["**/*-pathfinder-lru-1core_4096.txt"], "strip_suffixes": ["-hashed_perceptron-no-no-no-pathfinder-lru-1core_4096.txt"] },
+
+        { "name": "pythia256", "file_globs": ["**/*-from_file-lru-1core_256.txt"], "strip_suffixes": ["-hashed_perceptron-no-no-no-from_file-lru-1core_256.txt"] },
+        { "name": "pythia512", "file_globs": ["**/*-from_file-lru-1core_512.txt"], "strip_suffixes": ["-hashed_perceptron-no-no-no-from_file-lru-1core_512.txt"] },
+        { "name": "pythia1024", "file_globs": ["**/*-from_file-lru-1core_1024.txt"], "strip_suffixes": ["-hashed_perceptron-no-no-no-from_file-lru-1core_1024.txt"] },
+        { "name": "pythia2048", "file_globs": ["**/*-from_file-lru-1core_2048.txt"], "strip_suffixes": ["-hashed_perceptron-no-no-no-from_file-lru-1core_2048.txt"] },
+        { "name": "pythia4096", "file_globs": ["**/*-from_file-lru-1core_4096.txt"], "strip_suffixes": ["-hashed_perceptron-no-no-no-from_file-lru-1core_4096.txt"] }
+    ]
+}

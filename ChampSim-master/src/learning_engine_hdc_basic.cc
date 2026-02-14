@@ -13,7 +13,7 @@
 #include "hyperstream/core/ops.hpp"
 
 using namespace hyperstream::core;
-#if 1
+#if 0
 #define LOCKED(...)     \
     {                   \
         fflush(stdout); \
@@ -196,18 +196,18 @@ uint32_t LearningEngineHDCBasic::chooseAction(EncodedState* encodedState) {
         stats.action.dist[best_idx][1]++;
         return best_idx;
     } else {
-        auto it = action_to_index_map.find(1);
-        if (it != action_to_index_map.end()) {
-            action = it->second;
-            stats.action.explore++;
-            stats.action.dist[action][0]++;
-            MYLOG("action taken %u explore,  scores %s", action, getStringQ(*encodedState).c_str());
-        }
+        // auto it = action_to_index_map.find(0);
+        // if (it != action_to_index_map.end()) {
+        //     action = it->second;
+        //     stats.action.explore++;
+        //     stats.action.dist[action][0]++;
+        //     MYLOG("action taken %u explore,  scores %s", action, getStringQ(*encodedState).c_str());
+        // }
 
-        // action = (*actiongen)(generator);  // take random action
-        // stats.action.explore++;
-        // stats.action.dist[action][0]++;
-        // MYLOG("action taken %u explore,  scores %s", action, getStringQ(*encodedState).c_str());
+        action = (*actiongen)(generator);  // take random action
+        stats.action.explore++;
+        stats.action.dist[action][0]++;
+        MYLOG("action taken %u explore,  scores %s", action, getStringQ(*encodedState).c_str());
 
         return action;  // fallback index
     }
@@ -216,6 +216,7 @@ uint32_t LearningEngineHDCBasic::chooseAction(EncodedState* encodedState) {
 // === 训练逻辑 (移植自 Python) ===
 void LearningEngineHDCBasic::updateModel(EncodedState* old_state, uint32_t action, int32_t reward) {
     stats.learn.called++;
+    stats.learn.dist[action][0]++;
     if (m_type == LearningType::SARSA && m_policy == Policy::EGreedy) {
         auto apply_update = [&](int action_idx, const BinaryHV& hv, int sign) {
             // sign = +1 (Add), sign = -1 (Sub)
@@ -258,7 +259,6 @@ void LearningEngineHDCBasic::updateModel(EncodedState* old_state, uint32_t actio
 }
 
 void LearningEngineHDCBasic::updateModel_true(EncodedState* old_state, uint32_t action, int32_t reward) {
-    stats.learn.called++;
     stats.learnTrue.called++;
     stats.learnTrue.dist[action][0]++;
     MYLOG("learnTrue taken %u ", action);
@@ -384,7 +384,9 @@ void LearningEngineHDCBasic::dump_stats() {
         fprintf(stdout, "learning_engine.action.index_%d_exploited %lu\n", hdcpf->getAction(action), stats.action.dist[action][1]);
     }
     fprintf(stdout, "learning_engine.learn.called %lu\n", stats.learn.called);
-
+    for (uint32_t action = 0; action < m_actions; ++action) {
+        fprintf(stdout, "learning_engine.action.index_%d_learn %lu\n", hdcpf->getAction(action), stats.learn.dist[action][0]);
+    }
     fprintf(stdout, "learning_engine.learnTrue.called %lu\n", stats.learnTrue.called);
     for (uint32_t action = 0; action < m_actions; ++action) {
         fprintf(stdout, "learning_engine.action.index_%d_learnTrue %lu\n", hdcpf->getAction(action), stats.learnTrue.dist[action][0]);

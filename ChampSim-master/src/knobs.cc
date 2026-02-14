@@ -392,7 +392,8 @@ void parse_args(int argc, char* argv[]) {
         if (arg.compare(0, 2, "--") == 0) {
             arg = arg.substr(2);
         }
-        if (ini_parse_string("/home/zxie/cyhcpp/Pythia/a_pythia/ChampSim-master/config/pythia_default.ini", handler, NULL) < 0) {
+        // if (ini_parse_string("/home/zxie/cyhcpp/Pythia/a_pythia/ChampSim-master/config/pythia_default.ini", handler, NULL) < 0) {
+        if (ini_parse_string("/mnt/sda/cyhcpp/Pythia/a_pythia/ChampSim-master/config/pythia_default.ini", handler, NULL) < 0) {
             printf("error parsing commandline %s\n", argv[index]);
             exit(1);
         }

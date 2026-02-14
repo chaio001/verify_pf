@@ -39,7 +39,7 @@ ALL_SOURCES := $(shell find $(srcDir) -name '*.$(srcExt)')
 
 # -------- Default: Scooby --------
 # ifeq ($(PREFETCHER),from_file)
-ifneq (,$(filter $(PREFETCHER),from_file no bo sisb sisb_bo))
+ifneq (,$(filter $(PREFETCHER),from_file no bo sisb sisb_bo pathfinder))
 EXCLUDE_SOURCES := \
 	prefetcher/hdc_pf.cc \
 	prefetcher/hdc_pf_helper.cc \

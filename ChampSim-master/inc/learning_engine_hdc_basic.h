@@ -70,6 +70,7 @@ class LearningEngineHDCBasic : public LearningEngineHDC {
         struct
         {
             uint64_t called;
+            uint64_t dist[MAX_ACTIONS][2]; /* 0:explored, 1:exploited */
         } learn;
 
         struct

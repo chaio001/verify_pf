@@ -1,0 +1,171 @@
+
+*** ChampSim Multicore Out-of-Order Simulator ***
+
+Warmup Instructions: 1000000
+Prefetch Warmup Instructions: 10000000
+Simulation Instructions: 105565190
+Number of CPUs: 1
+LLC sets: 2048
+LLC ways: 16
+Off-chip DRAM Size: 4096 MB Channels: 1 Width: 64-bit Data Rate: 3200 MT/s
+
+CPU 0 runs /home/zxie/cyhcpp/Pythia/a_pythia/Pathfinder/ChampSim/gap_spec_traces/602.gcc-s3.trace.xz
+Read seed: 224
+CPU 0 LLC from_file prefetcher
+Exceeded max prefetch degree of 2 on line 100589 for instr_id 0
+Exceeded max prefetch degree of 2 on line 100590 for instr_id 0
+Exceeded max prefetch degree of 2 on line 100592 for instr_id 0
+Exceeded max prefetch degree of 2 on line 100596 for instr_id 0
+Exceeded max prefetch degree of 2 on line 100748 for instr_id 0
+Exceeded max prefetch degree of 2 on line 100854 for instr_id 0
+Exceeded max prefetch degree of 2 on line 101607 for instr_id 0
+Exceeded max prefetch degree of 2 on line 102575 for instr_id 0
+Exceeded max prefetch degree of 2 on line 105019 for instr_id 0
+Exceeded max prefetch degree of 2 on line 105748 for instr_id 0
+Exceeded max prefetch degree of 2 on line 105819 for instr_id 0
+Exceeded max prefetch degree of 2 on line 106113 for instr_id 0
+Exceeded max prefetch degree of 2 on line 106114 for instr_id 0
+Exceeded max prefetch degree of 2 on line 106115 for instr_id 0
+Exceeded max prefetch degree of 2 on line 106116 for instr_id 0
+Exceeded max prefetch degree of 2 on line 106117 for instr_id 0
+Exceeded max prefetch degree of 2 on line 106118 for instr_id 0
+Exceeded max prefetch degree of 2 on line 106119 for instr_id 0
+Exceeded max prefetch degree of 2 on line 106120 for instr_id 0
+Exceeded max prefetch degree of 2 on line 106121 for instr_id 0
+Exceeded max prefetch degree of 2 on line 106122 for instr_id 0
+Exceeded max prefetch degree of 2 on line 106123 for instr_id 0
+Exceeded max prefetch degree of 2 on line 106129 for instr_id 0
+Exceeded max prefetch degree of 2 on line 106142 for instr_id 0
+Exceeded max prefetch degree of 2 on line 106145 for instr_id 0
+Exceeded max prefetch degree of 2 on line 106806 for instr_id 0
+Exceeded max prefetch degree of 2 on line 343245 for instr_id 0
+Exceeded max prefetch degree of 2 on line 344893 for instr_id 0
+Exceeded max prefetch degree of 2 on line 344902 for instr_id 0
+Exceeded max prefetch degree of 2 on line 345724 for instr_id 0
+Exceeded max prefetch degree of 2 on line 345725 for instr_id 0
+Exceeded max prefetch degree of 2 on line 369587 for instr_id 0
+Exceeded max prefetch degree of 2 on line 496882 for instr_id 0
+Exceeded max prefetch degree of 2 on line 500633 for instr_id 0
+Exceeded max prefetch degree of 2 on line 500644 for instr_id 0
+Exceeded max prefetch degree of 2 on line 502017 for instr_id 0
+Exceeded max prefetch degree of 2 on line 502018 for instr_id 0
+Exceeded max prefetch degree of 2 on line 502019 for instr_id 0
+Exceeded max prefetch degree of 2 on line 502020 for instr_id 0
+Exceeded max prefetch degree of 2 on line 502021 for instr_id 0
+Exceeded max prefetch degree of 2 on line 502067 for instr_id 0
+Exceeded max prefetch degree of 2 on line 502068 for instr_id 0
+Exceeded max prefetch degree of 2 on line 502073 for instr_id 0
+Exceeded max prefetch degree of 2 on line 502075 for instr_id 0
+Exceeded max prefetch degree of 2 on line 502076 for instr_id 0
+Exceeded max prefetch degree of 2 on line 502077 for instr_id 0
+Exceeded max prefetch degree of 2 on line 502078 for instr_id 0
+Exceeded max prefetch degree of 2 on line 502079 for instr_id 0
+Exceeded max prefetch degree of 2 on line 504253 for instr_id 0
+Exceeded max prefetch degree of 2 on line 505073 for instr_id 0
+Exceeded max prefetch degree of 2 on line 505293 for instr_id 0
+Exceeded max prefetch degree of 2 on line 506021 for instr_id 0
+Exceeded max prefetch degree of 2 on line 511913 for instr_id 0
+Exceeded max prefetch degree of 2 on line 511914 for instr_id 0
+Exceeded max prefetch degree of 2 on line 511916 for instr_id 0
+Exceeded max prefetch degree of 2 on line 511919 for instr_id 0
+Exceeded max prefetch degree of 2 on line 511944 for instr_id 0
+Exceeded max prefetch degree of 2 on line 512038 for instr_id 0
+Exceeded max prefetch degree of 2 on line 512123 for instr_id 0
+Exceeded max prefetch degree of 2 on line 514964 for instr_id 0
+Exceeded max prefetch degree of 2 on line 515519 for instr_id 0
+Exceeded max prefetch degree of 2 on line 515520 for instr_id 0
+Exceeded max prefetch degree of 2 on line 515521 for instr_id 0
+Exceeded max prefetch degree of 2 on line 515522 for instr_id 0
+Exceeded max prefetch degree of 2 on line 515523 for instr_id 0
+Exceeded max prefetch degree of 2 on line 515524 for instr_id 0
+Exceeded max prefetch degree of 2 on line 515525 for instr_id 0
+Exceeded max prefetch degree of 2 on line 515687 for instr_id 0
+Exceeded max prefetch degree of 2 on line 517591 for instr_id 0
+Exceeded max prefetch degree of 2 on line 517593 for instr_id 0
+Exceeded max prefetch degree of 2 on line 518699 for instr_id 0
+Exceeded max prefetch degree of 2 on line 518700 for instr_id 0
+Exceeded max prefetch degree of 2 on line 518701 for instr_id 0
+Exceeded max prefetch degree of 2 on line 518702 for instr_id 0
+Exceeded max prefetch degree of 2 on line 518703 for instr_id 0
+Exceeded max prefetch degree of 2 on line 518704 for instr_id 0
+Exceeded max prefetch degree of 2 on line 763337 for instr_id 0
+Exceeded max prefetch degree of 2 on line 764420 for instr_id 0
+Exceeded max prefetch degree of 2 on line 1000615 for instr_id 0
+Exceeded max prefetch degree of 2 on line 1000617 for instr_id 0
+Exceeded max prefetch degree of 2 on line 1196189 for instr_id 0
+Exceeded max prefetch degree of 2 on line 1423401 for instr_id 0
+
+Warmup complete CPU 0 instructions: 1000004 cycles: 501190 (Simulation time: 0 hr 0 min 3 sec) 
+
+Heartbeat CPU 0 instructions: 10000000 cycles: 15690804 heartbeat IPC: 0.637316 cumulative IPC: 0 (Simulation time: 0 hr 0 min 39 sec) 
+
+Warmup complete CPU 0 instructions: 10000001 cycles: 15690805 (Simulation time: 0 hr 0 min 39 sec) 
+
+Heartbeat CPU 0 instructions: 20000000 cycles: 32952209 heartbeat IPC: 0.579327 cumulative IPC: 0.579327 (Simulation time: 0 hr 1 min 16 sec) 
+Heartbeat CPU 0 instructions: 30000000 cycles: 49766285 heartbeat IPC: 0.59474 cumulative IPC: 0.586932 (Simulation time: 0 hr 1 min 53 sec) 
+Heartbeat CPU 0 instructions: 40000000 cycles: 67093560 heartbeat IPC: 0.577125 cumulative IPC: 0.583626 (Simulation time: 0 hr 2 min 29 sec) 
+Heartbeat CPU 0 instructions: 50000000 cycles: 83939651 heartbeat IPC: 0.59361 cumulative IPC: 0.586091 (Simulation time: 0 hr 3 min 6 sec) 
+Heartbeat CPU 0 instructions: 60000000 cycles: 97431699 heartbeat IPC: 0.741177 cumulative IPC: 0.611689 (Simulation time: 0 hr 3 min 41 sec) 
+Heartbeat CPU 0 instructions: 70000000 cycles: 111762346 heartbeat IPC: 0.697805 cumulative IPC: 0.624535 (Simulation time: 0 hr 4 min 15 sec) 
+Heartbeat CPU 0 instructions: 80000000 cycles: 125208247 heartbeat IPC: 0.743721 cumulative IPC: 0.639168 (Simulation time: 0 hr 4 min 50 sec) 
+Heartbeat CPU 0 instructions: 90000000 cycles: 138805015 heartbeat IPC: 0.735469 cumulative IPC: 0.649803 (Simulation time: 0 hr 5 min 25 sec) 
+Heartbeat CPU 0 instructions: 100000000 cycles: 171540437 heartbeat IPC: 0.305479 cumulative IPC: 0.57748 (Simulation time: 0 hr 6 min 10 sec) 
+Heartbeat CPU 0 instructions: 110000000 cycles: 184832688 heartbeat IPC: 0.752318 cumulative IPC: 0.59122 (Simulation time: 0 hr 6 min 45 sec) 
+Finished CPU 0 instructions: 105565190 cycles: 176580822 cumulative IPC: 0.597829 (Simulation time: 0 hr 7 min 4 sec) 
+
+ChampSim completed all CPUs
+
+Region of Interest Statistics
+
+CPU 0 cumulative IPC: 0.597829 instructions: 105565190 cycles: 176580822
+L1D TOTAL     ACCESS:   29982128  HIT:   28150204  MISS:    1831924
+L1D LOAD      ACCESS:   19618658  HIT:   17789289  MISS:    1829369
+L1D RFO       ACCESS:   10363470  HIT:   10360915  MISS:       2555
+L1D PREFETCH  ACCESS:          0  HIT:          0  MISS:          0
+L1D WRITEBACK ACCESS:          0  HIT:          0  MISS:          0
+L1D PREFETCH  REQUESTED:          0  ISSUED:          0  USEFUL:          0  USELESS:          0
+L1D AVERAGE MISS LATENCY: 59.6804 cycles
+L1I TOTAL     ACCESS:   23349729  HIT:   23349585  MISS:        144
+L1I LOAD      ACCESS:   23349729  HIT:   23349585  MISS:        144
+L1I RFO       ACCESS:          0  HIT:          0  MISS:          0
+L1I PREFETCH  ACCESS:          0  HIT:          0  MISS:          0
+L1I WRITEBACK ACCESS:          0  HIT:          0  MISS:          0
+L1I PREFETCH  REQUESTED:          0  ISSUED:          0  USEFUL:          0  USELESS:          0
+L1I AVERAGE MISS LATENCY: 200.292 cycles
+L2C TOTAL     ACCESS:    1853113  HIT:     850477  MISS:    1002636
+L2C LOAD      ACCESS:    1829510  HIT:     829325  MISS:    1000185
+L2C RFO       ACCESS:       2555  HIT:        147  MISS:       2408
+L2C PREFETCH  ACCESS:          0  HIT:          0  MISS:          0
+L2C WRITEBACK ACCESS:      21048  HIT:      21005  MISS:         43
+L2C PREFETCH  REQUESTED:          0  ISSUED:          0  USEFUL:          0  USELESS:          0
+L2C AVERAGE MISS LATENCY: 81.5389 cycles
+LLC TOTAL     ACCESS:    1672124  HIT:     619092  MISS:    1053032
+LLC LOAD      ACCESS:    1000185  HIT:     415493  MISS:     584692
+LLC RFO       ACCESS:       2408  HIT:         51  MISS:       2357
+LLC PREFETCH  ACCESS:     657842  HIT:     193631  MISS:     464211
+LLC WRITEBACK ACCESS:      11689  HIT:       9917  MISS:       1772
+LLC PREFETCH  REQUESTED:     673810  ISSUED:     673550  USEFUL:     408071  USELESS:      55658
+LLC AVERAGE MISS LATENCY: 88.0831 cycles
+Major fault: 0 Minor fault: 8618
+CPU 0 LLC from file prefetcher final stats
+
+DRAM Statistics
+ CHANNEL 0
+ RQ ROW_BUFFER_HIT:     877392  ROW_BUFFER_MISS:     173868
+ DBUS_CONGESTED:      13319
+ WQ ROW_BUFFER_HIT:       5908  ROW_BUFFER_MISS:       5524  FULL:          0
+
+ AVG_CONGESTED_CYCLE: 5
+
+CPU 0 Branch Prediction Accuracy: 99.882% MPKI: 0.282622 Average ROB Occupancy at Mispredict: 87.2556
+
+Branch types
+NOT_BRANCH: 80283746 76.0513%
+BRANCH_DIRECT_JUMP: 2570691 2.43517%
+BRANCH_INDIRECT: 0 0%
+BRANCH_CONDITIONAL: 20113653 19.0533%
+BRANCH_DIRECT_CALL: 1298525 1.23007%
+BRANCH_INDIRECT_CALL: 21 1.98929e-05%
+BRANCH_RETURN: 1298545 1.23009%
+BRANCH_OTHER: 0 0%
+

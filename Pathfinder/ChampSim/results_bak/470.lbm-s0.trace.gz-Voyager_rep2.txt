@@ -1,0 +1,108 @@
+
+*** ChampSim Multicore Out-of-Order Simulator ***
+
+Warmup Instructions: 1000000
+Prefetch Warmup Instructions: 10000000
+Simulation Instructions: 124571703
+Number of CPUs: 1
+LLC sets: 2048
+LLC ways: 16
+Off-chip DRAM Size: 4096 MB Channels: 1 Width: 64-bit Data Rate: 3200 MT/s
+
+CPU 0 runs /home/zxie/cyhcpp/Pythia/a_pythia/Pathfinder/ChampSim/gap_spec_traces/470.lbm-s0.trace.gz
+Read seed: 673
+CPU 0 LLC from_file prefetcher
+Exceeded max prefetch degree of 2 on line 156594 for instr_id 0
+Exceeded max prefetch degree of 2 on line 180089 for instr_id 0
+Exceeded max prefetch degree of 2 on line 188985 for instr_id 0
+Exceeded max prefetch degree of 2 on line 205081 for instr_id 0
+Exceeded max prefetch degree of 2 on line 205082 for instr_id 0
+Exceeded max prefetch degree of 2 on line 205083 for instr_id 0
+Exceeded max prefetch degree of 2 on line 205085 for instr_id 0
+Exceeded max prefetch degree of 2 on line 221698 for instr_id 0
+Exceeded max prefetch degree of 2 on line 224973 for instr_id 0
+Exceeded max prefetch degree of 2 on line 230416 for instr_id 0
+Exceeded max prefetch degree of 2 on line 230753 for instr_id 0
+Exceeded max prefetch degree of 2 on line 251345 for instr_id 0
+Exceeded max prefetch degree of 2 on line 274707 for instr_id 0
+Exceeded max prefetch degree of 2 on line 786027 for instr_id 0
+Exceeded max prefetch degree of 2 on line 1061297 for instr_id 0
+
+Warmup complete CPU 0 instructions: 1000002 cycles: 315425 (Simulation time: 0 hr 0 min 3 sec) 
+
+Heartbeat CPU 0 instructions: 10000002 cycles: 14806404 heartbeat IPC: 0.675384 cumulative IPC: 1.38017e-07 (Simulation time: 0 hr 0 min 39 sec) 
+
+Warmup complete CPU 0 instructions: 10000002 cycles: 14806404 (Simulation time: 0 hr 0 min 39 sec) 
+
+Heartbeat CPU 0 instructions: 20000002 cycles: 31117578 heartbeat IPC: 0.613077 cumulative IPC: 0.613077 (Simulation time: 0 hr 1 min 16 sec) 
+Heartbeat CPU 0 instructions: 30000002 cycles: 47530528 heartbeat IPC: 0.609275 cumulative IPC: 0.61117 (Simulation time: 0 hr 1 min 54 sec) 
+Heartbeat CPU 0 instructions: 40000003 cycles: 64034898 heartbeat IPC: 0.6059 cumulative IPC: 0.609403 (Simulation time: 0 hr 2 min 33 sec) 
+Heartbeat CPU 0 instructions: 50000003 cycles: 80322353 heartbeat IPC: 0.613969 cumulative IPC: 0.610538 (Simulation time: 0 hr 3 min 10 sec) 
+Heartbeat CPU 0 instructions: 60000000 cycles: 93905559 heartbeat IPC: 0.736203 cumulative IPC: 0.632118 (Simulation time: 0 hr 3 min 47 sec) 
+Heartbeat CPU 0 instructions: 70000000 cycles: 107538983 heartbeat IPC: 0.733491 cumulative IPC: 0.647022 (Simulation time: 0 hr 4 min 23 sec) 
+Heartbeat CPU 0 instructions: 80000001 cycles: 132523037 heartbeat IPC: 0.400255 cumulative IPC: 0.594648 (Simulation time: 0 hr 5 min 17 sec) 
+Heartbeat CPU 0 instructions: 90000003 cycles: 146232718 heartbeat IPC: 0.729412 cumulative IPC: 0.608706 (Simulation time: 0 hr 5 min 54 sec) 
+Heartbeat CPU 0 instructions: 100000000 cycles: 159970070 heartbeat IPC: 0.727942 cumulative IPC: 0.61999 (Simulation time: 0 hr 6 min 31 sec) 
+Heartbeat CPU 0 instructions: 110000000 cycles: 173524379 heartbeat IPC: 0.737773 cumulative IPC: 0.630048 (Simulation time: 0 hr 7 min 7 sec) 
+Heartbeat CPU 0 instructions: 120000000 cycles: 187618139 heartbeat IPC: 0.709534 cumulative IPC: 0.636531 (Simulation time: 0 hr 7 min 45 sec) 
+Heartbeat CPU 0 instructions: 130000001 cycles: 202401368 heartbeat IPC: 0.676442 cumulative IPC: 0.639676 (Simulation time: 0 hr 8 min 23 sec) 
+Finished CPU 0 instructions: 124571703 cycles: 194130057 cumulative IPC: 0.641692 (Simulation time: 0 hr 8 min 40 sec) 
+
+ChampSim completed all CPUs
+
+Region of Interest Statistics
+
+CPU 0 cumulative IPC: 0.641692 instructions: 124571703 cycles: 194130057
+L1D TOTAL     ACCESS:   19997485  HIT:   13397932  MISS:    6599553
+L1D LOAD      ACCESS:    6770369  HIT:    5770177  MISS:    1000192
+L1D RFO       ACCESS:   13227116  HIT:    7627755  MISS:    5599361
+L1D PREFETCH  ACCESS:          0  HIT:          0  MISS:          0
+L1D WRITEBACK ACCESS:          0  HIT:          0  MISS:          0
+L1D PREFETCH  REQUESTED:          0  ISSUED:          0  USEFUL:          0  USELESS:          0
+L1D AVERAGE MISS LATENCY: 322.253 cycles
+L1I TOTAL     ACCESS:   18483097  HIT:   18483091  MISS:          6
+L1I LOAD      ACCESS:   18483097  HIT:   18483091  MISS:          6
+L1I RFO       ACCESS:          0  HIT:          0  MISS:          0
+L1I PREFETCH  ACCESS:          0  HIT:          0  MISS:          0
+L1I WRITEBACK ACCESS:          0  HIT:          0  MISS:          0
+L1I PREFETCH  REQUESTED:          0  ISSUED:          0  USEFUL:          0  USELESS:          0
+L1I AVERAGE MISS LATENCY: 362.333 cycles
+L2C TOTAL     ACCESS:   12198920  HIT:    8198459  MISS:    4000461
+L2C LOAD      ACCESS:    1000198  HIT:        197  MISS:    1000001
+L2C RFO       ACCESS:    5599358  HIT:    2599017  MISS:    3000341
+L2C PREFETCH  ACCESS:          0  HIT:          0  MISS:          0
+L2C WRITEBACK ACCESS:    5599364  HIT:    5599245  MISS:        119
+L2C PREFETCH  REQUESTED:          0  ISSUED:          0  USEFUL:          0  USELESS:          0
+L2C AVERAGE MISS LATENCY: 504.377 cycles
+LLC TOTAL     ACCESS:    7448350  HIT:    3447802  MISS:    4000548
+LLC LOAD      ACCESS:    1000001  HIT:     389184  MISS:     610817
+LLC RFO       ACCESS:    3000341  HIT:      19850  MISS:    2980491
+LLC PREFETCH  ACCESS:     445979  HIT:      36855  MISS:     409124
+LLC WRITEBACK ACCESS:    3002029  HIT:    3001913  MISS:        116
+LLC PREFETCH  REQUESTED:     703622  ISSUED:     701400  USEFUL:     409026  USELESS:         91
+LLC AVERAGE MISS LATENCY: 520.783 cycles
+Major fault: 0 Minor fault: 35132
+CPU 0 LLC from file prefetcher final stats
+
+DRAM Statistics
+ CHANNEL 0
+ RQ ROW_BUFFER_HIT:     478548  ROW_BUFFER_MISS:    3521884
+ DBUS_CONGESTED:    4804293
+ WQ ROW_BUFFER_HIT:     672218  ROW_BUFFER_MISS:    2328058  FULL:          0
+
+ AVG_CONGESTED_CYCLE: 6
+
+CPU 0 Branch Prediction Accuracy: 99.7142% MPKI: 0.0352488 Average ROB Occupancy at Mispredict: 316.722
+
+Branch types
+NOT_BRANCH: 123035022 98.7664%
+BRANCH_DIRECT_JUMP: 377573 0.303097%
+BRANCH_INDIRECT: 0 0%
+BRANCH_CONDITIONAL: 1159035 0.930416%
+BRANCH_DIRECT_CALL: 2 1.6055e-06%
+BRANCH_INDIRECT_CALL: 0 0%
+BRANCH_RETURN: 2 1.6055e-06%
+BRANCH_OTHER: 0 0%
+
+
+gzip: stdout: Broken pipe

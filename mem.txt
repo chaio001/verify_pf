@@ -1,0 +1,66 @@
+# 修改
+# #define DRAM_IO_FREQ 3200 => #define DRAM_IO_FREQ 100 => #define DRAM_IO_FREQ 400
+
+# .bak,.txt
+
+conda activate pythia_cpp
+cd /mnt/sda/cyhcpp/Pythia/a_pythia/ChampSim-master
+./ml_prefetch_sim.py build
+cd /mnt/sda/cyhcpp/Pythia/a_pythia
+
+conda activate pythia_cpp
+cd /mnt/sda/cyhcpp/Pythia/a_pythia/Pathfinder/ChampSim/
+./build_champsim.sh hashed_perceptron no no no from_file lru 1
+./build_champsim.sh hashed_perceptron no no no no lru 1
+cd /mnt/sda/cyhcpp/Pythia/a_pythia
+
+screen -r emga
+conda activate snn-champ_test
+cd /mnt/sda/cyhcpp/Pythia/a_pythia/Pathfinder/ChampSim/
+parallel -j 16 --joblog job.log <./run_pathfinder_gap_spec.sh
+# 退出emga
+
+screen -r emgy
+conda activate pythia_cpp
+cd /mnt/sda/cyhcpp/Pythia/a_pythia/ChampSim-master
+parallel -j 16 --joblog job.log <./trace_script.sh
+# 退出emgy
+
+
+cd /mnt/sda/cyhcpp/Pythia/a_pythia
+python collect.py --config collect.json
+
+
+cd /mnt/sda/cyhcpp/Pythia/a_pythia
+cp ipc_pivot.csv ipc_pivot.csv_10_2048
+cp ChampSim-master/bin/hashed_perceptron-no-no-no-no-lru-1core ChampSim-master/bin/hashed_perceptron-no-no-no-no-lru-1core_10_2048
+cp ChampSim-master/bin/hashed_perceptron-no-no-no-from_file-lru-1core ChampSim-master/bin/hashed_perceptron-no-no-no-from_file-lru-1core_10_2048
+cp Pathfinder/ChampSim/bin/hashed_perceptron-no-no-no-no-lru-1core Pathfinder/ChampSim/bin/hashed_perceptron-no-no-no-no-lru-1core_10_2048
+cp Pathfinder/ChampSim/bin/hashed_perceptron-no-no-no-from_file-lru-1core Pathfinder/ChampSim/bin/hashed_perceptron-no-no-no-from_file-lru-1core_10_2048
+
+cp ChampSim-master/results/ ChampSim-master/results_10_2048/ -r
+cp Pathfinder/ChampSim/results/ Pathfinder/ChampSim/results_10_2048/ -r
+
+
+############################################################################################################################################################
+sed -i 's/#define LLC_SET NUM_CPUS\*2048/#define LLC_SET NUM_CPUS*1024/' /mnt/sda/cyhcpp/Pythia/a_pythia/ChampSim-master/inc/cache.h
+conda activate pythia_cpp
+cd /mnt/sda/cyhcpp/Pythia/a_pythia/ChampSim-master
+./ml_prefetch_sim.py build
+cd /mnt/sda/cyhcpp/Pythia/a_pythia
+cp ChampSim-master/bin/hashed_perceptron-no-no-no-no-lru-1core ChampSim-master/bin/hashed_perceptron-no-no-no-no-lru-1core_10_2048
+cp ChampSim-master/bin/hashed_perceptron-no-no-no-from_file-lru-1core ChampSim-master/bin/hashed_perceptron-no-no-no-from_file-lru-1core_10_2048
+sed -i 's/#define LLC_SET NUM_CPUS\*1024/#define LLC_SET NUM_CPUS*2048/' /mnt/sda/cyhcpp/Pythia/a_pythia/ChampSim-master/inc/cache.h
+
+
+
+
+
+############################################################################################################################################################
+
+
+Pathfinder/ChampSim/*/cc*,
+Pathfinder/ChampSim/results/*,Pathfinder/ChampSim/results_bak/*,Pathfinder/ChampSim/results_zzy/*
+
+ChampSim-master/*/cc*-from_file.txt,
+ChampSim-master/results/*,ChampSim-master/results500M/*,
