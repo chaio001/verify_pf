@@ -88,6 +88,7 @@ class MLPrefetchModel_pathfinder_pcpage(object):
         sanity_check_index = 3000
         refresh_index = 5000
         last_addr_index = 1000000
+        # last_addr_index = 1000000000
 
         # create snn
         single_network = pf_pcpage.CreateNetwork(pattern_length, confidence_threshold, min_confidence, delta_range_length, neuron_numbers, timestamps, input_intensity,self.debug_amplitude)
@@ -150,8 +151,12 @@ class MLPrefetchModel_pathfinder_pcpage(object):
             # print(f"end - start   部分耗时: {end - start:.6f} 秒")
 
             if predicted_deltas is not None:
-                # todo why no error before?
-                for predicted_delta in predicted_deltas:
+                for predicted_delta, confidence in predicted_deltas:
+
+                    # if confidence < 0:  # <--- 自由调节这个数字！
+                    #     continue 
+
+                    # 检查地址合法性
                     if offset + predicted_delta > 0:
                         if offset_prediction == 1:
                             total_offset_prediction += 1
@@ -160,7 +165,23 @@ class MLPrefetchModel_pathfinder_pcpage(object):
 
                         total_predictions += 1
                         predicted_address = (int(page) << 12) + (int(offset + predicted_delta) << 6)
-                        prefetch_addresses.append((instr_id, predicted_address))
+                        
+                        # 注意：追加到 prefetch_addresses 的依然是 2元组
+                        # 这样就不会破坏后续 generate_prefetch_file 写入 .txt 文件的格式
+                        prefetch_addresses.append((instr_id, predicted_address, confidence))
+
+            # if predicted_deltas is not None:
+            #     # todo why no error before?
+            #     for predicted_delta in predicted_deltas:
+            #         if offset + predicted_delta > 0:
+            #             if offset_prediction == 1:
+            #                 total_offset_prediction += 1
+            #             else:
+            #                 total_delta_prediction += 1
+
+            #             total_predictions += 1
+            #             predicted_address = (int(page) << 12) + (int(offset + predicted_delta) << 6)
+            #             prefetch_addresses.append((instr_id, predicted_address))
 
             # if output_neurons:
             page_removal_counter = pf_pcpage.update_training_table(page, offset, output_neurons, delta_pattern, training_table, offset_prediction, page_removal_counter)

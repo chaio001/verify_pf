@@ -145,6 +145,9 @@ public:
 	void track_prefetch(uint32_t offset, int32_t pref_offset);
 	void insert_action_tracker(int32_t pref_offset);
 	bool search_action_tracker(int32_t action, int32_t &conf);
+
+	//chaio edit 0217
+	std::vector<int> get_delta_sequence();
 };
 
 class Scooby_PTEntry

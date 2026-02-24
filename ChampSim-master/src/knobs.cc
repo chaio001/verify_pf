@@ -222,6 +222,7 @@ vector<int32_t> scooby_last_pref_offset_conf_thresholds;
 vector<int32_t> scooby_dyn_degrees_type2;
 uint32_t scooby_action_tracker_size = 2;
 uint32_t scooby_high_bw_thresh = 4;
+int32_t min_pathfinder_conf = 0;
 bool scooby_enable_hbw_reward = true;
 int32_t scooby_reward_hbw_correct_timely = 20;
 int32_t scooby_reward_hbw_correct_untimely = 12;
@@ -825,7 +826,10 @@ int parse_knobs(void* user, const char* section, const char* name, const char* v
         knob::scooby_action_tracker_size = atoi(value);
     } else if (MATCH("", "scooby_high_bw_thresh")) {
         knob::scooby_high_bw_thresh = atoi(value);
-    } else if (MATCH("", "scooby_enable_hbw_reward")) {
+    }else if (MATCH("", "min_pathfinder_conf")) {
+        knob::min_pathfinder_conf = atoi(value);
+    }
+     else if (MATCH("", "scooby_enable_hbw_reward")) {
         knob::scooby_enable_hbw_reward = !strcmp(value, "true") ? true : false;
     } else if (MATCH("", "scooby_reward_hbw_correct_timely")) {
         knob::scooby_reward_hbw_correct_timely = atoi(value);

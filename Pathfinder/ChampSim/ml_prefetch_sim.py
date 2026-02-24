@@ -366,8 +366,9 @@ def eval_command():
 
 def generate_prefetch_file(path, prefetches):
     with open(path, 'w') as f:
-        for instr_id, pf_addr in prefetches:
-            print(instr_id, hex(pf_addr)[2:], file=f)
+        for instr_id, pf_addr, confidence in prefetches:
+            
+            print(instr_id, hex(pf_addr)[2:], confidence,file=f)
 
 def read_load_trace_data(load_trace, num_prefetch_warmup_instructions):
     

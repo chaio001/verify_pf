@@ -12,7 +12,7 @@
 
 using namespace std;
 
-#define MAX_ACTIONS 64         // 预取动作最大数量
+#define MAX_ACTIONS 127         // 预取动作最大数量
 #define MAX_REWARDS 16         // 奖励类型最大数量
 #define MAX_HDCPF_DEGREE 16    // 预取度最大值
 #define HDCPF_MAX_IPC_LEVEL 4  // IPC分级等级数量

@@ -19,6 +19,12 @@ torch.set_num_interop_threads(1)
 # print("interop threads:", torch.get_num_interop_threads())
 # print("cpu count:", os.cpu_count())
 
+right_reward = 1
+wrong_reward = -1
+conf_threshold = 4
+conf_max = 12 # 5
+conf_min = -3 # -2
+max_actions_per_neuron = 5
 class CreateNetwork:
 
     def __init__(self, pattern_length, confidence_threshold, min_confidence, delta_range_length, neuron_numbers, timestamps, input_intensity,debug_amplitude):
@@ -200,8 +206,12 @@ class CreateNetwork:
         # tuple array for outputNeuron and delta
         prediction_deltas = []
         if output_neurons and output_neurons[0] in self.prediction_table:
-            for delta_tuple in self.prediction_table[output_neurons[0]]:
-                prediction_deltas.append( delta_tuple[0])
+            # for delta_tuple in self.prediction_table[output_neurons[0]]:
+            # 修改这里：先按照置信度(x[1])降序排序
+            sorted_tuples = sorted(self.prediction_table[output_neurons[0]], key=lambda x: x[1], reverse=True)
+            for delta_tuple in sorted_tuples:
+                # prediction_deltas.append( delta_tuple[0]) 
+                prediction_deltas.append(delta_tuple) #把confidence也记录下来了
         else:
             # todo add nextline prefetcher here
             # prediction_delta += 1
@@ -224,9 +234,15 @@ class CreateNetwork:
                 self.prediction_table[fired_neuron] = [(delta, 0)]
             # add the second label confidence pair
             elif fired_neuron >= 0 and fired_neuron in self.prediction_table:
-                first_delta_tuple = self.prediction_table[fired_neuron][0]
-                if len(self.prediction_table[fired_neuron]) == 1 and delta != first_delta_tuple[0]:
-                    self.prediction_table[fired_neuron].append((delta, 0))
+                # first_delta_tuple = self.prediction_table[fired_neuron][0]
+                # if len(self.prediction_table[fired_neuron]) == 1 and delta != first_delta_tuple[0]:
+                #     self.prediction_table[fired_neuron].append((delta, 0))
+                existing_deltas = [item[0] for item in self.prediction_table[fired_neuron]]
+                    # 只有当这个 delta 还没有被记录过时，才考虑添加
+                if delta not in existing_deltas:
+                    # 检查当前记录的动作个数是否小于我们设置的参数上限
+                    if len(self.prediction_table[fired_neuron]) < max_actions_per_neuron:
+                        self.prediction_table[fired_neuron].append((delta, 0))
 
 
 # use the current page to find firing neuron, and use neuron to find the label,
@@ -239,24 +255,29 @@ def check_hit(training_table, prediction_table, page, offset, label_removal_coun
 
         if fired_neuron > 0 and fired_neuron in prediction_table:
             is_correct_bit = 0
-            label_toRemove_idx = None
+            # label_toRemove_idx = None
+            labels_to_remove_idx = []
             for i in range(0, len(prediction_table[fired_neuron])):
                 delta_tuple = prediction_table[fired_neuron][i]
                 confidence = delta_tuple[1]
                 if delta_tuple[0] == (offset - training_table[page][1]): 
-                    if confidence < 5:
-                        prediction_table[fired_neuron][i] = (delta_tuple[0], confidence + 1)
+                    if confidence < conf_max:
+                        prediction_table[fired_neuron][i] = (delta_tuple[0], confidence + right_reward)
                         is_correct_bit = 1
-                    break
+                    # break
 
                 else:
-                    if confidence < -2:
+                    if confidence < conf_min:
                         label_removal_counter += 1
-                        label_toRemove_idx = i
+                        labels_to_remove_idx.append(i)
+                        # label_toRemove_idx = i
                     else:
-                        prediction_table[fired_neuron][i] = (delta_tuple[0], confidence - 1)
-            if label_toRemove_idx is not None:
-                del prediction_table[fired_neuron][label_toRemove_idx]  
+                        prediction_table[fired_neuron][i] = (delta_tuple[0], confidence + wrong_reward)
+            # if label_toRemove_idx is not None:
+                # del prediction_table[fired_neuron][label_toRemove_idx]  
+            if labels_to_remove_idx:
+                for idx in sorted(labels_to_remove_idx, reverse=True):
+                    del prediction_table[fired_neuron][idx]
             return is_correct_bit, label_removal_counter
         else:
             return 0, label_removal_counter

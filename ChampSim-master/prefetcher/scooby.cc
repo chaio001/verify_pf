@@ -73,6 +73,7 @@ namespace knob
 	extern vector<int32_t> scooby_dyn_degrees_type2;
 	extern uint32_t scooby_action_tracker_size;
 	extern uint32_t scooby_high_bw_thresh;
+	extern int32_t min_pathfinder_conf;
 	extern bool     scooby_enable_hbw_reward;
 	extern int32_t  scooby_reward_hbw_correct_timely;
 	extern int32_t  scooby_reward_hbw_correct_untimely;
@@ -295,7 +296,8 @@ void Scooby::print_config()
 		<< endl;
 }
 
-void Scooby::invoke_prefetcher(uint64_t pc, uint64_t address, uint8_t cache_hit, uint8_t type, vector<uint64_t> &pref_addr)
+	//chaio edit 0217
+std::vector<int> Scooby::invoke_prefetcher(uint64_t pc, uint64_t address, uint8_t cache_hit, uint8_t type, vector<uint64_t> &pref_addr)
 {
 	uint64_t page = address >> LOG2_PAGE_SIZE;
 	uint32_t offset = (address >> LOG2_BLOCK_SIZE) & ((1ull << (LOG2_PAGE_SIZE - LOG2_BLOCK_SIZE)) - 1);
@@ -336,6 +338,46 @@ void Scooby::invoke_prefetcher(uint64_t pc, uint64_t address, uint8_t cache_hit,
 	uint32_t count = pref_addr.size();
 	predict(address, page, offset, state, pref_addr);
 	stats.pref_issue.scooby += (pref_addr.size() - count);
+	return stentry->get_delta_sequence();
+}
+
+	//chaio edit 0217
+std::vector<int> Scooby::track_feature_invoke(uint64_t pc, uint64_t address, uint8_t cache_hit, uint8_t type, vector<uint64_t> &pref_addr)
+{
+	uint64_t page = address >> LOG2_PAGE_SIZE;
+	uint32_t offset = (address >> LOG2_BLOCK_SIZE) & ((1ull << (LOG2_PAGE_SIZE - LOG2_BLOCK_SIZE)) - 1);
+
+	MYLOG("---------------------------------------------------------------------");
+	MYLOG("%s %lx pc %lx page %lx off %u", GetAccessType(type), address, pc, page, offset);
+
+
+	recorder->record_access(pc, address, page, offset, bw_level);
+
+	/* global state tracking */
+	update_global_state(pc, page, offset, address);
+	/* per page state tracking */
+	Scooby_STEntry *stentry = update_local_state(pc, page, offset, address);
+
+	/* Measure state.
+	 * state can contain per page local information like delta signature, pc signature etc.
+	 * it can also contain global signatures like last three branch PCs etc.
+	 */
+	State *state = new State();
+	state->pc = pc;
+	state->address = address;
+	state->page = page;
+	state->offset = offset;
+	state->delta = !stentry->deltas.empty() ? stentry->deltas.back() : 0;
+	state->local_delta_sig = stentry->get_delta_sig();
+	state->local_delta_sig2 = stentry->get_delta_sig2();
+	state->local_pc_sig = stentry->get_pc_sig();
+	state->local_offset_sig = stentry->get_offset_sig();
+	state->bw_level = bw_level;
+	state->is_high_bw = is_high_bw();
+	state->acc_level = acc_level;
+
+	return stentry->get_delta_sequence();
+
 }
 
 void Scooby::update_global_state(uint64_t pc, uint64_t page, uint32_t offset, uint64_t address)
@@ -420,6 +462,11 @@ uint32_t Scooby::predict(uint64_t base_address, uint64_t page, uint32_t offset, 
 	assert(action_index < knob::scooby_max_actions);
 
 	MYLOG("act_idx %u act %d", action_index, Actions[action_index]);
+
+	//chaio edit 0217
+	if(pref_degree == 0) {
+		return pref_addr.size();
+	}
 
 	uint64_t addr = 0xdeadbeef;
 	Scooby_PTEntry *ptentry = NULL;

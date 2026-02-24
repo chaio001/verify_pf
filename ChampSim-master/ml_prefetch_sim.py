@@ -38,6 +38,9 @@ default_pathfinder_binary_2048 = 'bin/hashed_perceptron-no-no-no-pathfinder-lru-
 default_base_binary_4096 = 'bin/hashed_perceptron-no-no-no-no-lru-1core_4096'
 default_prefetcher_binary_4096 = 'bin/hashed_perceptron-no-no-no-from_file-lru-1core_4096'
 default_pathfinder_binary_4096 = 'bin/hashed_perceptron-no-no-no-pathfinder-lru-1core_4096'
+default_base_binary_8192 = 'bin/hashed_perceptron-no-no-no-no-lru-1core_8192'
+default_prefetcher_binary_8192 = 'bin/hashed_perceptron-no-no-no-from_file-lru-1core_8192'
+default_pathfinder_binary_8192 = 'bin/hashed_perceptron-no-no-no-pathfinder-lru-1core_8192'
 
 # baseline_names = ['No Prefetcher', 'Best Offset', 'SISB', 'SISB Best Offset', 'HDC']
 # baseline_fns = ['no', 'bo', 'sisb', 'sisb_bo', 'hdc']
@@ -52,18 +55,21 @@ baseline_names = ['No Prefetcher 256','PATHFINDER 256','Pythia 256'
 ,'No Prefetcher 1024','PATHFINDER 1024','Pythia 1024'
 ,'No Prefetcher 2048','PATHFINDER 2048','Pythia 2048'
 ,'No Prefetcher 4096','PATHFINDER 4096','Pythia 4096'
+,'No Prefetcher 8192','PATHFINDER 8192','Pythia 8192'
 ]
 baseline_fns = ['no256','pathfinder256','pythia256'
 ,'no512','pathfinder512','pythia512'
 ,'no1024','pathfinder1024','pythia1024'
 ,'no2048','pathfinder2048','pythia2048'
 ,'no4096','pathfinder4096','pythia4096'
+,'no8192','pathfinder8192','pythia8192'
 ]
 baseline_binaries = [default_base_binary_256, default_pathfinder_binary_256, default_prefetcher_binary_256
 ,default_base_binary_512, default_pathfinder_binary_512, default_prefetcher_binary_512
 ,default_base_binary_1024, default_pathfinder_binary_1024, default_prefetcher_binary_1024
 ,default_base_binary_2048, default_pathfinder_binary_2048, default_prefetcher_binary_2048
 ,default_base_binary_4096, default_pathfinder_binary_4096, default_prefetcher_binary_4096
+,default_base_binary_8192, default_pathfinder_binary_8192, default_prefetcher_binary_8192
 ]
 
 
@@ -273,6 +279,7 @@ def run_command():
 
     # === [修改点] 将 dram_io_freq 放入文件名，防止不同频率结果覆盖 ===
     output_filename_template = "{results}/{base_trace}-{base_binary}_{freq}.txt"
+    logcsv_filename_template = "{results}/{base_trace}-{base_binary}_{freq}.csv"
 
     if not args.no_base:
         for name, fn, binary in zip(baseline_names, baseline_fns, baseline_binaries):
@@ -291,14 +298,20 @@ def run_command():
                 base_binary=os.path.basename(binary),
                 freq=args.dram_io_freq  # <--- 加入频率
             )
+            logcsv = logcsv_filename_template.format(
+                results=args.results_dir,
+                base_trace=os.path.basename(execution_trace),
+                base_binary=os.path.basename(binary),
+                freq=args.dram_io_freq  # <--- 加入频率
+            )
 
             if seed is not None:
-                cmd = '<{prefetch} {binary} -prefetch_warmup_instructions {warm}000000 -simulation_instructions {sim} -dram_io_freq {dram_io_freq} -seed {seed} -traces {trace} > {outfile} 2>&1'.format(
-                    prefetch=args.prefetch, binary=binary, warm=args.num_prefetch_warmup_instructions, sim=args.num_instructions, dram_io_freq=args.dram_io_freq,
+                cmd = '<{prefetch} {binary} -prefetch_warmup_instructions {warm}000000 -simulation_instructions {sim} -dram_io_freq {dram_io_freq} -log_csv {log_csv} -seed {seed} -traces {trace} > {outfile} 2>&1'.format(
+                    prefetch=args.prefetch, binary=binary, warm=args.num_prefetch_warmup_instructions, sim=args.num_instructions, dram_io_freq=args.dram_io_freq,log_csv=logcsv,
                     trace=execution_trace, seed=seed, outfile=outfile)
             else:
-                cmd = '<{prefetch} {binary} -prefetch_warmup_instructions {warm}000000 -simulation_instructions {sim} -dram_io_freq {dram_io_freq} -traces {trace} > {outfile} 2>&1'.format(
-                    prefetch=args.prefetch, binary=binary, warm=args.num_prefetch_warmup_instructions, sim=args.num_instructions, dram_io_freq=args.dram_io_freq,
+                cmd = '<{prefetch} {binary} -prefetch_warmup_instructions {warm}000000 -simulation_instructions {sim} -dram_io_freq {dram_io_freq} -log_csv {log_csv} -traces {trace} > {outfile} 2>&1'.format(
+                    prefetch=args.prefetch, binary=binary, warm=args.num_prefetch_warmup_instructions, sim=args.num_instructions, dram_io_freq=args.dram_io_freq, log_csv=logcsv,
                     trace=execution_trace, outfile=outfile)
 
             print('Running "' + cmd + '"')
@@ -317,14 +330,20 @@ def run_command():
                 base_binary=args.name, # 注意这里用了 args.name
                 freq=args.dram_io_freq  # <--- 加入频率
             )
+            logcsv = logcsv_filename_template.format(
+                results=args.results_dir,
+                base_trace=os.path.basename(execution_trace),
+                base_binary=args.name, # 注意这里用了 args.name
+                freq=args.dram_io_freq  # <--- 加入频率
+            )
 
             if seed is not None:
-                cmd = '<{prefetch} {binary} -prefetch_warmup_instructions {warm}000000 -simulation_instructions {sim} -dram_io_freq {dram_io_freq} -seed {seed} -traces {trace} > {outfile} 2>&1'.format(
-                    prefetch=args.prefetch, binary=default_prefetcher_binary, warm=args.num_prefetch_warmup_instructions, sim=args.num_instructions, dram_io_freq=args.dram_io_freq,
+                cmd = '<{prefetch} {binary} -prefetch_warmup_instructions {warm}000000 -simulation_instructions {sim} -dram_io_freq {dram_io_freq} -log_csv {log_csv} -seed {seed} -traces {trace} > {outfile} 2>&1'.format(
+                    prefetch=args.prefetch, binary=default_prefetcher_binary, warm=args.num_prefetch_warmup_instructions, sim=args.num_instructions, dram_io_freq=args.dram_io_freq,log_csv=logcsv,
                     trace=execution_trace, seed=seed, outfile=outfile)
             else:
-                cmd = '<{prefetch} {binary} -prefetch_warmup_instructions {warm}000000 -simulation_instructions {sim} -dram_io_freq {dram_io_freq} -traces {trace} > {outfile} 2>&1'.format(
-                    prefetch=args.prefetch, binary=default_prefetcher_binary, warm=args.num_prefetch_warmup_instructions, sim=args.num_instructions, dram_io_freq=args.dram_io_freq,
+                cmd = '<{prefetch} {binary} -prefetch_warmup_instructions {warm}000000 -simulation_instructions {sim} -dram_io_freq {dram_io_freq} -log_csv {log_csv} -traces {trace} > {outfile} 2>&1'.format(
+                    prefetch=args.prefetch, binary=default_prefetcher_binary, warm=args.num_prefetch_warmup_instructions, sim=args.num_instructions, dram_io_freq=args.dram_io_freq,log_csv=logcsv,
                     trace=execution_trace, outfile=outfile)
 
             print('Running "' + cmd + '"')

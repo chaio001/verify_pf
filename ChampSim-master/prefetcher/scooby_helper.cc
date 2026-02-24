@@ -281,6 +281,24 @@ uint32_t Scooby_STEntry::get_delta_sig2()
 	return curr_sig;
 }
 
+	//chaio edit 0217
+	std::vector<int>  Scooby_STEntry::get_delta_sequence(){
+        std::vector<int> seq(3, 0);
+	/* compute signature only using last 4 deltas */
+	uint32_t n = deltas.size();
+	//chaio edit 0213:改为最新三个delta,4改成3
+	// uint32_t ptr = (n >= 4) ? (n - 4) : 0;
+	uint32_t ptr = (n >= 3) ? (n - 3) : 0; 
+		for(uint32_t index = ptr; index < deltas.size(); ++index)
+	{
+		seq[index-ptr] = deltas[index];
+	}
+        return seq;
+    }
+
+
+
+
 uint32_t Scooby_STEntry::get_pc_sig()
 {
 	uint32_t signature = 0;

@@ -1,21 +1,21 @@
 #!/bin/bash
-# ./ml_prefetch_sim.py generate ./gap_spec_traces/450.soplex-s0.txt.xz     ./pathfinder_prefetches_gap_spec/prefetch_14th_rerun_450.soplex-s0.trace.txt      --model temp       
-# ./ml_prefetch_sim.py generate ./gap_spec_traces/cc-5.txt.xz              ./pathfinder_prefetches_gap_spec/prefetch_14th_rerun_cc-5.trace.txt               --model temp
-# ./ml_prefetch_sim.py generate ./gap_spec_traces/471.omnetpp-s1.txt.xz    ./pathfinder_prefetches_gap_spec/prefetch_14th_rerun_471.omnetpp-s1.trace.txt     --model temp           
-# ./ml_prefetch_sim.py generate ./gap_spec_traces/482.sphinx3-s0.txt.xz    ./pathfinder_prefetches_gap_spec/prefetch_14th_rerun_482.sphinx3-s0.trace.txt     --model temp           
-# ./ml_prefetch_sim.py generate ./gap_spec_traces/605.mcf-s1.txt.xz        ./pathfinder_prefetches_gap_spec/prefetch_14th_rerun_605.mcf-s1.trace.txt         --model temp       
-# ./ml_prefetch_sim.py generate ./gap_spec_traces/bfs-10.txt.xz            ./pathfinder_prefetches_gap_spec/prefetch_14th_rerun_bfs-10.trace.txt             --model temp   
-# ./ml_prefetch_sim.py generate ./gap_spec_traces/623.xalancbmk-s1.txt.xz  ./pathfinder_prefetches_gap_spec/prefetch_14th_rerun_623.xalancbmk-s1.trace.txt   --model temp           
-# ./ml_prefetch_sim.py generate ./gap_spec_traces/473.astar-s1.txt.xz      ./pathfinder_prefetches_gap_spec/prefetch_14th_rerun_473.astar-s1.trace.txt       --model temp       
+./ml_prefetch_sim.py generate ./gap_spec_traces/450.soplex-s0.txt.xz     ./pathfinder_prefetches_gap_spec/prefetch_14th_rerun_450.soplex-s0.trace.txt      --model temp       
+./ml_prefetch_sim.py generate ./gap_spec_traces/cc-5.txt.xz              ./pathfinder_prefetches_gap_spec/prefetch_14th_rerun_cc-5.trace.txt               --model temp
+./ml_prefetch_sim.py generate ./gap_spec_traces/471.omnetpp-s1.txt.xz    ./pathfinder_prefetches_gap_spec/prefetch_14th_rerun_471.omnetpp-s1.trace.txt     --model temp           
+./ml_prefetch_sim.py generate ./gap_spec_traces/482.sphinx3-s0.txt.xz    ./pathfinder_prefetches_gap_spec/prefetch_14th_rerun_482.sphinx3-s0.trace.txt     --model temp           
+./ml_prefetch_sim.py generate ./gap_spec_traces/605.mcf-s1.txt.xz        ./pathfinder_prefetches_gap_spec/prefetch_14th_rerun_605.mcf-s1.trace.txt         --model temp       
+./ml_prefetch_sim.py generate ./gap_spec_traces/bfs-10.txt.xz            ./pathfinder_prefetches_gap_spec/prefetch_14th_rerun_bfs-10.trace.txt             --model temp   
+./ml_prefetch_sim.py generate ./gap_spec_traces/623.xalancbmk-s1.txt.xz  ./pathfinder_prefetches_gap_spec/prefetch_14th_rerun_623.xalancbmk-s1.trace.txt   --model temp           
+./ml_prefetch_sim.py generate ./gap_spec_traces/473.astar-s1.txt.xz      ./pathfinder_prefetches_gap_spec/prefetch_14th_rerun_473.astar-s1.trace.txt       --model temp       
 
-./ml_prefetch_sim.py run ./gap_spec_traces/bfs-10.trace.gz --prefetch ./pathfinder_prefetches_gap_spec/prefetch_14th_rerun_bfs-10.trace.txt --num-instructions 61219343             
-./ml_prefetch_sim.py run ./gap_spec_traces/cc-5.trace.gz --prefetch ./pathfinder_prefetches_gap_spec/prefetch_14th_rerun_cc-5.trace.txt --num-instructions 20700644               
-./ml_prefetch_sim.py run ./gap_spec_traces/450.soplex-s0.trace.gz --prefetch ./pathfinder_prefetches_gap_spec/prefetch_14th_rerun_450.soplex-s0.trace.txt --num-instructions 29478984      
-./ml_prefetch_sim.py run ./gap_spec_traces/482.sphinx3-s0.trace.gz --prefetch ./pathfinder_prefetches_gap_spec/prefetch_14th_rerun_482.sphinx3-s0.trace.txt --num-instructions 84756213     
-./ml_prefetch_sim.py run ./gap_spec_traces/623.xalancbmk-s1.trace.xz --prefetch ./pathfinder_prefetches_gap_spec/prefetch_14th_rerun_623.xalancbmk-s1.trace.txt --num-instructions 52596273   
-./ml_prefetch_sim.py run ./gap_spec_traces/473.astar-s1.trace.gz --prefetch ./pathfinder_prefetches_gap_spec/prefetch_14th_rerun_473.astar-s1.trace.txt --num-instructions 98033975       
-./ml_prefetch_sim.py run ./gap_spec_traces/605.mcf-s1.trace.xz --prefetch ./pathfinder_prefetches_gap_spec/prefetch_14th_rerun_605.mcf-s1.trace.txt --num-instructions 38467912         
-./ml_prefetch_sim.py run ./gap_spec_traces/471.omnetpp-s1.trace.gz --prefetch ./pathfinder_prefetches_gap_spec/prefetch_14th_rerun_471.omnetpp-s1.trace.txt --num-instructions 54612142     
+# ./ml_prefetch_sim.py run ./gap_spec_traces/bfs-10.trace.gz --prefetch ./pathfinder_prefetches_gap_spec/prefetch_14th_rerun_bfs-10.trace.txt --num-instructions 61219343             
+# ./ml_prefetch_sim.py run ./gap_spec_traces/cc-5.trace.gz --prefetch ./pathfinder_prefetches_gap_spec/prefetch_14th_rerun_cc-5.trace.txt --num-instructions 20700644               
+# ./ml_prefetch_sim.py run ./gap_spec_traces/450.soplex-s0.trace.gz --prefetch ./pathfinder_prefetches_gap_spec/prefetch_14th_rerun_450.soplex-s0.trace.txt --num-instructions 29478984      
+# ./ml_prefetch_sim.py run ./gap_spec_traces/482.sphinx3-s0.trace.gz --prefetch ./pathfinder_prefetches_gap_spec/prefetch_14th_rerun_482.sphinx3-s0.trace.txt --num-instructions 84756213     
+# ./ml_prefetch_sim.py run ./gap_spec_traces/623.xalancbmk-s1.trace.xz --prefetch ./pathfinder_prefetches_gap_spec/prefetch_14th_rerun_623.xalancbmk-s1.trace.txt --num-instructions 52596273   
+# ./ml_prefetch_sim.py run ./gap_spec_traces/473.astar-s1.trace.gz --prefetch ./pathfinder_prefetches_gap_spec/prefetch_14th_rerun_473.astar-s1.trace.txt --num-instructions 98033975       
+# ./ml_prefetch_sim.py run ./gap_spec_traces/605.mcf-s1.trace.xz --prefetch ./pathfinder_prefetches_gap_spec/prefetch_14th_rerun_605.mcf-s1.trace.txt --num-instructions 38467912         
+# ./ml_prefetch_sim.py run ./gap_spec_traces/471.omnetpp-s1.trace.gz --prefetch ./pathfinder_prefetches_gap_spec/prefetch_14th_rerun_471.omnetpp-s1.trace.txt --num-instructions 54612142     
 
 
 # <./pathfinder_prefetches_gap_spec/prefetch_14th_rerun_471.omnetpp-s1.trace.txt bin/hashed_perceptron-no-no-no-from_file-lru-1core_3200_2048_debug -prefetch_warmup_instructions 10000000 -simulation_instructions 54612142 -seed 1083 -traces ./gap_spec_traces/471.omnetpp-s1.trace.gz > ./results/471.omnetpp-s1.trace.gz-from_file_3200_2048_debug.txt 2>&1

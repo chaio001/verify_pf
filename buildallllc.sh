@@ -30,6 +30,8 @@ cp ChampSim-master/bin/hashed_perceptron-no-no-no-from_file-lru-1core ChampSim-m
 cp ChampSim-master/bin/hashed_perceptron-no-no-no-pathfinder-lru-1core ChampSim-master/bin/hashed_perceptron-no-no-no-pathfinder-lru-1core_512
 sed -i 's/#define LLC_SET NUM_CPUS\*512/#define LLC_SET NUM_CPUS*2048/' /mnt/sda/cyhcpp/Pythia/a_pythia/ChampSim-master/inc/cache.h
 ############################################################################################################################################################
+
+
 sed -i 's/#define LLC_SET NUM_CPUS\*2048/#define LLC_SET NUM_CPUS*256/' /mnt/sda/cyhcpp/Pythia/a_pythia/ChampSim-master/inc/cache.h
 conda activate pythia_cpp
 cd /mnt/sda/cyhcpp/Pythia/a_pythia/ChampSim-master
@@ -51,6 +53,16 @@ cp ChampSim-master/bin/hashed_perceptron-no-no-no-pathfinder-lru-1core ChampSim-
 sed -i 's/#define LLC_SET NUM_CPUS\*4096/#define LLC_SET NUM_CPUS*2048/' /mnt/sda/cyhcpp/Pythia/a_pythia/ChampSim-master/inc/cache.h
 ############################################################################################################################################################
 
+sed -i 's/#define LLC_SET NUM_CPUS\*2048/#define LLC_SET NUM_CPUS*8192/' /mnt/sda/cyhcpp/Pythia/a_pythia/ChampSim-master/inc/cache.h
+conda activate pythia_cpp
+cd /mnt/sda/cyhcpp/Pythia/a_pythia/ChampSim-master
+./ml_prefetch_sim.py build
+cd /mnt/sda/cyhcpp/Pythia/a_pythia
+cp ChampSim-master/bin/hashed_perceptron-no-no-no-no-lru-1core ChampSim-master/bin/hashed_perceptron-no-no-no-no-lru-1core_8192
+cp ChampSim-master/bin/hashed_perceptron-no-no-no-from_file-lru-1core ChampSim-master/bin/hashed_perceptron-no-no-no-from_file-lru-1core_8192
+cp ChampSim-master/bin/hashed_perceptron-no-no-no-pathfinder-lru-1core ChampSim-master/bin/hashed_perceptron-no-no-no-pathfinder-lru-1core_8192
+sed -i 's/#define LLC_SET NUM_CPUS\*8192/#define LLC_SET NUM_CPUS*2048/' /mnt/sda/cyhcpp/Pythia/a_pythia/ChampSim-master/inc/cache.h
+############################################################################################################################################################
 
 
 

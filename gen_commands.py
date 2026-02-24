@@ -15,12 +15,25 @@ traces = [
 
 # 2. 定义 Only 选项列表
 only_options = [
-    'no256','pathfinder256','pythia256',
-    'no512','pathfinder512','pythia512',
-    'no1024','pathfinder1024','pythia1024',
-    'no2048','pathfinder2048','pythia2048',
-    'no4096','pathfinder4096','pythia4096'
+    'no256','pathfinder256','pythia256'
+    ,'no512','pathfinder512','pythia512'
+    ,'no1024','pathfinder1024','pythia1024'
+    ,'no2048','pathfinder2048','pythia2048'
+    ,'no4096','pathfinder4096','pythia4096'
+    ,'no8192','pathfinder8192','pythia8192'
 ]
+
+# only_options = [
+#     'pathfinder512'
+# ]
+# only_options = [
+#     'pathfinder256',
+#     'pathfinder512',
+#     'pathfinder1024',
+#     'pathfinder2048',
+#     'pathfinder4096',
+#     'pathfinder8192'
+#     ]
 # only_options = [
 #     'no256','pathfinder256','pythia256',
 #     'no1024','pathfinder1024','pythia1024',
@@ -28,7 +41,8 @@ only_options = [
 # ]
 # 3. 定义频率列表
 # dram_freqs = [100, 200, 400, 800, 1600, 3200, 6400, 12800]
-dram_freqs = [ 200, 400, 800, 1600, 3200, 6400, 12800]
+# dram_freqs = [ 100, 200, 400, 800, 1600, 3200, 6400, 12800, 25600]
+dram_freqs = [ 150, 300, 600, 1200, 2400, 4800, 9600]
 # dram_freqs = [ 3200]
 # dram_freqs = [ 1200, 3200, 12800]
 # dram_freqs = [ 200,  800, 1600,  3200,  12800]

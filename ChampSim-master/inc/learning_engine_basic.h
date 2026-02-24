@@ -6,7 +6,7 @@
 #include "prefetcher.h"
 #include "learning_engine_base.h"
 
-#define MAX_ACTIONS 64
+#define MAX_ACTIONS 127
 
 /*
  * table format

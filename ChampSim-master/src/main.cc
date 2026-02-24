@@ -24,6 +24,8 @@ uint64_t prefetch_warmup_instructions = 10000000;
 
 uint8_t all_prefetch_warmup_complete = 0;
 
+std::string prefetch_log_csv_path = "";
+
 // copied from pythia
 namespace knob {
 extern uint64_t warmup_instructions;
@@ -577,7 +579,7 @@ void print_knobs() {
     // uncore.LLC.llc_prefetcher_print_config();
     cout << endl;
 }
-
+	//chaio edit 0217
 int main(int argc, char** argv) {
     // interrupt signal hanlder
     struct sigaction sigIntHandler;
@@ -614,12 +616,13 @@ int main(int argc, char** argv) {
                 {"low_bandwidth", no_argument, 0, 'b'},
                 {"seed", required_argument, 0, 'd'},
                 {"dram_io_freq", required_argument, 0, 'f'},
+                {"log_csv", required_argument, 0, 'l'},
                 {"traces", no_argument, 0, 't'},
                 {0, 0, 0, 0}};
 
         int option_index = 0;
 
-        c = getopt_long_only(argc, argv, "wiphsbf", long_options, &option_index);
+        c = getopt_long_only(argc, argv, "wiphsbfl", long_options, &option_index);
 
         // no more option characters
         if (c == -1)
@@ -660,6 +663,9 @@ int main(int argc, char** argv) {
             case 'f':
                 dram_io_freq = atol(optarg);
                 knob::dram_io_freq = dram_io_freq;
+                break;
+            case 'l':
+                prefetch_log_csv_path = std::string(optarg);
                 break;
             default:
                 abort();

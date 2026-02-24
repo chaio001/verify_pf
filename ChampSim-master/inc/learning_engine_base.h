@@ -3,7 +3,7 @@
 
 #include "prefetcher.h"
 
-#define MAX_ACTIONS 64
+#define MAX_ACTIONS 127
 
 enum Policy
 {

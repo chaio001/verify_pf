@@ -14,10 +14,22 @@
 unordered_map<uint64_t, vector<uint64_t>> prefetches;
 
 Scooby* pref_scooby;
+// 【新增】记录对比数据的日志输出流
+extern std::string prefetch_log_csv_path;
+static std::ofstream csv_logger;
 
 void CACHE::llc_prefetcher_initialize() {
     cout << "adding LLC_PREFETCHER: scooby" << endl;
     pref_scooby = new Scooby("scooby");
+// 【新增】如果用户通过命令行传入了 -log_csv 路径，则打开文件并写入表头
+    if (!prefetch_log_csv_path.empty() && !csv_logger.is_open()) {
+        csv_logger.open(prefetch_log_csv_path);
+        if (csv_logger.is_open()) {
+            csv_logger << "Cycle,InstID,Addr,Delta1,Delta2,Delta3,Action,IsIssued\n";
+        } else {
+            std::cerr << "Error: Could not open log CSV file at " << prefetch_log_csv_path << std::endl;
+        }
+    }
 }
 
 uint32_t CACHE::llc_prefetcher_operate(uint64_t addr, uint64_t ip, uint8_t cache_hit, uint8_t type, uint32_t metadata_in, uint64_t instr_id, uint64_t curr_cycle) {
@@ -31,12 +43,14 @@ uint32_t CACHE::llc_prefetcher_operate(uint64_t addr, uint64_t ip, uint8_t cache
      */
 
     vector<uint64_t> pref_addr;
-    pref_scooby->invoke_prefetcher(ip, addr, cache_hit, type, pref_addr);
+    std::vector<int> deltas = pref_scooby->invoke_prefetcher(ip, addr, cache_hit, type, pref_addr);
+    int action_offset = 0;
     if (!pref_addr.empty()) {
         // NOTE added the max prefetch degree check
         for (uint32_t addr_index = 0; addr_index < pref_addr.size() && addr_index < MAX_PREFETCH_DEGREE; ++addr_index) {
             // NOTE changed this to fill the LLC
             prefetch_line(ip, addr, pref_addr[addr_index], FILL_LLC, 0);
+            if(addr_index == 0) { action_offset = (pref_addr[addr_index]-addr)>>LOG2_BLOCK_SIZE; }
         }
 
         // if(pref_addr.size() < 1){
@@ -48,6 +62,23 @@ uint32_t CACHE::llc_prefetcher_operate(uint64_t addr, uint64_t ip, uint8_t cache
         //  uint64_t pf_addr_nl = ((addr>>LOG2_BLOCK_SIZE)+1) << LOG2_BLOCK_SIZE;
         //  prefetch_line(ip, addr, pf_addr_nl, FILL_LLC, 0);
     }
+
+    bool is_issued = false;
+    if (action_offset != 0) {
+        is_issued = 1;
+    } else {is_issued = 0;}
+    if (csv_logger.is_open()) {
+        csv_logger << instr_id << ","
+                   << std::hex << ip << std::dec << ","
+                   << std::hex << addr << std::dec << ","
+                   << deltas[0] << ","
+                   << deltas[1] << ","
+                   << deltas[2] << ","
+                   << action_offset << ","
+                   << (is_issued ? 1 : 0)
+                   << "\n";
+    }
+
     pref_addr.clear();
     return metadata_in;
 }
@@ -64,6 +95,10 @@ void CACHE::llc_prefetcher_final_stats() {
     cout << "CPU " << cpu << " LLC from file prefetcher final stats" << endl;
     pref_scooby->print_config();
     pref_scooby->dump_stats();
+    // 【新增】安全关闭文件流
+    if (csv_logger.is_open()) {
+        csv_logger.close();
+    }
 }
 
 uint32_t CACHE::llc_prefetcher_prefetch_hit(uint64_t addr, uint64_t ip, uint32_t metadata_in) {

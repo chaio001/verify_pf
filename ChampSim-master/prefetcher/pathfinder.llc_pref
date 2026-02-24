@@ -6,8 +6,113 @@
 #include <limits>
 #include <unordered_map>
 #include <vector>
+#include "prefetcher.h"
+#include "scooby.h"
 
-#define MAX_PREFETCH_DEGREE 2
+#define MAX_PREFETCH_DEGREE 1
+
+namespace knob
+{
+	extern float    scooby_alpha;
+	extern float    scooby_gamma;
+	extern float    scooby_epsilon;
+	extern uint32_t scooby_state_num_bits;
+	extern uint32_t scooby_max_states;
+	extern uint32_t scooby_seed;
+	extern string   scooby_policy;
+	extern string   scooby_learning_type;
+	extern vector<int32_t> scooby_actions;
+	extern uint32_t scooby_max_actions;
+	extern uint32_t scooby_pt_size;
+	extern uint32_t scooby_st_size;
+	extern uint32_t scooby_max_pcs;
+	extern uint32_t scooby_max_offsets;
+	extern uint32_t scooby_max_deltas;
+	extern int32_t  scooby_reward_none;
+	extern int32_t  scooby_reward_incorrect;
+	extern int32_t  scooby_reward_correct_untimely;
+	extern int32_t  scooby_reward_correct_timely;
+	extern bool		scooby_brain_zero_init;
+	extern bool     scooby_enable_reward_all;
+	extern bool     scooby_enable_track_multiple;
+	extern bool     scooby_enable_reward_out_of_bounds;
+	extern int32_t  scooby_reward_out_of_bounds;
+	extern uint32_t scooby_state_type;
+	extern bool     scooby_access_debug;
+	extern bool     scooby_print_access_debug;
+	extern uint64_t scooby_print_access_debug_pc;
+	extern uint32_t scooby_print_access_debug_pc_count;
+	extern bool     scooby_print_trace;
+	extern bool     scooby_enable_state_action_stats;
+	extern bool     scooby_enable_reward_tracker_hit;
+	extern int32_t  scooby_reward_tracker_hit;
+	extern uint32_t scooby_state_hash_type;
+	extern bool     scooby_enable_featurewise_engine;
+	extern uint32_t scooby_pref_degree;
+	extern bool     scooby_enable_dyn_degree;
+	extern vector<float> scooby_max_to_avg_q_thresholds;
+	extern vector<int32_t> scooby_dyn_degrees;
+	extern uint64_t scooby_early_exploration_window;
+	extern uint32_t scooby_pt_address_hash_type;
+	extern uint32_t scooby_pt_address_hashed_bits;
+	extern uint32_t scooby_bloom_filter_size;
+	extern uint32_t scooby_multi_deg_select_type;
+	extern vector<int32_t> scooby_last_pref_offset_conf_thresholds;
+	extern vector<int32_t> scooby_dyn_degrees_type2;
+	extern uint32_t scooby_action_tracker_size;
+	extern uint32_t scooby_high_bw_thresh;
+	extern int32_t min_pathfinder_conf;
+	extern bool     scooby_enable_hbw_reward;
+	extern int32_t  scooby_reward_hbw_correct_timely;
+	extern int32_t  scooby_reward_hbw_correct_untimely;
+	extern int32_t  scooby_reward_hbw_incorrect;
+	extern int32_t  scooby_reward_hbw_none;
+	extern int32_t  scooby_reward_hbw_out_of_bounds;
+	extern int32_t  scooby_reward_hbw_tracker_hit;
+	extern vector<int32_t> scooby_last_pref_offset_conf_thresholds_hbw;
+	extern vector<int32_t> scooby_dyn_degrees_type2_hbw;
+
+	/* Learning Engine knobs */
+	extern bool     le_enable_trace;
+	extern uint32_t le_trace_interval;
+	extern std::string   le_trace_file_name;
+	extern uint32_t le_trace_state;
+	extern bool     le_enable_score_plot;
+	extern std::vector<int32_t> le_plot_actions;
+	extern std::string   le_plot_file_name;
+	extern bool     le_enable_action_trace;
+	extern uint32_t le_action_trace_interval;
+	extern std::string le_action_trace_name;
+	extern bool     le_enable_action_plot;
+
+	/* Featurewise Engine knobs */
+	extern vector<int32_t> 	le_featurewise_active_features;
+	extern vector<int32_t> 	le_featurewise_num_tilings;
+	extern vector<int32_t> 	le_featurewise_num_tiles;
+	extern vector<int32_t> 	le_featurewise_hash_types;
+	extern vector<int32_t> 	le_featurewise_enable_tiling_offset;
+	extern float			le_featurewise_max_q_thresh;
+	extern bool				le_featurewise_enable_action_fallback;
+	extern vector<float> 	le_featurewise_feature_weights;
+	extern bool				le_featurewise_enable_dynamic_weight;
+	extern float			le_featurewise_weight_gradient;
+	extern bool				le_featurewise_disable_adjust_weight_all_features_align;
+	extern bool				le_featurewise_selective_update;
+	extern uint32_t 		le_featurewise_pooling_type;
+	extern bool             le_featurewise_enable_dyn_action_fallback;
+	extern uint32_t 		le_featurewise_bw_acc_check_level;
+	extern uint32_t 		le_featurewise_acc_thresh;
+	extern bool 			le_featurewise_enable_trace;
+	extern uint32_t		le_featurewise_trace_feature_type;
+	extern string 			le_featurewise_trace_feature;
+	extern uint32_t 		le_featurewise_trace_interval;
+	extern uint32_t 		le_featurewise_trace_record_count;
+	extern std::string 	le_featurewise_trace_file_name;
+	extern bool 			le_featurewise_enable_score_plot;
+	extern vector<int32_t> le_featurewise_plot_actions;
+	extern std::string 	le_featurewise_plot_file_name;
+	extern bool 			le_featurewise_remove_plot_script;
+}
 
 // [新增] 定义全局计数器
 uint64_t my_pf_lookup_hits = 0;
@@ -15,14 +120,24 @@ uint64_t my_pf_lookup_misses = 0;
 
 unordered_map<uint64_t, vector<uint64_t>> prefetches;
 
+Scooby* pref_scooby;
+// 【新增】记录对比数据的日志输出流
+extern std::string prefetch_log_csv_path;
+static std::ofstream csv_logger;
+
+
 void CACHE::llc_prefetcher_initialize() 
 {
+    cout << "adding LLC_PREFETCHER: trace_scooby" << endl;
+    pref_scooby = new Scooby("scooby");
     cout << "CPU " << cpu << " LLC from_file prefetcher" << endl;
 
     uint64_t line_no = 0;
     uint64_t instr_id, addr;
+    int confidence;
 
-    while(cin >> dec >> instr_id >> hex >> addr) {
+    while(cin >> dec >> instr_id >> hex >> addr>> dec >> confidence) {
+        if (confidence < knob::min_pathfinder_conf) continue;
         auto itr = prefetches.find(instr_id);
         if (itr == prefetches.end()) {
             prefetches[instr_id] = vector<uint64_t>();
@@ -31,12 +146,20 @@ void CACHE::llc_prefetcher_initialize()
             if (prefetches[instr_id].size() < MAX_PREFETCH_DEGREE) {
                 prefetches[instr_id].push_back(addr);
             } else {
-                cerr << "Exceeded max prefetch degree of " << MAX_PREFETCH_DEGREE << " on line " << line_no << " for instr_id " << instr_id << endl;
+                //cerr << "Exceeded max prefetch degree of " << MAX_PREFETCH_DEGREE << " on line " << line_no << " for instr_id " << instr_id << endl;
             }
         }
         line_no++;
     }
-
+// 【新增】如果用户通过命令行传入了 -log_csv 路径，则打开文件并写入表头
+    if (!prefetch_log_csv_path.empty() && !csv_logger.is_open()) {
+        csv_logger.open(prefetch_log_csv_path);
+        if (csv_logger.is_open()) {
+            csv_logger << "Cycle,InstID,Addr,Delta1,Delta2,Delta3,Action,IsIssued\n";
+        } else {
+            std::cerr << "Error: Could not open log CSV file at " << prefetch_log_csv_path << std::endl;
+        }
+    }
 }
 
 uint32_t CACHE::llc_prefetcher_operate(uint64_t addr, uint64_t ip, uint8_t cache_hit, uint8_t type, uint32_t metadata_in, uint64_t instr_id, uint64_t curr_cycle)
@@ -44,7 +167,10 @@ uint32_t CACHE::llc_prefetcher_operate(uint64_t addr, uint64_t ip, uint8_t cache
     if(instr_id == 0)  return metadata_in; //No prefetches for instructions with id 0 (prefetches and code misses)
 
     auto itr = prefetches.find(instr_id);
-
+    vector<uint64_t> pref_addr;
+    std::vector<int> deltas = pref_scooby->track_feature_invoke(ip, addr, cache_hit, type, pref_addr);
+    int action_offset = 0;
+    int first = true;
     // [修改] 增加统计逻辑
     if (itr != prefetches.end()) {
         my_pf_lookup_hits++; // 找到了：说明 instr_id 匹配成功
@@ -54,6 +180,7 @@ uint32_t CACHE::llc_prefetcher_operate(uint64_t addr, uint64_t ip, uint8_t cache
             // 如果队列满了返回 0，如果不满返回 1
             // int result = prefetch_line(ip, addr, prefetch_addr, FILL_LLC, 0);
             prefetch_line(ip, addr, prefetch_addr, FILL_LLC, 0);
+            if(first == true) { action_offset = (prefetch_addr-addr)>>LOG2_BLOCK_SIZE; first = false;}
             
             // [可选调试] 如果你想看有多少请求因为队列满而失败，可以在这里打印
             // if (result == 0) { cout << "Queue Full at cycle " << curr_cycle << endl; }
@@ -61,6 +188,23 @@ uint32_t CACHE::llc_prefetcher_operate(uint64_t addr, uint64_t ip, uint8_t cache
     } else {
         my_pf_lookup_misses++; // 没找到：说明当前指令没有预取计划
     }
+
+    bool is_issued = false;
+    if (action_offset != 0) {
+        is_issued = 1;
+    } else {is_issued = 0;}
+    if (csv_logger.is_open()) {
+        csv_logger << instr_id << ","
+                   << std::hex << ip << std::dec << ","
+                   << std::hex << addr << std::dec << ","
+                   << deltas[0] << ","
+                   << deltas[1] << ","
+                   << deltas[2] << ","
+                   << action_offset << ","
+                   << (is_issued ? 1 : 0)
+                   << "\n";
+    }
+
 
     return metadata_in;
 }
@@ -80,6 +224,11 @@ void CACHE::llc_prefetcher_final_stats()
     // 计算查表命中率
     if (my_pf_lookup_hits + my_pf_lookup_misses > 0) {
         cout << "My_PF_Lookup_Rate: " << (double)my_pf_lookup_hits / (my_pf_lookup_hits + my_pf_lookup_misses) * 100.0 << "%" << endl;
+    }
+
+    // 【新增】安全关闭文件流
+    if (csv_logger.is_open()) {
+        csv_logger.close();
     }
 }
 uint32_t CACHE::llc_prefetcher_prefetch_hit(uint64_t addr, uint64_t ip, uint32_t metadata_in) {

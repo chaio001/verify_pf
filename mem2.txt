@@ -3,7 +3,7 @@
 
 # .bak,.txt
 
-
+parallel -j 3 --joblog job.log <./run_pathfinder_gap_spec.sh && conda activate pythia_cpp && cd /mnt/sda/cyhcpp/Pythia/a_pythia/ChampSim-master && parallel -j 10 --joblog job.log <./run_all.sh
 
 
 
@@ -99,9 +99,20 @@ sed -i 's/#define LLC_SET NUM_CPUS\*4096/#define LLC_SET NUM_CPUS*2048/' /mnt/sd
 收集
 python collect.py --config collect.json
 
-parallel -j 24 --joblog job.log <./run_all.sh
+parallel -j 10 --joblog job.log <./run_all.sh
+awk '{print $3}' /mnt/sda/cyhcpp/Pythia/a_pythia/Pathfinder/ChampSim/pathfinder_prefetches_gap_spec/prefetch_14th_rerun_471.omnetpp-s1.trace.txt | sort -n | uniq -c
 
 
 
+./ml_prefetch_sim.py run ./gap_spec_traces/450.soplex-s0.trace.gz --prefetch test_trace --num-instructions 29478984 --only no4096 --dram-io-freq 3200 & ./ml_prefetch_sim.py run ./gap_spec_traces/450.soplex-s0.trace.gz --prefetch ../Pathfinder/ChampSim/pathfinder_prefetches_gap_spec/prefetch_14th_rerun_450.soplex-s0.trace.txt --num-instructions 29478984 --only pathfinder4096 --dram-io-freq 3200 & ./ml_prefetch_sim.py run ./gap_spec_traces/450.soplex-s0.trace.gz --prefetch test_trace --num-instructions 29478984 --only pythia4096 --dram-io-freq 3200
+
+
+parallel -j 3 --joblog job.log <./run_pathfinder_gap_spec.sh 
+&& conda activate pythia_cpp && 
+cd /mnt/sda/cyhcpp/Pythia/a_pythia/ChampSim-master 
+&& parallel -j 10 --joblog job.log <./run_all.sh
+
+awk -F, '{print $7}' /mnt/sda/cyhcpp/Pythia/a_pythia/ChampSim-master/results/623.xalancbmk-s1.trace.xz-hashed_perceptron-no-no-no-pathfinder-lru-1core_2048_4800.csv | sort -n | uniq -c
+awk -F, '{print $7}' /mnt/sda/cyhcpp/Pythia/a_pythia/ChampSim-master/results/623.xalancbmk-s1.trace.xz-hashed_perceptron-no-no-no-from_file-lru-1core_2048_4800.csv | sort -n | uniq -c
 ############################################################################################################################################################
 

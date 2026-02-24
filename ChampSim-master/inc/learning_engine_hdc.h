@@ -52,7 +52,7 @@ using BinaryHV = hyperstream::core::HyperVector<HDC_DIM, bool>;
 // 我们手动管理这个，因为库里没有现成的 int8 向量类
 using WeightVector = std::array<int8_t, HDC_DIM>;
 
-#define MAX_ACTIONS 64
+#define MAX_ACTIONS 127
 
 enum Policy {
     InvalidPolicy = 0,

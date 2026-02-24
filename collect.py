@@ -198,7 +198,7 @@ def write_txt_pivot_grouped(records: List[Record], out_file: Optional[str]) -> N
                     if v is None:
                         cell = "-"
                     else:
-                        cell = f"{v:.4f}"
+                        cell = f"{v:.6f}"
                         if local_max and abs(v - local_max) < 1e-9:
                             cell = ">>" + cell
                     row += cell.rjust(col_width)

@@ -12,7 +12,7 @@
 
 using namespace std;
 
-#define MAX_ACTIONS 64
+#define MAX_ACTIONS 127
 #define MAX_REWARDS 16
 #define MAX_SCOOBY_DEGREE 16
 #define SCOOBY_MAX_IPC_LEVEL 4
@@ -179,7 +179,8 @@ private:
 public:
 	Scooby(string type);
 	~Scooby();
-	void invoke_prefetcher(uint64_t pc, uint64_t address, uint8_t cache_hit, uint8_t type, vector<uint64_t> &pref_addr);
+	//chaio edit 0217
+	std::vector<int> invoke_prefetcher(uint64_t pc, uint64_t address, uint8_t cache_hit, uint8_t type, vector<uint64_t> &pref_addr);
 	void register_fill(uint64_t address);
 	void register_prefetch_hit(uint64_t address);
 	void dump_stats();
@@ -188,6 +189,10 @@ public:
 	void update_bw(uint8_t bw_level);
 	void update_ipc(uint8_t ipc);
 	void update_acc(uint32_t acc_level);
+
+	//chaio edit 0217
+	std::vector<int> track_feature_invoke(uint64_t pc, uint64_t address, uint8_t cache_hit, uint8_t type, vector<uint64_t> &pref_addr);
+
 };
 
 #endif /* SCOOBY_H */
