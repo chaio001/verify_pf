@@ -1,80 +1,80 @@
 Seq	Host	Starttime	JobRuntime	Send	Receive	Exitval	Signal	Command
-1	:	1771434291.320	     0.003	0	0	0	0	#!/bin/bash
-3	:	1771434291.326	  1329.407	0	61550	0	0	./ml_prefetch_sim.py generate ./gap_spec_traces/cc-5.txt.xz              ./pathfinder_prefetches_gap_spec/prefetch_14th_rerun_cc-5.trace.txt               --model temp
-4	:	1771434291.330	  1349.388	0	61308	0	0	./ml_prefetch_sim.py generate ./gap_spec_traces/471.omnetpp-s1.txt.xz    ./pathfinder_prefetches_gap_spec/prefetch_14th_rerun_471.omnetpp-s1.trace.txt     --model temp           
-2	:	1771434291.323	  1352.947	0	61295	0	0	./ml_prefetch_sim.py generate ./gap_spec_traces/450.soplex-s0.txt.xz     ./pathfinder_prefetches_gap_spec/prefetch_14th_rerun_450.soplex-s0.trace.txt      --model temp       
-7	:	1771435644.281	  1310.613	0	61220	0	0	./ml_prefetch_sim.py generate ./gap_spec_traces/bfs-10.txt.xz            ./pathfinder_prefetches_gap_spec/prefetch_14th_rerun_bfs-10.trace.txt             --model temp   
-6	:	1771435640.730	  1366.260	0	61281	0	0	./ml_prefetch_sim.py generate ./gap_spec_traces/605.mcf-s1.txt.xz        ./pathfinder_prefetches_gap_spec/prefetch_14th_rerun_605.mcf-s1.trace.txt         --model temp       
-5	:	1771435620.744	  1669.285	0	61227	0	0	./ml_prefetch_sim.py generate ./gap_spec_traces/482.sphinx3-s0.txt.xz    ./pathfinder_prefetches_gap_spec/prefetch_14th_rerun_482.sphinx3-s0.trace.txt     --model temp           
-10	:	1771437290.038	     0.002	0	0	0	0	
-11	:	1771437290.046	     0.002	0	0	0	0	# ./ml_prefetch_sim.py run ./gap_spec_traces/bfs-10.trace.gz --prefetch ./pathfinder_prefetches_gap_spec/prefetch_14th_rerun_bfs-10.trace.txt --num-instructions 61219343             
-12	:	1771437290.052	     0.001	0	0	0	0	# ./ml_prefetch_sim.py run ./gap_spec_traces/cc-5.trace.gz --prefetch ./pathfinder_prefetches_gap_spec/prefetch_14th_rerun_cc-5.trace.txt --num-instructions 20700644               
-13	:	1771437290.059	     0.002	0	0	0	0	# ./ml_prefetch_sim.py run ./gap_spec_traces/450.soplex-s0.trace.gz --prefetch ./pathfinder_prefetches_gap_spec/prefetch_14th_rerun_450.soplex-s0.trace.txt --num-instructions 29478984      
-14	:	1771437290.065	     0.001	0	0	0	0	# ./ml_prefetch_sim.py run ./gap_spec_traces/482.sphinx3-s0.trace.gz --prefetch ./pathfinder_prefetches_gap_spec/prefetch_14th_rerun_482.sphinx3-s0.trace.txt --num-instructions 84756213     
-15	:	1771437290.072	     0.003	0	0	0	0	# ./ml_prefetch_sim.py run ./gap_spec_traces/623.xalancbmk-s1.trace.xz --prefetch ./pathfinder_prefetches_gap_spec/prefetch_14th_rerun_623.xalancbmk-s1.trace.txt --num-instructions 52596273   
-16	:	1771437290.080	     0.003	0	0	0	0	# ./ml_prefetch_sim.py run ./gap_spec_traces/473.astar-s1.trace.gz --prefetch ./pathfinder_prefetches_gap_spec/prefetch_14th_rerun_473.astar-s1.trace.txt --num-instructions 98033975       
-17	:	1771437290.088	     0.003	0	0	0	0	# ./ml_prefetch_sim.py run ./gap_spec_traces/605.mcf-s1.trace.xz --prefetch ./pathfinder_prefetches_gap_spec/prefetch_14th_rerun_605.mcf-s1.trace.txt --num-instructions 38467912         
-18	:	1771437290.096	     0.003	0	0	0	0	# ./ml_prefetch_sim.py run ./gap_spec_traces/471.omnetpp-s1.trace.gz --prefetch ./pathfinder_prefetches_gap_spec/prefetch_14th_rerun_471.omnetpp-s1.trace.txt --num-instructions 54612142     
-19	:	1771437290.104	     0.003	0	0	0	0	
-20	:	1771437290.112	     0.002	0	0	0	0	
-21	:	1771437290.119	     0.003	0	0	0	0	# <./pathfinder_prefetches_gap_spec/prefetch_14th_rerun_471.omnetpp-s1.trace.txt bin/hashed_perceptron-no-no-no-from_file-lru-1core_3200_2048_debug -prefetch_warmup_instructions 10000000 -simulation_instructions 54612142 -seed 1083 -traces ./gap_spec_traces/471.omnetpp-s1.trace.gz > ./results/471.omnetpp-s1.trace.gz-from_file_3200_2048_debug.txt 2>&1
-22	:	1771437290.126	     0.003	0	0	0	0	# <./pathfinder_prefetches_gap_spec/prefetch_14th_rerun_471.omnetpp-s1.trace.txt bin/hashed_perceptron-no-no-no-from_file-lru-1core_6400_2048_debug -prefetch_warmup_instructions 10000000 -simulation_instructions 54612142 -seed 1083 -traces ./gap_spec_traces/471.omnetpp-s1.trace.gz > ./results/471.omnetpp-s1.trace.gz-from_file_6400_2048_debug.txt 2>&1
-23	:	1771437290.134	     0.003	0	0	0	0	
-24	:	1771437290.141	     0.003	0	0	0	0	
-25	:	1771437290.149	     0.002	0	0	0	0	# mkdir -p pathfinder_prefetches_gap_spec
-26	:	1771437290.156	     0.002	0	0	0	0	
-27	:	1771437290.163	     0.001	0	0	0	0	# # script to run pathfinder on gap and spec
-28	:	1771437290.170	     0.001	0	0	0	0	# find -L "./gap_spec_traces" -type f -name "*.txt.xz" | while read xz; do
-29	:	1771437290.177	     0.003	0	0	0	0	#   file_variable="$(basename $xz .txt.xz)"
-30	:	1771437290.185	     0.002	0	0	0	0	#   file_cc="cc-5"
-31	:	1771437290.192	     0.002	0	0	0	0	#   file_605mcf="605.mcf-s1"
-32	:	1771437290.199	     0.002	0	0	0	0	#   file_bfs10="bfs-10"
-33	:	1771437290.206	     0.001	0	0	0	0	#   file_450soplex="450.soplex-s0"
-34	:	1771437290.213	     0.001	0	0	0	0	#   file_623xalan="623.xalancbmk-s1"
-35	:	1771437290.220	     0.001	0	0	0	0	#   file_471omnetpp="471.omnetpp-s1"
-36	:	1771437290.227	     0.002	0	0	0	0	#   file_482sphinx3="482.sphinx3-s0"
-37	:	1771437290.234	     0.002	0	0	0	0	#   file_473astar="473.astar-s1"
-38	:	1771437290.240	     0.003	0	0	0	0	
-39	:	1771437290.247	     0.003	0	0	0	0	
-40	:	1771437290.254	     0.002	0	0	0	0	#   # ./ml_prefetch_sim.py generate "$xz" ./pathfinder_prefetches_gap_spec/prefetch_14th_rerun_"$(basename "$xz" .txt.xz)".txt --model temp
-41	:	1771437290.261	     0.002	0	0	0	0	
-42	:	1771437290.267	     0.003	0	0	0	0	#   if [[ "$file_variable" == "$file_cc" ]]; then
-43	:	1771437290.274	     0.002	0	0	0	0	#   # echo ./gap_spec_traces/"$file_variable".trace.gz
-44	:	1771437290.281	     0.002	0	0	0	0	#   ./ml_prefetch_sim.py generate "$xz" ./pathfinder_prefetches_gap_spec/prefetch_14th_rerun_"$(basename "$xz" .txt.xz)".txt --model temp
-45	:	1771437290.287	     0.003	0	0	0	0	#     ./ml_prefetch_sim.py run ./gap_spec_traces/"$file_variable".trace.gz --prefetch ./pathfinder_prefetches_gap_spec/prefetch_14th_rerun_"$file_variable".txt --num-instructions 20700644
-46	:	1771437290.294	     0.002	0	0	0	0	#     # ./ml_prefetch_sim.py run ./gap_spec_traces/"$file_variable".trace.gz --prefetch ./pathfinder_prefetches_gap_spec/prefetch_14th_rerun_cc-5.trace.txt --num-instructions 20700644
-47	:	1771437290.300	     0.003	0	0	0	0	#   fi
-48	:	1771437290.307	     0.002	0	0	0	0	
-49	:	1771437290.313	     0.003	0	0	0	0	#   # if [[ "$file_variable" == "$file_605mcf" ]]; then
-50	:	1771437290.320	     0.002	0	0	0	0	#   #   ./ml_prefetch_sim.py run ./gap_spec_traces/"$file_variable".trace.xz --prefetch ./pathfinder_prefetches_gap_spec/prefetch_14th_rerun_"$file_variable".txt --num-instructions 38467912
-51	:	1771437290.326	     0.002	0	0	0	0	#   #   # ./ml_prefetch_sim.py run ./gap_spec_traces/"$file_variable".trace.xz --prefetch ./pathfinder_prefetches_gap_spec/prefetch_14th_rerun_605.mcf-s1.trace.txt --num-instructions 38467912
-52	:	1771437290.333	     0.002	0	0	0	0	#   # fi
-53	:	1771437290.339	     0.003	0	0	0	0	
-54	:	1771437290.346	     0.002	0	0	0	0	#   # if [[ "$file_variable" == "$file_bfs10" ]]; then
-55	:	1771437290.352	     0.002	0	0	0	0	#   #   ./ml_prefetch_sim.py run ./gap_spec_traces/"$file_variable".trace.gz --prefetch ./pathfinder_prefetches_gap_spec/prefetch_14th_rerun_"$file_variable".txt --num-instructions 61219343
-56	:	1771437290.359	     0.002	0	0	0	0	#   # fi
-57	:	1771437290.365	     0.002	0	0	0	0	
-58	:	1771437290.371	     0.003	0	0	0	0	#   # if [[ "$file_variable" == "$file_450soplex" ]]; then
-59	:	1771437290.378	     0.002	0	0	0	0	#   #   ./ml_prefetch_sim.py run ./gap_spec_traces/"$file_variable".trace.gz --prefetch ./pathfinder_prefetches_gap_spec/prefetch_14th_rerun_"$file_variable".txt --num-instructions 29478984
-60	:	1771437290.384	     0.003	0	0	0	0	#   # fi
-61	:	1771437290.392	     0.002	0	0	0	0	
-62	:	1771437290.398	     0.003	0	0	0	0	#   # if [[ "$file_variable" == "$file_623xalan" ]]; then
-63	:	1771437290.405	     0.002	0	0	0	0	#   #   ./ml_prefetch_sim.py run ./gap_spec_traces/"$file_variable".trace.xz --prefetch ./pathfinder_prefetches_gap_spec/prefetch_14th_rerun_"$file_variable".txt --num-instructions 52596273
-64	:	1771437290.411	     0.003	0	0	0	0	#   # fi
-65	:	1771437290.418	     0.002	0	0	0	0	
-66	:	1771437290.424	     0.003	0	0	0	0	#   # if [[ "$file_variable" == "$file_471omnetpp" ]]; then
-67	:	1771437290.431	     0.002	0	0	0	0	#   #   ./ml_prefetch_sim.py run ./gap_spec_traces/"$file_variable".trace.gz --prefetch ./pathfinder_prefetches_gap_spec/prefetch_14th_rerun_"$file_variable".txt --num-instructions 54612142
-68	:	1771437290.438	     0.002	0	0	0	0	#   # fi
-69	:	1771437290.444	     0.003	0	0	0	0	
-70	:	1771437290.451	     0.003	0	0	0	0	#   # if [[ "$file_variable" == "$file_482sphinx3" ]]; then
-71	:	1771437290.458	     0.003	0	0	0	0	#   #   ./ml_prefetch_sim.py run ./gap_spec_traces/"$file_variable".trace.gz --prefetch ./pathfinder_prefetches_gap_spec/prefetch_14th_rerun_"$file_variable".txt --num-instructions 84756213
-72	:	1771437290.465	     0.002	0	0	0	0	#   # fi
-73	:	1771437290.472	     0.002	0	0	0	0	
-74	:	1771437290.478	     0.002	0	0	0	0	#   # if [[ "$file_variable" == "$file_473astar" ]]; then
-75	:	1771437290.484	     0.003	0	0	0	0	#   #   ./ml_prefetch_sim.py run ./gap_spec_traces/"$file_variable".trace.gz --prefetch ./pathfinder_prefetches_gap_spec/prefetch_14th_rerun_"$file_variable".txt --num-instructions 98033975
-76	:	1771437290.492	     0.001	0	0	0	0	#   # fi
-77	:	1771437290.498	     0.002	0	0	0	0	
-78	:	1771437290.505	     0.001	0	0	0	0	# done
-79	:	1771437290.511	     0.002	0	0	0	0	
-8	:	1771436954.900	  1313.270	0	61004	0	0	./ml_prefetch_sim.py generate ./gap_spec_traces/623.xalancbmk-s1.txt.xz  ./pathfinder_prefetches_gap_spec/prefetch_14th_rerun_623.xalancbmk-s1.trace.txt   --model temp           
-9	:	1771437006.999	  1298.685	0	61275	0	0	./ml_prefetch_sim.py generate ./gap_spec_traces/473.astar-s1.txt.xz      ./pathfinder_prefetches_gap_spec/prefetch_14th_rerun_473.astar-s1.trace.txt       --model temp       
+1	:	1772162710.435	     0.003	0	0	0	0	#!/bin/bash
+8	:	1772162710.461	  1351.128	0	61122	0	0	./ml_prefetch_sim.py generate ./gap_spec_traces/623.xalancbmk-s1.txt.xz  ./pathfinder_prefetches_gap_spec/prefetch_14th_rerun_623.xalancbmk-s1.trace.txt   --model temp           
+10	:	1772164061.601	     0.003	0	0	0	0	
+11	:	1772164061.609	     0.003	0	0	0	0	# ./ml_prefetch_sim.py run ./gap_spec_traces/bfs-10.trace.gz --prefetch ./pathfinder_prefetches_gap_spec/prefetch_14th_rerun_bfs-10.trace.txt --num-instructions 61219343             
+12	:	1772164061.618	     0.001	0	0	0	0	# ./ml_prefetch_sim.py run ./gap_spec_traces/cc-5.trace.gz --prefetch ./pathfinder_prefetches_gap_spec/prefetch_14th_rerun_cc-5.trace.txt --num-instructions 20700644               
+13	:	1772164061.625	     0.003	0	0	0	0	# ./ml_prefetch_sim.py run ./gap_spec_traces/450.soplex-s0.trace.gz --prefetch ./pathfinder_prefetches_gap_spec/prefetch_14th_rerun_450.soplex-s0.trace.txt --num-instructions 29478984      
+14	:	1772164061.632	     0.003	0	0	0	0	# ./ml_prefetch_sim.py run ./gap_spec_traces/482.sphinx3-s0.trace.gz --prefetch ./pathfinder_prefetches_gap_spec/prefetch_14th_rerun_482.sphinx3-s0.trace.txt --num-instructions 84756213     
+15	:	1772164061.639	     0.003	0	0	0	0	# ./ml_prefetch_sim.py run ./gap_spec_traces/623.xalancbmk-s1.trace.xz --prefetch ./pathfinder_prefetches_gap_spec/prefetch_14th_rerun_623.xalancbmk-s1.trace.txt --num-instructions 52596273   
+16	:	1772164061.647	     0.003	0	0	0	0	# ./ml_prefetch_sim.py run ./gap_spec_traces/473.astar-s1.trace.gz --prefetch ./pathfinder_prefetches_gap_spec/prefetch_14th_rerun_473.astar-s1.trace.txt --num-instructions 98033975       
+17	:	1772164061.656	     0.003	0	0	0	0	# ./ml_prefetch_sim.py run ./gap_spec_traces/605.mcf-s1.trace.xz --prefetch ./pathfinder_prefetches_gap_spec/prefetch_14th_rerun_605.mcf-s1.trace.txt --num-instructions 38467912         
+18	:	1772164061.665	     0.003	0	0	0	0	# ./ml_prefetch_sim.py run ./gap_spec_traces/471.omnetpp-s1.trace.gz --prefetch ./pathfinder_prefetches_gap_spec/prefetch_14th_rerun_471.omnetpp-s1.trace.txt --num-instructions 54612142     
+19	:	1772164061.673	     0.001	0	0	0	0	
+20	:	1772164061.680	     0.003	0	0	0	0	
+21	:	1772164061.687	     0.003	0	0	0	0	# <./pathfinder_prefetches_gap_spec/prefetch_14th_rerun_471.omnetpp-s1.trace.txt bin/hashed_perceptron-no-no-no-from_file-lru-1core_3200_2048_debug -prefetch_warmup_instructions 10000000 -simulation_instructions 54612142 -seed 1083 -traces ./gap_spec_traces/471.omnetpp-s1.trace.gz > ./results/471.omnetpp-s1.trace.gz-from_file_3200_2048_debug.txt 2>&1
+22	:	1772164061.696	     0.001	0	0	0	0	# <./pathfinder_prefetches_gap_spec/prefetch_14th_rerun_471.omnetpp-s1.trace.txt bin/hashed_perceptron-no-no-no-from_file-lru-1core_6400_2048_debug -prefetch_warmup_instructions 10000000 -simulation_instructions 54612142 -seed 1083 -traces ./gap_spec_traces/471.omnetpp-s1.trace.gz > ./results/471.omnetpp-s1.trace.gz-from_file_6400_2048_debug.txt 2>&1
+23	:	1772164061.704	     0.002	0	0	0	0	
+24	:	1772164061.711	     0.003	0	0	0	0	
+25	:	1772164061.718	     0.003	0	0	0	0	# mkdir -p pathfinder_prefetches_gap_spec
+26	:	1772164061.726	     0.003	0	0	0	0	
+27	:	1772164061.734	     0.003	0	0	0	0	# # script to run pathfinder on gap and spec
+28	:	1772164061.742	     0.002	0	0	0	0	# find -L "./gap_spec_traces" -type f -name "*.txt.xz" | while read xz; do
+29	:	1772164061.749	     0.003	0	0	0	0	#   file_variable="$(basename $xz .txt.xz)"
+30	:	1772164061.757	     0.002	0	0	0	0	#   file_cc="cc-5"
+31	:	1772164061.764	     0.003	0	0	0	0	#   file_605mcf="605.mcf-s1"
+32	:	1772164061.773	     0.002	0	0	0	0	#   file_bfs10="bfs-10"
+33	:	1772164061.781	     0.002	0	0	0	0	#   file_450soplex="450.soplex-s0"
+34	:	1772164061.788	     0.002	0	0	0	0	#   file_623xalan="623.xalancbmk-s1"
+35	:	1772164061.796	     0.003	0	0	0	0	#   file_471omnetpp="471.omnetpp-s1"
+36	:	1772164061.804	     0.003	0	0	0	0	#   file_482sphinx3="482.sphinx3-s0"
+37	:	1772164061.812	     0.001	0	0	0	0	#   file_473astar="473.astar-s1"
+38	:	1772164061.820	     0.003	0	0	0	0	
+39	:	1772164061.827	     0.003	0	0	0	0	
+40	:	1772164061.835	     0.001	0	0	0	0	#   # ./ml_prefetch_sim.py generate "$xz" ./pathfinder_prefetches_gap_spec/prefetch_14th_rerun_"$(basename "$xz" .txt.xz)".txt --model temp
+41	:	1772164061.842	     0.002	0	0	0	0	
+42	:	1772164061.849	     0.003	0	0	0	0	#   if [[ "$file_variable" == "$file_cc" ]]; then
+43	:	1772164061.856	     0.003	0	0	0	0	#   # echo ./gap_spec_traces/"$file_variable".trace.gz
+44	:	1772164061.863	     0.003	0	0	0	0	#   ./ml_prefetch_sim.py generate "$xz" ./pathfinder_prefetches_gap_spec/prefetch_14th_rerun_"$(basename "$xz" .txt.xz)".txt --model temp
+45	:	1772164061.871	     0.003	0	0	0	0	#     ./ml_prefetch_sim.py run ./gap_spec_traces/"$file_variable".trace.gz --prefetch ./pathfinder_prefetches_gap_spec/prefetch_14th_rerun_"$file_variable".txt --num-instructions 20700644
+46	:	1772164061.879	     0.002	0	0	0	0	#     # ./ml_prefetch_sim.py run ./gap_spec_traces/"$file_variable".trace.gz --prefetch ./pathfinder_prefetches_gap_spec/prefetch_14th_rerun_cc-5.trace.txt --num-instructions 20700644
+47	:	1772164061.887	     0.001	0	0	0	0	#   fi
+48	:	1772164061.894	     0.003	0	0	0	0	
+49	:	1772164061.901	     0.003	0	0	0	0	#   # if [[ "$file_variable" == "$file_605mcf" ]]; then
+50	:	1772164061.908	     0.003	0	0	0	0	#   #   ./ml_prefetch_sim.py run ./gap_spec_traces/"$file_variable".trace.xz --prefetch ./pathfinder_prefetches_gap_spec/prefetch_14th_rerun_"$file_variable".txt --num-instructions 38467912
+51	:	1772164061.917	     0.001	0	0	0	0	#   #   # ./ml_prefetch_sim.py run ./gap_spec_traces/"$file_variable".trace.xz --prefetch ./pathfinder_prefetches_gap_spec/prefetch_14th_rerun_605.mcf-s1.trace.txt --num-instructions 38467912
+52	:	1772164061.925	     0.003	0	0	0	0	#   # fi
+53	:	1772164061.933	     0.001	0	0	0	0	
+54	:	1772164061.940	     0.003	0	0	0	0	#   # if [[ "$file_variable" == "$file_bfs10" ]]; then
+55	:	1772164061.948	     0.003	0	0	0	0	#   #   ./ml_prefetch_sim.py run ./gap_spec_traces/"$file_variable".trace.gz --prefetch ./pathfinder_prefetches_gap_spec/prefetch_14th_rerun_"$file_variable".txt --num-instructions 61219343
+56	:	1772164061.956	     0.001	0	0	0	0	#   # fi
+57	:	1772164061.964	     0.002	0	0	0	0	
+58	:	1772164061.971	     0.003	0	0	0	0	#   # if [[ "$file_variable" == "$file_450soplex" ]]; then
+59	:	1772164061.979	     0.001	0	0	0	0	#   #   ./ml_prefetch_sim.py run ./gap_spec_traces/"$file_variable".trace.gz --prefetch ./pathfinder_prefetches_gap_spec/prefetch_14th_rerun_"$file_variable".txt --num-instructions 29478984
+60	:	1772164061.986	     0.003	0	0	0	0	#   # fi
+61	:	1772164061.994	     0.003	0	0	0	0	
+62	:	1772164062.001	     0.002	0	0	0	0	#   # if [[ "$file_variable" == "$file_623xalan" ]]; then
+63	:	1772164062.008	     0.003	0	0	0	0	#   #   ./ml_prefetch_sim.py run ./gap_spec_traces/"$file_variable".trace.xz --prefetch ./pathfinder_prefetches_gap_spec/prefetch_14th_rerun_"$file_variable".txt --num-instructions 52596273
+64	:	1772164062.015	     0.001	0	0	0	0	#   # fi
+65	:	1772164062.023	     0.002	0	0	0	0	
+66	:	1772164062.030	     0.003	0	0	0	0	#   # if [[ "$file_variable" == "$file_471omnetpp" ]]; then
+67	:	1772164062.038	     0.002	0	0	0	0	#   #   ./ml_prefetch_sim.py run ./gap_spec_traces/"$file_variable".trace.gz --prefetch ./pathfinder_prefetches_gap_spec/prefetch_14th_rerun_"$file_variable".txt --num-instructions 54612142
+68	:	1772164062.046	     0.003	0	0	0	0	#   # fi
+69	:	1772164062.054	     0.003	0	0	0	0	
+70	:	1772164062.062	     0.001	0	0	0	0	#   # if [[ "$file_variable" == "$file_482sphinx3" ]]; then
+71	:	1772164062.069	     0.003	0	0	0	0	#   #   ./ml_prefetch_sim.py run ./gap_spec_traces/"$file_variable".trace.gz --prefetch ./pathfinder_prefetches_gap_spec/prefetch_14th_rerun_"$file_variable".txt --num-instructions 84756213
+72	:	1772164062.077	     0.002	0	0	0	0	#   # fi
+73	:	1772164062.084	     0.002	0	0	0	0	
+74	:	1772164062.092	     0.002	0	0	0	0	#   # if [[ "$file_variable" == "$file_473astar" ]]; then
+75	:	1772164062.098	     0.003	0	0	0	0	#   #   ./ml_prefetch_sim.py run ./gap_spec_traces/"$file_variable".trace.gz --prefetch ./pathfinder_prefetches_gap_spec/prefetch_14th_rerun_"$file_variable".txt --num-instructions 98033975
+76	:	1772164062.105	     0.003	0	0	0	0	#   # fi
+77	:	1772164062.112	     0.003	0	0	0	0	
+78	:	1772164062.120	     0.003	0	0	0	0	# done
+79	:	1772164062.128	     0.003	0	0	0	0	
+4	:	1772162710.446	  1354.926	0	61311	0	0	./ml_prefetch_sim.py generate ./gap_spec_traces/471.omnetpp-s1.txt.xz    ./pathfinder_prefetches_gap_spec/prefetch_14th_rerun_471.omnetpp-s1.trace.txt     --model temp           
+7	:	1772162710.457	  1364.671	0	61221	0	0	./ml_prefetch_sim.py generate ./gap_spec_traces/bfs-10.txt.xz            ./pathfinder_prefetches_gap_spec/prefetch_14th_rerun_bfs-10.trace.txt             --model temp   
+9	:	1772162710.465	  1369.634	0	61137	0	0	./ml_prefetch_sim.py generate ./gap_spec_traces/473.astar-s1.txt.xz      ./pathfinder_prefetches_gap_spec/prefetch_14th_rerun_473.astar-s1.trace.txt       --model temp       
+5	:	1772162710.450	  1388.105	0	61171	0	0	./ml_prefetch_sim.py generate ./gap_spec_traces/482.sphinx3-s0.txt.xz    ./pathfinder_prefetches_gap_spec/prefetch_14th_rerun_482.sphinx3-s0.trace.txt     --model temp           
+2	:	1772162710.439	  1398.532	0	61223	0	0	./ml_prefetch_sim.py generate ./gap_spec_traces/450.soplex-s0.txt.xz     ./pathfinder_prefetches_gap_spec/prefetch_14th_rerun_450.soplex-s0.trace.txt      --model temp       
+6	:	1772162710.454	  1414.446	0	61373	0	0	./ml_prefetch_sim.py generate ./gap_spec_traces/605.mcf-s1.txt.xz        ./pathfinder_prefetches_gap_spec/prefetch_14th_rerun_605.mcf-s1.trace.txt         --model temp       
+3	:	1772162710.442	  1419.307	0	61247	0	0	./ml_prefetch_sim.py generate ./gap_spec_traces/cc-5.txt.xz              ./pathfinder_prefetches_gap_spec/prefetch_14th_rerun_cc-5.trace.txt               --model temp

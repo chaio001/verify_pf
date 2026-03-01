@@ -116,12 +116,13 @@ LearningEngineFeaturewise::~LearningEngineFeaturewise()
 	}
 }
 
-uint32_t LearningEngineFeaturewise::chooseAction(State *state, float &max_to_avg_q_ratio, vector<bool> &consensus_vec)
+uint32_t LearningEngineFeaturewise::chooseAction(State *state, float &max_to_avg_q_ratio, vector<bool> &consensus_vec, bool &is_exploited, uint32_t &rl_selected_action)
 {
 	stats.action.called++;
 	uint32_t action = 0;
 	max_to_avg_q_ratio = 0.0;
 	consensus_vec.resize(NumFeatureTypes, false);
+	is_exploited = false;
 
 	if(m_type == LearningType::SARSA && m_policy == Policy::EGreedy)
 	{
@@ -130,15 +131,17 @@ uint32_t LearningEngineFeaturewise::chooseAction(State *state, float &max_to_avg
 			action = (*m_actiongen)(m_generator); // take random action
 			stats.action.explore++;
 			stats.action.dist[action][0]++;
+			is_exploited = false;
 			MYLOG("action taken %u explore, state %s, scores %s", action, state->to_string().c_str(), getStringQ(state).c_str());
 		}
 		else
 		{
 			float max_q = 0.0;
-			action = getMaxAction(state, max_q, max_to_avg_q_ratio, consensus_vec);
+			action = getMaxAction(state, max_q, max_to_avg_q_ratio, consensus_vec, rl_selected_action);
 			stats.action.exploit++;
 			stats.action.dist[action][1]++;
 			gather_stats(max_q, max_to_avg_q_ratio); /* for only stats collection's sake */
+			is_exploited = true;
 			MYLOG("action taken %u exploit, state %s, scores %s", action, state->to_string().c_str(), getStringQ(state).c_str());
 		}
 	}
@@ -183,12 +186,15 @@ void LearningEngineFeaturewise::learn(State *state1, uint32_t action1, int32_t r
 	}
 }
 
-uint32_t LearningEngineFeaturewise::getMaxAction(State *state, float &max_q, float &max_to_avg_q_ratio, vector<bool> &consensus_vec)
+uint32_t LearningEngineFeaturewise::getMaxAction(State *state, float &max_q, float &max_to_avg_q_ratio, vector<bool> &consensus_vec, uint32_t &rl_selected_action)
 {
 	float max_q_value = 0.0, q_value = 0.0, total_q_value = 0.0;
 	uint32_t selected_action = 0, init_index = 0;
+	rl_selected_action = 0; float rl_max_q_value = 0.0;
 
 	bool fallback = do_fallback(state);
+
+	rl_max_q_value = consultQ(state, 0);
 
 	if(!fallback)
 	{
@@ -205,7 +211,16 @@ uint32_t LearningEngineFeaturewise::getMaxAction(State *state, float &max_q, flo
 			max_q_value = q_value;
 			selected_action = action;
 		}
+
+		if(q_value > rl_max_q_value)
+		{
+			rl_max_q_value = q_value;
+			rl_selected_action = action;
+		}
 	}
+
+
+
 	if(fallback && max_q_value == 0.0)
 	{
 		stats.action.fallback++;
@@ -405,19 +420,19 @@ bool LearningEngineFeaturewise::do_fallback(State *state)
 	{
 		return knob::le_featurewise_enable_action_fallback;
 	}
-
+// chaio edit
 	if(state->is_high_bw)
 	{
 		stats.action.dyn_fallback_saved_bw++;
-		return false;
+		return true;
 	}
 	else if(state->bw_level >= knob::le_featurewise_bw_acc_check_level && state->acc_level <= knob::le_featurewise_acc_thresh)
 	{
 		stats.action.dyn_fallback_saved_bw_acc++;
-		return false;
+		return true;
 	}
 
-	return true;
+	return false;
 }
 
 void LearningEngineFeaturewise::plot_scores()

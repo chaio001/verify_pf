@@ -155,7 +155,7 @@ void CACHE::llc_prefetcher_initialize()
     if (!prefetch_log_csv_path.empty() && !csv_logger.is_open()) {
         csv_logger.open(prefetch_log_csv_path);
         if (csv_logger.is_open()) {
-            csv_logger << "Cycle,InstID,Addr,Delta1,Delta2,Delta3,Action,IsIssued\n";
+            csv_logger << "Cycle,InstID,Addr,Delta1,Delta2,Delta3,Action,IsIssued,IsExploited\n";
         } else {
             std::cerr << "Error: Could not open log CSV file at " << prefetch_log_csv_path << std::endl;
         }
@@ -170,20 +170,37 @@ uint32_t CACHE::llc_prefetcher_operate(uint64_t addr, uint64_t ip, uint8_t cache
     vector<uint64_t> pref_addr;
     std::vector<int> deltas = pref_scooby->track_feature_invoke(ip, addr, cache_hit, type, pref_addr);
     int action_offset = 0;
+	uint64_t pf_addr = 0;
     int first = true;
     // [修改] 增加统计逻辑
     if (itr != prefetches.end()) {
         my_pf_lookup_hits++; // 找到了：说明 instr_id 匹配成功
         for(auto prefetch_addr : itr->second) {
+
+			if((prefetch_addr>>LOG2_PAGE_SIZE) == (addr>>LOG2_PAGE_SIZE)) {
             // cout << "Prefetch " << hex << prefetch_addr << dec << " for instr_id " << instr_id << endl;
             // 注意：这里调用的 prefetch_line 会增加系统自带的 pf_requested 计数器
             // 如果队列满了返回 0，如果不满返回 1
             // int result = prefetch_line(ip, addr, prefetch_addr, FILL_LLC, 0);
             prefetch_line(ip, addr, prefetch_addr, FILL_LLC, 0);
-            if(first == true) { action_offset = (prefetch_addr-addr)>>LOG2_BLOCK_SIZE; first = false;}
+            if(first == true) { 
+				// 提取目标偏移和当前偏移 (0~63 范围内)
+                int pref_offset = (prefetch_addr >> LOG2_BLOCK_SIZE) & 0x3F;
+                int curr_offset = (addr >> LOG2_BLOCK_SIZE) & 0x3F;				
+                // 【修改2】提取物理页号，强制转换为带符号的 int64_t 再相减，彻底杜绝下溢出产生天文数字
+                int64_t page_pref = prefetch_addr >> LOG2_PAGE_SIZE;
+                int64_t page_curr = addr >> LOG2_PAGE_SIZE;
+                int page_diff = (int)(page_pref - page_curr);
+				// action_offset = (prefetch_addr-addr)>>LOG2_BLOCK_SIZE; first = false;
+				action_offset = (page_diff * 64) + (pref_offset - curr_offset);
+				pf_addr = prefetch_addr;
+				first = false;
+				}
             
             // [可选调试] 如果你想看有多少请求因为队列满而失败，可以在这里打印
             // if (result == 0) { cout << "Queue Full at cycle " << curr_cycle << endl; }
+			}
+
         }
     } else {
         my_pf_lookup_misses++; // 没找到：说明当前指令没有预取计划
@@ -201,8 +218,11 @@ uint32_t CACHE::llc_prefetcher_operate(uint64_t addr, uint64_t ip, uint8_t cache
                    << deltas[1] << ","
                    << deltas[2] << ","
                    << action_offset << ","
-                   << (is_issued ? 1 : 0)
+                   << (is_issued ? 1 : 0) << ","
+                   << deltas[3]
                    << "\n";
+
+
     }
 
 

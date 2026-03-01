@@ -283,7 +283,7 @@ uint32_t Scooby_STEntry::get_delta_sig2()
 
 	//chaio edit 0217
 	std::vector<int>  Scooby_STEntry::get_delta_sequence(){
-        std::vector<int> seq(3, 0);
+        std::vector<int> seq(5, 0);
 	/* compute signature only using last 4 deltas */
 	uint32_t n = deltas.size();
 	//chaio edit 0213:改为最新三个delta,4改成3
@@ -293,6 +293,8 @@ uint32_t Scooby_STEntry::get_delta_sig2()
 	{
 		seq[index-ptr] = deltas[index];
 	}
+	seq[3] = 1;//is exploited判断位
+	seq[4] = 0;//left for
         return seq;
     }
 

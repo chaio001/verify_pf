@@ -142,6 +142,7 @@ class MLPrefetchModel_pathfinder_pcpage(object):
                 # 没有历史记录，使用默认模式 (假设 pattern_length=3)
                 # 注意：这里 [offset, 0, 0] 是原代码的初始化方式，保持一致即可
                 delta_pattern = [offset, 0, 0] 
+                # delta_pattern = [0, 0, 0] 
                 offset_prediction = 1
 
             # ----------------------has some problem
@@ -157,7 +158,9 @@ class MLPrefetchModel_pathfinder_pcpage(object):
                     #     continue 
 
                     # 检查地址合法性
-                    if offset + predicted_delta > 0:
+                    # if offset + predicted_delta > 0:
+                    target_offset = offset + predicted_delta
+                    if 0 <= target_offset < 64:
                         if offset_prediction == 1:
                             total_offset_prediction += 1
                         else:

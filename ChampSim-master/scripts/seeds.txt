@@ -1,3 +1,4 @@
+605.test 1
 473.astar-s0 854
 473.astar-s1 801
 473.astar-s2 851

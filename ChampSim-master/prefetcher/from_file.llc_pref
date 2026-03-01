@@ -25,7 +25,7 @@ void CACHE::llc_prefetcher_initialize() {
     if (!prefetch_log_csv_path.empty() && !csv_logger.is_open()) {
         csv_logger.open(prefetch_log_csv_path);
         if (csv_logger.is_open()) {
-            csv_logger << "Cycle,InstID,Addr,Delta1,Delta2,Delta3,Action,IsIssued\n";
+            csv_logger << "Cycle,InstID,Addr,Delta1,Delta2,Delta3,Action,IsIssued,IsExploited,RLAction\n";
         } else {
             std::cerr << "Error: Could not open log CSV file at " << prefetch_log_csv_path << std::endl;
         }
@@ -75,7 +75,9 @@ uint32_t CACHE::llc_prefetcher_operate(uint64_t addr, uint64_t ip, uint8_t cache
                    << deltas[1] << ","
                    << deltas[2] << ","
                    << action_offset << ","
-                   << (is_issued ? 1 : 0)
+                   << (is_issued ? 1 : 0) << ","
+                   << deltas[3] << ","
+                   << deltas[4]
                    << "\n";
     }
 

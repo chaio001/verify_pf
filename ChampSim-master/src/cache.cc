@@ -843,6 +843,7 @@ void CACHE::handle_read()
 
                         // update request
                         if (MSHR.entry[mshr_index].type == PREFETCH) {
+                            pf_late++;
                             uint8_t  prior_returned = MSHR.entry[mshr_index].returned;
                             uint64_t prior_event_cycle = MSHR.entry[mshr_index].event_cycle;
                             MSHR.entry[mshr_index] = RQ.entry[index];
@@ -1530,7 +1531,9 @@ int CACHE::prefetch_line(uint64_t ip, uint64_t base_addr, uint64_t pf_addr, int 
 
             return 1;
         }
-    }
+    }else {
+    pf_dropped++;
+  }
 
     return 0;
 }

@@ -22,9 +22,13 @@ torch.set_num_interop_threads(1)
 right_reward = 1
 wrong_reward = -1
 conf_threshold = 4
-conf_max = 12 # 5
-conf_min = -3 # -2
-max_actions_per_neuron = 5
+# conf_max = 12 # 5
+# conf_min = -3 # -2
+# max_actions_per_neuron = 5
+
+conf_max = 5 # 5
+conf_min = -2 # -2
+max_actions_per_neuron = 2
 class CreateNetwork:
 
     def __init__(self, pattern_length, confidence_threshold, min_confidence, delta_range_length, neuron_numbers, timestamps, input_intensity,debug_amplitude):

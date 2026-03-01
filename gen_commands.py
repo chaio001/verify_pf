@@ -14,13 +14,23 @@ traces = [
 ]
 
 # 2. 定义 Only 选项列表
+
+# only_options = [
+#     'no256','pathfinder256','pythia256'
+#     ,'no512','pathfinder512','pythia512'
+#     ,'no1024','pathfinder1024','pythia1024'
+#     ,'no2048','pathfinder2048','pythia2048'
+#     ,'no4096','pathfinder4096','pythia4096'
+#     # ,'no8192','pathfinder8192','pythia8192'
+# ]
+
 only_options = [
-    'no256','pathfinder256','pythia256'
-    ,'no512','pathfinder512','pythia512'
-    ,'no1024','pathfinder1024','pythia1024'
-    ,'no2048','pathfinder2048','pythia2048'
-    ,'no4096','pathfinder4096','pythia4096'
-    ,'no8192','pathfinder8192','pythia8192'
+    'pythia256'
+    ,'pythia512'
+    ,'pythia1024'
+    ,'pythia2048'
+    ,'pythia4096'
+    # ,'pythia8192'
 ]
 
 # only_options = [

@@ -91,6 +91,9 @@ void print_roi_stats(uint32_t cpu, CACHE* cache) {
     cout << cache->NAME;
     cout << " PREFETCH  REQUESTED: " << setw(10) << cache->pf_requested << "  ISSUED: " << setw(10) << cache->pf_issued;
     cout << "  USEFUL: " << setw(10) << cache->pf_useful << "  USELESS: " << setw(10) << cache->pf_useless << endl;
+    
+    cout << cache->NAME;
+    cout << " PREFETCH  FILL: " << setw(10) << cache->pf_fill << "  LATE: " << setw(10) << cache->pf_late << "  DROPPED: " << setw(10) << cache->pf_dropped << endl;
 
     cout << cache->NAME;
     cout << " AVERAGE MISS LATENCY: " << (1.0 * (cache->total_miss_latency)) / TOTAL_MISS << " cycles" << endl;

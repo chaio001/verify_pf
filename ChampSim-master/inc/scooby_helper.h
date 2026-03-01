@@ -135,6 +135,14 @@ public:
 		offsets.push_back(offset);
 		unique_pcs.insert(pc);
 		bmp_real[offset] = 1;
+
+		// chaio edit : first touch <-offset
+
+		int32_t first_delta = static_cast<int32_t>(offset);
+		this->deltas.push_back(first_delta);
+		deltas.push_back(0);
+		deltas.push_back(0);
+		
 	}
 	~Scooby_STEntry(){}
 	uint32_t get_delta_sig();

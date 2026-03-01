@@ -101,8 +101,8 @@ class CACHE : public MEMORY {
              pf_useful,
              pf_useless,
              pf_fill,
-             pf_late;
-
+             pf_late,
+             pf_dropped;
 
     // queues
     PACKET_QUEUE WQ{NAME + "_WQ", WQ_SIZE}, // write queue
@@ -163,6 +163,11 @@ class CACHE : public MEMORY {
         pf_useful = 0;
         pf_useless = 0;
         pf_fill = 0;
+
+        pf_filled = 0;
+        pf_late = 0;
+        pf_dropped = 0;
+
     };
 
     // destructor

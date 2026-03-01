@@ -102,7 +102,7 @@ python collect.py --config collect.json
 parallel -j 10 --joblog job.log <./run_all.sh
 awk '{print $3}' /mnt/sda/cyhcpp/Pythia/a_pythia/Pathfinder/ChampSim/pathfinder_prefetches_gap_spec/prefetch_14th_rerun_471.omnetpp-s1.trace.txt | sort -n | uniq -c
 
-
+awk '/LLC PREFETCH *REQUESTED:/ { if ($4 != $6) print FILENAME ": Req=" $4 ", Iss=" $6 }' *.txt
 
 ./ml_prefetch_sim.py run ./gap_spec_traces/450.soplex-s0.trace.gz --prefetch test_trace --num-instructions 29478984 --only no4096 --dram-io-freq 3200 & ./ml_prefetch_sim.py run ./gap_spec_traces/450.soplex-s0.trace.gz --prefetch ../Pathfinder/ChampSim/pathfinder_prefetches_gap_spec/prefetch_14th_rerun_450.soplex-s0.trace.txt --num-instructions 29478984 --only pathfinder4096 --dram-io-freq 3200 & ./ml_prefetch_sim.py run ./gap_spec_traces/450.soplex-s0.trace.gz --prefetch test_trace --num-instructions 29478984 --only pythia4096 --dram-io-freq 3200
 
@@ -115,4 +115,40 @@ cd /mnt/sda/cyhcpp/Pythia/a_pythia/ChampSim-master
 awk -F, '{print $7}' /mnt/sda/cyhcpp/Pythia/a_pythia/ChampSim-master/results/623.xalancbmk-s1.trace.xz-hashed_perceptron-no-no-no-pathfinder-lru-1core_2048_4800.csv | sort -n | uniq -c
 awk -F, '{print $7}' /mnt/sda/cyhcpp/Pythia/a_pythia/ChampSim-master/results/623.xalancbmk-s1.trace.xz-hashed_perceptron-no-no-no-from_file-lru-1core_2048_4800.csv | sort -n | uniq -c
 ############################################################################################################################################################
+
+awk -F, '{print $7}' /mnt/sda/cyhcpp/Pythia/a_pythia/ChampSim-master/results-0225bck/450.soplex-s0.trace.gz-hashed_perceptron-no-no-no-pathfinder-lru-1core_2048_4800.csv | sort -n | uniq -c
+awk -F, '{print $7}' /mnt/sda/cyhcpp/Pythia/a_pythia/ChampSim-master/results-0225bck/471.omnetpp-s1.trace.gz-hashed_perceptron-no-no-no-pathfinder-lru-1core_2048_4800.csv | sort -n | uniq -c
+awk -F, '{print $7}' /mnt/sda/cyhcpp/Pythia/a_pythia/ChampSim-master/results-0225bck/473.astar-s1.trace.gz-hashed_perceptron-no-no-no-pathfinder-lru-1core_2048_4800.csv | sort -n | uniq -c
+awk -F, '{print $7}' /mnt/sda/cyhcpp/Pythia/a_pythia/ChampSim-master/results-0225bck/482.sphinx3-s0.trace.gz-hashed_perceptron-no-no-no-pathfinder-lru-1core_2048_4800.csv | sort -n | uniq -c
+awk -F, '{print $7}' /mnt/sda/cyhcpp/Pythia/a_pythia/ChampSim-master/results-0225bck/605.mcf-s1.trace.xz-hashed_perceptron-no-no-no-pathfinder-lru-1core_2048_4800.csv | sort -n | uniq -c
+awk -F, '{print $7}' /mnt/sda/cyhcpp/Pythia/a_pythia/ChampSim-master/results-0225bck/623.xalancbmk-s1.trace.xz-hashed_perceptron-no-no-no-pathfinder-lru-1core_2048_4800.csv | sort -n | uniq -c
+awk -F, '{print $7}' /mnt/sda/cyhcpp/Pythia/a_pythia/ChampSim-master/results-0225bck/bfs-10.trace.gz-hashed_perceptron-no-no-no-pathfinder-lru-1core_2048_4800.csv | sort -n | uniq -c
+awk -F, '{print $7}' /mnt/sda/cyhcpp/Pythia/a_pythia/ChampSim-master/results-0225bck/cc-5.trace.gz-hashed_perceptron-no-no-no-pathfinder-lru-1core_2048_4800.csv | sort -n | uniq -c
+
+
+awk -F, '{print $7}' /mnt/sda/cyhcpp/Pythia/a_pythia/ChampSim-master/results/450.soplex-s0.trace.gz-hashed_perceptron-no-no-no-pathfinder-lru-1core_2048_4800.csv | sort -n | uniq -c
+awk -F, '{print $7}' /mnt/sda/cyhcpp/Pythia/a_pythia/ChampSim-master/results/450.soplex-s0.trace.gz-hashed_perceptron-no-no-no-from_file-lru-1core_2048_4800.csv | sort -n | uniq -c
+
+
+
+./ml_prefetch_sim.py run ./gap_spec_traces/605.test.trace.xz --prefetch ../Pathfinder/ChampSim/pathfinder_prefetches_gap_spec/prefetch_605.test.txt --num-instructions 38467912 --only pathfinder1024 --dram-io-freq 2400
+
+
+# 重新编译一下,看一下为什么会出现-1000的情况?
+# 修改最小置信度值
+# 在invoke_prediction返回是否为exploited
+# 修改run_all.sh
+# 修改ml_prefetch_sim.py
+# 对齐为pathfinder的方式
+# 为什么重新运行的时候分配的物理地址跟之前不一样了
+# 收集代码修改
+# 文件夹重命名 两个文件夹 pathfinder的预取文件和pythia的result文件
+# 编译的时候要修改ml_prefetch_sim.py,后面要再改回来
+# 修改 scooby_dyn_degrees_type2_hbw = 0,0,1,1
+# 把pathfinder的prefetchfile改成记录增量,而不是具体的物理地址
+
+
+
+
+
 

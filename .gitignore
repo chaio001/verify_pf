@@ -4,6 +4,7 @@ ChampSim-master/results/*
 ChampSim-master/bin/*
 ChampSim-master/obj/*
 
+VorP/*
 
 ChampSim-master/results500M/*
 
@@ -19,6 +20,8 @@ ChampSim-master/results_pythia_adjust/*
 ChampSim-master/results_pythia_dynamic3/*
 ChampSim-master/results_pythia_sorted4/*
 ChampSim-master/results_unsorted/*
+ChampSim-master/results-pythia_deltaseq/
+ChampSim-master/results-0225/
 
 
 Pathfinder/ChampSim/pathfinder_prefetches_gap_spec/
@@ -26,3 +29,7 @@ Pathfinder/ChampSim/pathfinder_prefetches_gap_spec_sorted/
 Pathfinder/ChampSim/pathfinder_prefetches_gap_spec_alllong/
 Pathfinder/ChampSim/pathfinder_prefetches_gap_spec_unsorted/
 Pathfinder/ChampSim/pathfinder_prefetches_gap_spec_bak/
+
+Pathfinder/ChampSim/pathfinder_prefetches_gap_spec-0226/
+Pathfinder/ChampSim/pathfinder_prefetches_gap_spec-pythia_deltaseq/
+

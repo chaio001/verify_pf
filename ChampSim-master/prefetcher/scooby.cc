@@ -336,9 +336,25 @@ std::vector<int> Scooby::invoke_prefetcher(uint64_t pc, uint64_t address, uint8_
 	state->acc_level = acc_level;
 
 	uint32_t count = pref_addr.size();
-	predict(address, page, offset, state, pref_addr);
+	
+	bool is_exploited;
+	int32_t rl_action;
+	predict(address, page, offset, state, pref_addr, is_exploited, rl_action);
 	stats.pref_issue.scooby += (pref_addr.size() - count);
-	return stentry->get_delta_sequence();
+	//chaio edit 添加位exploited标签位
+	std::vector<int> seq = stentry->get_delta_sequence();
+
+	// if (!seq.empty()) {
+	// 	seq.back() = is_exploited ? 1 : 0;
+	// }
+	if (seq.size() >= 2) {
+		seq[seq.size() - 2] = is_exploited ? 1 : 0;
+		seq[seq.size() - 1] = rl_action;
+	}
+
+	return seq;
+
+	// return stentry->get_delta_sequence();
 }
 
 	//chaio edit 0217
@@ -425,7 +441,7 @@ Scooby_STEntry* Scooby::update_local_state(uint64_t pc, uint64_t page, uint32_t 
 	}
 }
 
-uint32_t Scooby::predict(uint64_t base_address, uint64_t page, uint32_t offset, State *state, vector<uint64_t> &pref_addr)
+uint32_t Scooby::predict(uint64_t base_address, uint64_t page, uint32_t offset, State *state, vector<uint64_t> &pref_addr, bool &is_exploited, int32_t &rl_action)
 {
 	MYLOG("addr@%lx page %lx off %u state %x", base_address, page, offset, state->value());
 
@@ -433,13 +449,16 @@ uint32_t Scooby::predict(uint64_t base_address, uint64_t page, uint32_t offset, 
 
 	/* query learning engine to get the next prediction */
 	uint32_t action_index = 0;
+	uint32_t rl_selected_action = 0;
+	rl_action = 0;
 	uint32_t pref_degree = knob::scooby_pref_degree;
 	vector<bool> consensus_vec; // only required for featurewise engine
 
 	if (knob::scooby_enable_featurewise_engine)
 	{
 		float max_to_avg_q_ratio = 1.0;
-		action_index = brain_featurewise->chooseAction(state, max_to_avg_q_ratio, consensus_vec);
+		action_index = brain_featurewise->chooseAction(state, max_to_avg_q_ratio, consensus_vec, is_exploited, rl_selected_action);
+		rl_action = Actions[rl_selected_action];
 		if(knob::scooby_enable_dyn_degree)
 		{
 			pref_degree = get_dyn_pref_degree(max_to_avg_q_ratio, page, Actions[action_index]);
